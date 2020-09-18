@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+    postgres:
+        image: postgres:9.6
+        environment:
+            POSTGRES_USER: "developer"
+            POSTGRES_PASSWORD: "developer"
+            POSTGRES_DB: "dev_database"
+        volumes:
+            - ./psql-scripts/init-resolution-schema.sql:/docker-entrypoint-initdb.d/init-resolution-schema.sql
+        ports:
+            - "5432:5432"
+
+    user:
+        build: 
+            context: .
+            dockerfile: packages/user/Dockerfile
+        volumes:
+            - ./packages/user/:/usr/src/app/user
+            - /usr/src/app/user/node_modules
+        ports:
+            - "3000:3000"
+        restart: 'no'
+    resolution:
+        build:  
+            context: .
+            dockerfile: packages/resolution/Dockerfile
+        volumes:
+            - ./packages/resolution/:/usr/src/app/resolution
+            - /usr/src/app/resolution/node_modules
+        ports:
+            - "3001:3001"
+        restart: 'no'
