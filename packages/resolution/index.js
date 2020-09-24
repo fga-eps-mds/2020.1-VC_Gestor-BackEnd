@@ -13,4 +13,4 @@ try {
     console.error('Unable to connect to the database:', error);
 }
 
-app.listen(3000, () => console.log('servidor rodando na porta 3000'));
+app.listen(3002, () => console.log('servidor rodando na porta 3002'));

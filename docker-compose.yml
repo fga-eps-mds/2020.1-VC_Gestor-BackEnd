@@ -38,7 +38,7 @@ services:
             - ./packages/resolution/:/usr/src/app/resolution
             - /usr/src/app/resolution/node_modules
         ports:
-            - "3001:3001"
+            - "3002:3002"
         links: 
             - postgres
         networks: 
