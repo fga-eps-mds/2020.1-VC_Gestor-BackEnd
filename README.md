@@ -17,6 +17,6 @@ Execute o yarn
 
 `yarn`
 
-Para rodar a pagina
+Para rodar a node
 
 `yarn dev`
