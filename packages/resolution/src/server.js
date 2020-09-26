@@ -1,8 +1,11 @@
-const express = require('express') 
+const express = require('express');
+const routes = require('./routes');
 
 const app = express();
 const { Sequelize } = require('sequelize');
 
+app.use(express.json());
+app.use(routes);
 
 const sequelize = new Sequelize('postgres://developer:developer@172.23.0.2:5432/dev_database')
 
