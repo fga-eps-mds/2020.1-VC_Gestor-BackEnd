@@ -17,5 +17,9 @@
         "ecmaVersion": 2018
     },
     "rules": {
+      "no-console":"off",
+      "argsIgnorePattern": "_",
+      "no-useless-constructor": "off",
+      "class-methods-use-this": "off"
     }
 }
