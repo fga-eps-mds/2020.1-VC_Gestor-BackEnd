@@ -1,6 +1,8 @@
 const express = require('express');
 const routes = require('./routes');
 
+//const Post = require('./models/Post');
+
 const app = express();
 const { Sequelize } = require('sequelize');
 
@@ -16,4 +18,7 @@ try {
     console.error('Unable to connect to the database:', error);
 }
 
+// Post.init(sequelize);
+
 app.listen(3002, () => console.log('servidor rodando na porta 3002'));
+
