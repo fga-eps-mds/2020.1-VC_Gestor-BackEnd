@@ -12,6 +12,8 @@ services:
             - ./psql-scripts/init-user-schema.sql:/docker-entrypoint-initdb.d/init-user-schema.sql
         ports:
             - "5432:5432"
+        networks: 
+            - backend 
 
     user:
         build: 
