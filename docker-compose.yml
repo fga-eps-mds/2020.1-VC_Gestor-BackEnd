@@ -13,7 +13,8 @@ services:
         ports:
             - "5432:5432"
         networks: 
-            - backend 
+            backend:
+                ipv4_address: 172.25.0.2
 
     user:
         build: 
@@ -28,7 +29,8 @@ services:
         links: 
             - postgres
         networks: 
-            - backend
+            backend:
+                ipv4_address: 172.25.0.3
           
         restart: 'no'
     resolution:
@@ -38,14 +40,19 @@ services:
         container_name: resolution1
         volumes:
             - ./packages/resolution/:/usr/src/app/resolution
-            - /usr/src/app/resolution/node_modules
+            - /usr/src/app/user/node_modules
         ports:
             - "3002:3002"
         links: 
             - postgres
         networks: 
-                - backend 
+            backend:
+                ipv4_address: 172.25.0.4 
         restart: 'no'
 networks:
     backend:
         driver: "bridge"
+        ipam:
+            config:
+                - subnet: 172.25.0.0/16
+                - gateway: 172.25.0.1
