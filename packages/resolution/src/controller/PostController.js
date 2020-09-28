@@ -1,25 +1,12 @@
-// const Post = require('../models/Post');
+const Post = require('../models/post');
 
 module.exports = {
 
   // Listar todos os posts
-  // async index(request, response) {
-  //   const posts = await Post.findAll();
+  async index(request, response, next) {
+      const posts = await Post.findAll();
 
-  //   return response.json(users);
-  // },
-
-  // Submeter a mudança de estado
-  async statusChange(request, response) {
-
-    return response.json({ message: "wow"});    
-
+      return response.json(posts);
   },
 
-
-  // Teste de get
-  async testHello(request, response) {
-    response.json(
-      { message: 'posts page' });
-  }
 }
