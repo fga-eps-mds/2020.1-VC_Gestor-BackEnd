@@ -1,7 +1,10 @@
-/* jshint indent: 2 */
+const db = require("../config/database");
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('post', {
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize(db);
+
+const Post = sequelize.define('Post', 
+  {
     post_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -65,5 +68,6 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'post',
     schema: 'resolution'
-  });
-};
+});
+
+module.exports = Post;

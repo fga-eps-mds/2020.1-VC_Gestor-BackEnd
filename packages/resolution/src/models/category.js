@@ -1,7 +1,11 @@
-/* jshint indent: 2 */
+const db = require("../config/database");
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('category', {
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize(db);
+
+
+const Category = sequelize.define('category', 
+  {
     category_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -15,5 +19,7 @@ module.exports = function(sequelize, DataTypes) {
     sequelize,
     tableName: 'category',
     schema: 'resolution'
-  });
-};
+  }
+);
+
+module.exports = Category;

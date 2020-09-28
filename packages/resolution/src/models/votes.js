@@ -1,7 +1,10 @@
-/* jshint indent: 2 */
+const db = require("../config/database");
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('votes', {
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize(db);
+
+const Votes = sequelize.define('votes', 
+  {
     like_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -36,9 +39,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: false
     }
-  }, {
+  }, 
+  {
     sequelize,
     tableName: 'votes',
     schema: 'resolution'
-  });
-};
+  }
+);
+
+module.exports = Votes;

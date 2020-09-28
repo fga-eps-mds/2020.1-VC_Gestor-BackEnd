@@ -1,7 +1,10 @@
-/* jshint indent: 2 */
+const db = require("../config/database");
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('user', {
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize(db);
+
+const User = sequelize.define('user', 
+  {
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -27,9 +30,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     }
-  }, {
+  }, 
+  {
     sequelize,
     tableName: 'user',
     schema: 'resolution'
-  });
-};
+  }
+);
+
+module.exports = User;

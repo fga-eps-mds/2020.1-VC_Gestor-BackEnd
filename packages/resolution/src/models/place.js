@@ -1,7 +1,10 @@
-/* jshint indent: 2 */
+const db = require("../config/database");
 
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('place', {
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize(db);
+
+const Place = sequelize.define('place', 
+  {
     place_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -12,9 +15,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     }
-  }, {
+  }, 
+  {
     sequelize,
     tableName: 'place',
     schema: 'resolution'
-  });
-};
+  }
+);
+
+module.exports = Place;
