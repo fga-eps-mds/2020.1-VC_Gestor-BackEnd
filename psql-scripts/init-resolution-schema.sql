@@ -73,4 +73,34 @@ ALTER TABLE resolution.votes ADD CONSTRAINT "Votes_fk0" FOREIGN KEY ("post_id") 
 ALTER TABLE resolution.votes ADD CONSTRAINT "Votes_fk1" FOREIGN KEY ("user_id") REFERENCES resolution.user("user_id");
 
 
+INSERT INTO resolution.category
+(category_id, category_name)
+VALUES(1, 'Infraestrutura');
 
+INSERT INTO resolution.place
+(place_name)
+VALUES('Minhocao');
+
+INSERT INTO resolution."user"
+(user_id, "name", surname, username, "password", email)
+VALUES(1, 'Bruno', 'Nunes', 'brunocmo', '123123', 'brunocmo@gmail.com');
+
+INSERT INTO resolution.post
+(title, description, image, user_id, category_id, place_id, status, dt_creation)
+VALUES('teste', 'testest', 'testes', 1, 1, 1, 'Não revisado', '2020-10-08');
+
+INSERT INTO resolution.category
+(category_id, category_name)
+VALUES(2, 'Restaurante');
+
+INSERT INTO resolution.place
+(place_name)
+VALUES('RU');
+
+INSERT INTO resolution."user"
+(user_id, "name", surname, username, "password", email)
+VALUES(2, 'Tomas', 'Veloso', 'tomas', '123123', 'tomas@gmail.com');
+
+INSERT INTO resolution.post
+(title, description, image, user_id, category_id, place_id, status, dt_creation)
+VALUES('teste2', 'testest', 'testes', 2, 2, 2, 'Não revisado', '2020-10-08');
