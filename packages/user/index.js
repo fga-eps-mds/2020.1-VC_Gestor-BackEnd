@@ -1,7 +1,7 @@
-const express = require('express') 
+const express = require('express');
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('postgres://developer:developer@172.23.0.2:5432/dev_database')
+const sequelize = new Sequelize('postgres://developer:developer@172.23.0.2:5432/dev_database');
 
 try {
     sequelize.authenticate();
