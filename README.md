@@ -5,7 +5,7 @@
   <img src="https://i.imgur.com/eit3CHj.png" alt="logo" />
 </p>
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/33d1a8ef503c4dbdb056454ab10682f2)](https://www.codacy.com/gh/fga-eps-mds/2020.1-VC_Gestor-BackEnd/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fga-eps-mds/2020.1-VC_Gestor-BackEnd&amp;utm_campaign=Badge_Grade) <img src="https://travis-ci.org/fga-eps-mds/2020.1-VC_Gestor-BackEnd.svg?branch=ci" alt="travis" /> [![Maintainability](https://api.codeclimate.com/v1/badges/4307ac42aa172e3db36b/maintainability)](https://codeclimate.com/github/fga-eps-mds/2020.1-VC_Gestor-BackEnd/maintainability)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/33d1a8ef503c4dbdb056454ab10682f2)](https://www.codacy.com/gh/fga-eps-mds/2020.1-VC_Gestor-BackEnd/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=fga-eps-mds/2020.1-VC_Gestor-BackEnd&amp;utm_campaign=Badge_Grade) <img src="https://travis-ci.org/fga-eps-mds/2020.1-VC_Gestor-BackEnd.svg?branch=development" alt="travis" /> [![Maintainability](https://api.codeclimate.com/v1/badges/4307ac42aa172e3db36b/maintainability)](https://codeclimate.com/github/fga-eps-mds/2020.1-VC_Gestor-BackEnd/maintainability)
 
 
 ## ℹ️ Sobre o projeto
