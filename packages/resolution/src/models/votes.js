@@ -1,3 +1,6 @@
+const Post = require('../models/post');
+const User = require('../models/user');
+
 const db = require("../config/database");
 
 const { Sequelize, DataTypes } = require('sequelize');
@@ -46,5 +49,12 @@ const Votes = sequelize.define('votes',
     schema: 'resolution'
   }
 );
+
+Votes.hasOne(Post, { 
+  foreignKey: 'post_id', constraints: false 
+})
+Votes.hasOne(User, { 
+  foreignKey: 'user_id', constraints: false 
+})
 
 module.exports = Votes;

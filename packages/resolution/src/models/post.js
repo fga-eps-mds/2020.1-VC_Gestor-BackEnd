@@ -1,3 +1,7 @@
+const Place = require('../models/place');
+const Category = require('../models/category');
+const User = require('../models/user');
+
 const db = require("../config/database");
 
 const { Sequelize, DataTypes } = require('sequelize');
@@ -69,5 +73,15 @@ const Post = sequelize.define('Post',
     tableName: 'post',
     schema: 'resolution'
 });
+
+Post.hasOne(Place, { 
+  foreignKey: 'place_id', constraints: false 
+})
+Post.hasOne(Category, { 
+  foreignKey: 'category_id', constraints: false 
+})
+Post.hasOne(User, { 
+  foreignKey: 'user_id', constraints: false 
+})
 
 module.exports = Post;
