@@ -5,8 +5,7 @@ module.exports = {
   // Listar todos os posts
   async index(request, response) {
     //Place.hasOne(Post);
-
-
+    
       const posts = await Post.findAll({
         include: [ 'place', 'category', 'user' ]
        });
