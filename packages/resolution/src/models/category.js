@@ -1,10 +1,10 @@
 const db = require("../config/database");
 
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(db);
 
 
-const Category = sequelize.define('category', 
+const Category = sequelize.define("category", 
   {
     category_id: {
       type: DataTypes.INTEGER,
@@ -17,8 +17,8 @@ const Category = sequelize.define('category',
     }
   }, {
     sequelize,
-    tableName: 'category',
-    schema: 'resolution'
+    tableName: "category",
+    schema: "resolution"
   }
 );
 

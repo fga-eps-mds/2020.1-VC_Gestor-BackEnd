@@ -1,10 +1,10 @@
-const Post = require('../models/post');
+const Post = require("../models/post");
 const db = require("../config/database");
 
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(db);
 
-const Place = sequelize.define('place', 
+const Place = sequelize.define("place", 
   {
     place_id: {
       autoIncrement: true,
@@ -19,8 +19,8 @@ const Place = sequelize.define('place',
   }, 
   {
     sequelize,
-    tableName: 'place',
-    schema: 'resolution'
+    tableName: "place",
+    schema: "resolution"
   }
 );
 

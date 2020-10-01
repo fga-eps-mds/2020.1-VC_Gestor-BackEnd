@@ -1,13 +1,13 @@
-const Place = require('./place')
-const Category = require('../models/category');
-const User = require('../models/user');
+const Place = require("./place")
+const Category = require("../models/category");
+const User = require("../models/user");
 
 const db = require("../config/database");
 
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(db);
 
-const Post = sequelize.define('post', 
+const Post = sequelize.define("post", 
   {
     post_id: {
       autoIncrement: true,
@@ -32,10 +32,10 @@ const Post = sequelize.define('post',
       allowNull: false,
       references: {
         model: {
-          tableName: 'user',
-          schema: 'resolution'
+          tableName: "user",
+          schema: "resolution"
         },
-        key: 'user_id'
+        key: "user_id"
       }
     },
     category_id: {
@@ -43,10 +43,10 @@ const Post = sequelize.define('post',
       allowNull: false,
       references: {
         model: {
-          tableName: 'category',
-          schema: 'resolution'
+          tableName: "category",
+          schema: "resolution"
         },
-        key: 'category_id'
+        key: "category_id"
       }
     },
     place_id: {
@@ -54,10 +54,10 @@ const Post = sequelize.define('post',
       allowNull: false,
       references: {
         model: {
-          tableName: 'place',
-          schema: 'resolution'
+          tableName: "place",
+          schema: "resolution"
         },
-        key: 'place_id'
+        key: "place_id"
       }
     },
     status: {
@@ -70,29 +70,29 @@ const Post = sequelize.define('post',
     }
   }, {
     sequelize,
-    tableName: 'post',
-    schema: 'resolution'
+    tableName: "post",
+    schema: "resolution"
 });
 
 Post.belongsTo(Place, {
-  foreignKey: 'place_id'
+  foreignKey: "place_id"
 })
 Place.hasOne(Post, {
-  foreignKey: 'place_id'
+  foreignKey: "place_id"
 })
 
 Post.belongsTo(Category, { 
-  foreignKey: 'category_id'
+  foreignKey: "category_id"
 })
 Category.hasOne(Post, { 
-  foreignKey: 'category_id'
+  foreignKey: "category_id"
 })
 
 Post.belongsTo(User, { 
-  foreignKey: 'user_id'
+  foreignKey: "user_id"
 })
 User.hasOne(Post, { 
-  foreignKey: 'user_id'
+  foreignKey: "user_id"
 })
 
 module.exports = Post;

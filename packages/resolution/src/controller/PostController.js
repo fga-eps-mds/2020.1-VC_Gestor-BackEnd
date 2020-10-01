@@ -1,5 +1,5 @@
-const Post = require('../models/post');
-const sequelize = require('sequelize');
+const Post = require("../models/post");
+const sequelize = require("sequelize");
 
 module.exports = {
 
@@ -16,12 +16,12 @@ module.exports = {
                 FROM resolution.votes 
                 WHERE votes.post_id = post.post_id
                 )
-              `), 'likes'
+              `), "likes"
             ]
           ]
         },
-        include: [ 'user', 'category', 'place' ],
-        order: ['status']
+        include: [ "user", "category", "place" ],
+        order: ["status"]
        });
 
       return response.json(posts);
@@ -35,11 +35,11 @@ module.exports = {
     const post = await Post.findByPk(post_id);
 
     if (!post) {
-      return response.status(400).json({ error: 'Post not found'});
+      return response.status(400).json({ error: "Post not found"});
     }
 
     if ( post.status == state) {
-      return response.status(400).json({ error: 'Status is already the same'});
+      return response.status(400).json({ error: "Status is already the same"});
     }
 
     await post.update({ status: state });

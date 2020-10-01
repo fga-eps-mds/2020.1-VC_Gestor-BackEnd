@@ -1,9 +1,9 @@
 const db = require("../config/database");
 
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(db);
 
-const User = sequelize.define('user', 
+const User = sequelize.define("user", 
   {
     user_id: {
       type: DataTypes.INTEGER,
@@ -33,8 +33,8 @@ const User = sequelize.define('user',
   }, 
   {
     sequelize,
-    tableName: 'user',
-    schema: 'resolution'
+    tableName: "user",
+    schema: "resolution"
   }
 );
 
