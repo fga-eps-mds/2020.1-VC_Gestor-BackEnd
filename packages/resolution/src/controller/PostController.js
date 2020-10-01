@@ -30,19 +30,23 @@ module.exports = {
   // Submeter uma mudança de estado
   async statusChange(request, response) {
     const { post_id } = request.params;
-    const { state } = request.body;
+    const { status } = request.body;
 
     const post = await Post.findByPk(post_id);
+
+    if (!status) {
+      return response.status(400).json({ error: "Status not requested"});
+    }
 
     if (!post) {
       return response.status(400).json({ error: "Post not found"});
     }
 
-    if ( post.status === state) {
+    if ( post.status === status) {
       return response.status(400).json({ error: "Status is already the same"});
     }
 
-    await post.update({ status: state });
+    await post.update({ status: status });
 
     return response.json(post);
   },
