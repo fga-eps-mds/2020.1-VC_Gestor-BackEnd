@@ -186,6 +186,30 @@ INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
 VALUES('Problema', 'Problema', 'imagem', 2, 4, 2, 'Revisado', '2020-08-08');
 
+INSERT INTO resolution.post
+(title, description, image, user_id, category_id, place_id, status, dt_creation)
+VALUES('Chão quebrado', 'Chão ta rachado demais', 'imagem', 9, 1, 5, 'Revisado', '2020-08-08');
+
+INSERT INTO resolution.post
+(title, description, image, user_id, category_id, place_id, status, dt_creation)
+VALUES('Van roubada', 'Roubaram minha van, segue as imagens', 'imagem', 8, 4, 6, 'Revisado', '2020-08-08');
+
+INSERT INTO resolution.post
+(title, description, image, user_id, category_id, place_id, status, dt_creation)
+VALUES('Porta quebrada', 'A porta desse departamento está quebrada', 'imagem', 5, 1, 4, 'Revisado', '2020-08-08');
+
+INSERT INTO resolution.post
+(title, description, image, user_id, category_id, place_id, status, dt_creation)
+VALUES('Vidro no chão', 'Tem cacos de vidro no chão', 'imagem', 4, 2, 2, 'Não revisado', '2020-08-08');
+
+INSERT INTO resolution.post
+(title, description, image, user_id, category_id, place_id, status, dt_creation)
+VALUES('Briga na rua', 'Ta zuado aqui', 'imagem', 1, 3, 3, 'Revisado', '2020-08-08');
+
+INSERT INTO resolution.post
+(title, description, image, user_id, category_id, place_id, status, dt_creation)
+VALUES('Racha de carro', 'Tão batendo um racha na frente do instituto', 'imagem', 7, 4, 1, 'Revisado', '2020-08-08');
+
 INSERT INTO resolution.votes (post_id,user_id,is_like)
 	VALUES (1,3,true);
 
@@ -225,3 +249,38 @@ INSERT INTO resolution.votes (post_id,user_id,is_like)
 INSERT INTO resolution.votes (post_id,user_id,is_like)
 	VALUES (7,3,true);
 
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (9,4,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (9,7,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (9,8,true);	
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (11,3,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (11,6,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (11,7,true);	
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (12,1,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (12,2,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (12,3,true);	
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (12,4,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (12,5,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (12,6,true);	
