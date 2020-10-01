@@ -184,7 +184,7 @@ VALUES('Um problema novamente denovo', 'Teve um problema ai novamente denovo, he
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Um problema novamente denovo', 'Teve um problema ai novamente denovo, help', 'imagem', 1, 2, 2, 'Não revisado', '2020-08-08');
+VALUES('Problema', 'Problema', 'imagem', 2, 4, 2, 'Revisado', '2020-08-08');
 
 INSERT INTO resolution.votes (post_id,user_id,is_like)
 	VALUES (1,3,true);
