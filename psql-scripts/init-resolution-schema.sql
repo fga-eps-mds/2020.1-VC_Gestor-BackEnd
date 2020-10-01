@@ -181,3 +181,47 @@ VALUES('Um problema novamente', 'Teve um problema ai novamente, help', 'imagem',
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
 VALUES('Um problema novamente denovo', 'Teve um problema ai novamente denovo, help', 'imagem', 1, 2, 2, 'Não revisado', '2020-08-08');
+
+INSERT INTO resolution.post
+(title, description, image, user_id, category_id, place_id, status, dt_creation)
+VALUES('Um problema novamente denovo', 'Teve um problema ai novamente denovo, help', 'imagem', 1, 2, 2, 'Não revisado', '2020-08-08');
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (1,3,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (1,2,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (1,5,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (2,3,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (2,6,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (3,1,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (4,4,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (4,5,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (4,6,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (4,7,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (7,1,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (7,2,true);
+
+INSERT INTO resolution.votes (post_id,user_id,is_like)
+	VALUES (7,3,true);
+
