@@ -7,7 +7,8 @@ module.exports = {
     //Place.hasOne(Post);
     
       const posts = await Post.findAll({
-        include: [ 'place', 'category', 'user' ]
+        include: ['place', 'category', 'user'],
+        order: ['status']
        });
 
       return response.json(posts);

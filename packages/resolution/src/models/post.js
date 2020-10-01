@@ -1,4 +1,4 @@
-const Place = require('../models/place');
+const Place = require('./place')
 const Category = require('../models/category');
 const User = require('../models/user');
 
@@ -7,7 +7,7 @@ const db = require("../config/database");
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize(db);
 
-const Post = sequelize.define('Post', 
+const Post = sequelize.define('post', 
   {
     post_id: {
       autoIncrement: true,
@@ -74,14 +74,25 @@ const Post = sequelize.define('Post',
     schema: 'resolution'
 });
 
-Post.hasOne(Place, { 
-  foreignKey: 'place_id', constraints: false 
+Post.belongsTo(Place, {
+  foreignKey: 'place_id'
 })
-Post.hasOne(Category, { 
-  foreignKey: 'category_id', constraints: false 
+Place.hasOne(Post, {
+  foreignKey: 'place_id'
 })
-Post.hasOne(User, { 
-  foreignKey: 'user_id', constraints: false 
+
+Post.belongsTo(Category, { 
+  foreignKey: 'category_id'
+})
+Category.hasOne(Post, { 
+  foreignKey: 'category_id'
+})
+
+Post.belongsTo(User, { 
+  foreignKey: 'user_id'
+})
+User.hasOne(Post, { 
+  foreignKey: 'user_id'
 })
 
 module.exports = Post;

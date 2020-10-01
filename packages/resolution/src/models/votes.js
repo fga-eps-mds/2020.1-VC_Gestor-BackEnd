@@ -50,10 +50,17 @@ const Votes = sequelize.define('votes',
   }
 );
 
-Votes.hasOne(Post, { 
+Votes.belongsTo(Post, { 
   foreignKey: 'post_id', constraints: false 
 })
-Votes.hasOne(User, { 
+Post.hasOne(Votes, { 
+  foreignKey: 'post_id', constraints: false 
+})
+
+Votes.belongsTo(User, { 
+  foreignKey: 'user_id', constraints: false 
+})
+User.hasOne(Votes, { 
   foreignKey: 'user_id', constraints: false 
 })
 
