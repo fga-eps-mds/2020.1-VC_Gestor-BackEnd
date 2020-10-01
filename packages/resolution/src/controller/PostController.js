@@ -6,8 +6,10 @@ module.exports = {
   // Listar todos os posts
   async index(request, response) {
     //Place.hasOne(Post);
+      const { limit, page } = request.query;
+      const offsetPerPage = limit * page;
     
-      const posts = await Post.findAll({
+      const posts = await Post.findAndCountAll({
         attributes: {
           include: [
             [
@@ -21,6 +23,8 @@ module.exports = {
           ]
         },
         include: [ "user", "category", "place" ],
+        limit: limit,
+        offset: offsetPerPage,
         order: ["status"]
        });
 
