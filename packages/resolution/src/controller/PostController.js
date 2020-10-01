@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const sequelize = require('sequelize');
 
 module.exports = {
 
@@ -7,13 +8,24 @@ module.exports = {
     //Place.hasOne(Post);
     
       const posts = await Post.findAll({
-        include: ['place', 'category', 'user'],
+        attributes: {
+          include: [
+            [
+              sequelize.literal(`
+                (SELECT COUNT(*) 
+                FROM resolution.votes 
+                WHERE votes.post_id = post.post_id
+                )
+              `), 'likes'
+            ]
+          ]
+        },
+        include: [ 'user', 'category', 'place' ],
         order: ['status']
        });
 
       return response.json(posts);
   },
-
 
   // Submeter uma mudança de estado
   async statusChange(request, response) {
