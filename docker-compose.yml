@@ -41,7 +41,7 @@ services:
         container_name: resolution1
         volumes:
             - ./packages/resolution/:/usr/src/app/resolution
-            - /usr/src/app/resolution/node_modules
+            - /usr/src/app/user/node_modules
         ports:
             - "3002:3002"
         links: 
