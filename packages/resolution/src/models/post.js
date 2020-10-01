@@ -76,23 +76,23 @@ const Post = sequelize.define("post",
 
 Post.belongsTo(Place, {
   foreignKey: "place_id"
-})
+});
 Place.hasOne(Post, {
   foreignKey: "place_id"
-})
+});
 
 Post.belongsTo(Category, { 
   foreignKey: "category_id"
-})
+});
 Category.hasOne(Post, { 
   foreignKey: "category_id"
-})
+});
 
 Post.belongsTo(User, { 
   foreignKey: "user_id"
-})
+});
 User.hasOne(Post, { 
   foreignKey: "user_id"
-})
+});
 
 module.exports = Post;

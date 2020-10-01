@@ -38,7 +38,7 @@ module.exports = {
       return response.status(400).json({ error: "Post not found"});
     }
 
-    if ( post.status == state) {
+    if ( post.status === state) {
       return response.status(400).json({ error: "Status is already the same"});
     }
 
@@ -48,4 +48,4 @@ module.exports = {
   },
 
 
-}
+};

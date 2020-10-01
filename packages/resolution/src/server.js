@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
-const sequelize = new Sequelize(db)
+const sequelize = new Sequelize(db);
 
 try {
     sequelize.authenticate();
@@ -21,4 +21,3 @@ try {
 }
 
 app.listen(3002, () => console.log("servidor rodando na porta 3002"));
-
