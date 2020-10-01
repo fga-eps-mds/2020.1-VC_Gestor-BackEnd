@@ -10,6 +10,7 @@ services:
         volumes:
             - ./psql-scripts/init-resolution-schema.sql:/docker-entrypoint-initdb.d/init-resolution-schema.sql
             - ./psql-scripts/init-user-schema.sql:/docker-entrypoint-initdb.d/init-user-schema.sql
+            - ./psql-scripts/init-benefits-schema.sql:/docker-entrypoint-initdb.d/init-benefits-schema.sql
         ports:
             - "5432:5432"
         networks: 
@@ -34,7 +35,7 @@ services:
           
         restart: 'no'
     resolution:
-        build:  
+        build:      
             context: .
             dockerfile: packages/resolution/Dockerfile
         container_name: resolution1
@@ -48,6 +49,22 @@ services:
         networks: 
             backend:
                 ipv4_address: 172.25.0.4 
+        restart: 'no'
+    benefits:
+        build:      
+            context: .
+            dockerfile: packages/benefits/Dockerfile
+        container_name: benefits1
+        volumes:
+            - ./packages/benefits/:/usr/src/app/benefits
+            - /usr/src/app/benefits/node_modules
+        ports:
+            - "3003:3003"
+        links: 
+            - postgres
+        networks: 
+            backend:
+                ipv4_address: 172.25.0.6 
         restart: 'no'
 networks:
     backend:

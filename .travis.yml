@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+    - "node"
+
+notifications:
+    email: false
+
+branches:
+    only:
+        - development
+
+matrix:
+    include:
+        - env: TARGET=packages/resolution
+        - env: TARGET=packages/user
+        - env: TARGET=packages/benefits
+
+script: cd $TARGET && npm install && npm run test;
