@@ -1,30 +1,14 @@
 const Post = require("../models/post");
 const sequelize = require("sequelize");
+const postService = require("../controller/postService")
 
 module.exports = {
 
   // Listar todos os posts
-  async index(request, response) {
-    //Place.hasOne(Post);
-    
-      const posts = await Post.findAll({
-        attributes: {
-          include: [
-            [
-              sequelize.literal(`
-                (SELECT COUNT(*) 
-                FROM resolution.votes 
-                WHERE votes.post_id = post.post_id
-                )
-              `), "likes"
-            ]
-          ]
-        },
-        include: [ "user", "category", "place" ],
-        order: ["status"]
-       });
-
+  index(request, response) {
+    postService.getAllPosts(postService.findAll()).then(function(posts) {
       return response.json(posts);
+    })
   },
 
   // Submeter uma mudança de estado
@@ -46,6 +30,7 @@ module.exports = {
 
     return response.json(post);
   },
+  
 
 
 };
