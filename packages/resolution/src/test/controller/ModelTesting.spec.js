@@ -4,9 +4,9 @@ var expect = require("chai").expect;
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");
 var sinon = require("sinon");
-const proxyquire = require("proxyquire")
+const proxyquire = require("proxyquire");
 
-const Place = require("../../models/place")
+const Place = require("../../models/place");
 const Category = require("../../models/category");
 const User = require("../../models/user");
 
@@ -18,13 +18,7 @@ const {
     sequelize,
     dataTypes,
     checkPropertyExists,
-    checkUniqueIndex,
-    makeMockModels
-  } = require("sequelize-test-helpers")
-
-// const index = proxyquire("../../controller/PostController", {
-//     "../../models": mockModels
-//   })
+  } = require("sequelize-test-helpers");
 
 const PostModel = require("../../models/post");
 
@@ -47,7 +41,7 @@ describe("Model", function() {
             })
             it("With User Table", () => {
                 expect(Model.belongsTo).to.have.been.calledWith(User);
-            })
+            });
         });
     });
 });

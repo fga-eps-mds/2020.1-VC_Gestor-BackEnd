@@ -28,13 +28,13 @@ const getAllPosts = function(findAll) {
     return new Promise(function(resolve) {
         resolve(findAll);
         });
-}
+};
 
 const findByPk = async function(postId) {
 
     return model(sequelize, DataTypes).findByPk(postId);
     
-}
+};
 
 module.exports.getAllPosts = getAllPosts;
 module.exports.findAll = findAll;
