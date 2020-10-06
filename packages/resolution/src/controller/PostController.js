@@ -1,8 +1,7 @@
 const model = require("../models/post");
-const postService = require("../controller/postService")
+const postService = require("../controller/postService");
 const db = require("../config/database");
 const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize(db);
 
 module.exports = {
 
@@ -10,7 +9,7 @@ module.exports = {
   index(request, response) {
     postService.getAllPosts(postService.findAll()).then(function(posts) {
       return response.json(posts);
-    })
+    });
   },
 
   // Submeter uma mudança de estado
@@ -19,10 +18,10 @@ module.exports = {
     const { post_id } = request.params;
     const { state } = request.body;
 
-    let post
+    let post;
 
     if("stubPost" in request) {
-      post = request.stubPost
+      post = request.stubPost;
     } else {
       post = await postService.findByPk(post_id);
     }

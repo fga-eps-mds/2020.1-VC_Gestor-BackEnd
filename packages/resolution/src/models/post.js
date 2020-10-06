@@ -96,8 +96,8 @@ Post.belongsTo(User, {
 // User.hasOne(Post, { 
 //   foreignKey: "user_id"
 // });
-  return Post
-}
+  return Post;
+};
 
 
 module.exports = model;

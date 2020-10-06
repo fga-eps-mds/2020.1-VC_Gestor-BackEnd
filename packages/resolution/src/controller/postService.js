@@ -4,7 +4,8 @@ const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(db);
 
 const findAll = () => {
-    post = model(sequelize, DataTypes)
+    var post;
+    post = model(sequelize, DataTypes);
     return post.findAll({
         attributes: {
         include: [
@@ -20,18 +21,18 @@ const findAll = () => {
         },
         include: [ "user", "category", "place" ],
         logging: false
-        })
-}
+        });
+};
 
 const getAllPosts = function(findAll) {
     return new Promise(function(resolve) {
         resolve(findAll);
-        }) 
+        });
 }
 
-const findByPk = async function(post_id) {
+const findByPk = async function(postId) {
 
-    return model(sequelize, DataTypes).findByPk(post_id)
+    return model(sequelize, DataTypes).findByPk(postId);
     
 }
 
