@@ -26,6 +26,10 @@ module.exports = {
       post = await postService.findByPk(post_id);
     }
     
+    if (!state) {
+      return response.status(400).json({ error: "Status not requested"});
+    }
+    
     if (!post) {
       return response.status(400).json({ error: "Post not found"});
     }
