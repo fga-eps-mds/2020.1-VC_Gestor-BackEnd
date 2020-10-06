@@ -2,11 +2,14 @@ const express = require("express");
 var bodyParser = require("body-parser");
 
 const app = express();
+var cors = require('cors');
+
 const { Sequelize, DataTypes } = require("sequelize");
 
 
 const sequelize = new Sequelize("postgres://developer:developer@172.25.0.2:5432/dev_database");
 
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
@@ -18,8 +21,8 @@ try{
 }
 
 function defineBenefits(){
-	const Benefit = sequelize.define("Benefit", {
-		benefitID: {
+	const Benefit = sequelize.define("benefit", {
+		benefit_id: {
 			type: DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true
@@ -29,14 +32,14 @@ function defineBenefits(){
 			allowNull: false
 		},
 		description: {
-			type: DataTypes.TEXT,
+			type: DataTypes.STRING(20),
 			allowNull: false
-		},
+		}, 
 		price: {
 			type: DataTypes.FLOAT,
 			allowNull: false
 		},
-		redeemWay: {
+		redeem_way: {
 			type: DataTypes.STRING(25),
 			allowNull: false
 		},
@@ -57,7 +60,7 @@ const Benefit = defineBenefits();
  
 async function initModel(){
 	//await sequelize.createSchema("benefits",{ifNotExists: true});
-	await Benefit.sync();
+	//await Benefit.sync();
 	//console.log("Database synchronized");
 }
 
@@ -75,7 +78,7 @@ app.route("/benefits",)
 	.post(async function(req, res){
 		if(req.body.title != null &&
 		req.body.description != null && req.body.price != null &&
-		req.body.redeemWay != null && req.body.quantity != null){
+		req.body.redeem_way != null && req.body.quantity != null){
 			try{
 				if(isNaN(Number(req.body.quantity)) || isNaN(Number(req.body.price))){
 					throw "Invalid Number";
@@ -85,7 +88,7 @@ app.route("/benefits",)
 					title: req.body.title,
 					description: req.body.description,
 					price: Number(req.body.price),
-					redeemWay: req.body.redeemWay,
+					redeem_way: req.body.redeem_way,
 					quantity: Number(req.body.quantity)
 				});
 				
@@ -113,12 +116,12 @@ app.route("/benefits",)
 
 ///////////////////////////////////One Benefit/////////////////////////////////
 
-app.route("/benefits/:benefitID")
+app.route("/benefits/:benefit_id")
 	.get(async function(req, res){
 		try{
 			const benefit = await Benefit.findOne({
 				where: {
-					benefitID : req.params.benefitID
+					benefit_id : req.params.benefit_id
 				}
 			});
 
@@ -126,25 +129,24 @@ app.route("/benefits/:benefitID")
 		}catch(e){
 			res.send("Ocorreu um erro ao buscar o benefício solicitado.");
 		}
-		
 	})
 	.put(async function(req, res){
-		if(req.body.benefitID != null && req.body.title != null &&
+		if(req.body.benefit_id != null && req.body.title != null &&
 		 req.body.description != null && req.body.price != null &&
-		  req.body.redeemWay != null && req.body.quantity != null){
+		  req.body.redeem_way != null && req.body.quantity != null){
 			try{
 				if(isNaN(Number(req.body.quantity)) || isNaN(Number(req.body.price)))
 					throw "Invalid Number";
 				await Benefit.update({
-					benefitID: Number(req.body.benefitID),
+					benefit_id: Number(req.body.benefit_id),
 					title: req.body.title,
 					description: req.body.description,
 					price: Number(req.body.price),
-					redeemWay: req.body.redeemWay,
+					redeem_way: req.body.redeem_way,
 					quantity: Number(req.body.quantity)
 				}, {
 					where: {
-						benefitID: req.params.benefitID
+						benefit_id: req.params.benefit_id
 					}
 				});
 
@@ -160,7 +162,7 @@ app.route("/benefits/:benefitID")
 		try{
 			await Benefit.update(req.body, {
 				where: {
-					benefitID: req.params.benefitID
+					benefit_id: req.params.benefit_id
 				}
 			});
 
@@ -173,7 +175,7 @@ app.route("/benefits/:benefitID")
 		try{
 			await Benefit.destroy({
 				where: {
-					benefitID: req.params.benefitID
+					benefit_id: req.params.benefit_id
 				}
 			});
 
