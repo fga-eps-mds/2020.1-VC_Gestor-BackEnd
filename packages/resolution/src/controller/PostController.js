@@ -1,55 +1,45 @@
-const Post = require("../models/post");
-const sequelize = require("sequelize");
+const model = require("../models/post");
+const postService = require("../controller/postService");
+const db = require("../config/database");
+const { Sequelize, DataTypes } = require("sequelize");
 
 module.exports = {
 
   // Listar todos os posts
-  async index(request, response) {
-    //Place.hasOne(Post);
-    
-      const posts = await Post.findAll({
-        attributes: {
-          include: [
-            [
-              sequelize.literal(`
-                (SELECT COUNT(*) 
-                FROM resolution.votes 
-                WHERE votes.post_id = post.post_id
-                )
-              `), "likes"
-            ]
-          ]
-        },
-        include: [ "user", "category", "place" ],
-        order: ["status"]
-       });
-
+  index(request, response) {
+    postService.getAllPosts(postService.findAll()).then(function(posts) {
       return response.json(posts);
+    });
   },
 
   // Submeter uma mudança de estado
   async statusChange(request, response) {
+
     const { post_id } = request.params;
-    const { status } = request.body;
+    const { state } = request.body;
 
-    const post = await Post.findByPk(post_id);
+    let post;
 
-    if (!status) {
+    if("stubPost" in request) {
+      post = request.stubPost;
+    } else {
+      post = await postService.findByPk(post_id);
+    }
+    
+    if (!state) {
       return response.status(400).json({ error: "Status not requested"});
     }
-
+    
     if (!post) {
       return response.status(400).json({ error: "Post not found"});
     }
 
-    if ( post.status === status) {
+    if ( post.status === state) {
       return response.status(400).json({ error: "Status is already the same"});
     }
 
-    await post.update({ status: status });
+    await post.update({ status: state });
 
     return response.json(post);
   },
-
-
 };

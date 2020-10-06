@@ -7,7 +7,9 @@ notifications:
 
 branches:
     only:
+        - master
         - development
+        - unit_tests
 
 matrix:
     include:
