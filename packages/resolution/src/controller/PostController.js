@@ -1,6 +1,8 @@
-const Post = require("../models/post");
-const sequelize = require("sequelize");
+const model = require("../models/post");
 const postService = require("../controller/postService")
+const db = require("../config/database");
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = new Sequelize(db);
 
 module.exports = {
 
@@ -13,11 +15,18 @@ module.exports = {
 
   // Submeter uma mudança de estado
   async statusChange(request, response) {
+
     const { post_id } = request.params;
     const { state } = request.body;
 
-    const post = await Post.findByPk(post_id);
+    let post
 
+    if("stubPost" in request) {
+      post = request.stubPost
+    } else {
+      post = await postService.findByPk(post_id);
+    }
+    
     if (!post) {
       return response.status(400).json({ error: "Post not found"});
     }
@@ -30,7 +39,4 @@ module.exports = {
 
     return response.json(post);
   },
-  
-
-
 };

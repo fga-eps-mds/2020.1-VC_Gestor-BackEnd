@@ -1,7 +1,5 @@
 const model = require("../models/post");
-// const sequelize = require("sequelize");
 const db = require("../config/database");
-
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(db);
 
@@ -31,5 +29,12 @@ const getAllPosts = function(findAll) {
         }) 
 }
 
+const findByPk = async function(post_id) {
+
+    return model(sequelize, DataTypes).findByPk(post_id)
+    
+}
+
 module.exports.getAllPosts = getAllPosts;
 module.exports.findAll = findAll;
+module.exports.findByPk = findByPk;

@@ -1,12 +1,9 @@
-const { expect } = require('chai')
 const sinon = require('sinon')
-const proxyquire = require('proxyquire')
 var chai = require('chai');
-var chaiAsPromised = require('chai-as-promised');
-var should = require('chai').should();
 var assert = require('assert');
+const service = require('../../controller/postService')
+const controller = require('../../controller/PostController')
 
-// const controller = require('../../controller')
 chai.use(require('sinon-chai'));
 
 const posts = [
@@ -39,22 +36,55 @@ const posts = [
         }
     }
 ]
+
+const update_post = {
+    "post_id": 1,
+    "title": "Ataque na rua",
+    "description": "Dois caras tão se atacando aqui e tão inuriados no chão",
+    "image": "imagem",
+    "user_id": 2,
+    "category_id": 3,
+    "place_id": 1,
+    "status": "Não Revisado",
+    "dt_creation": "2020-02-08T00:00:00.000Z",
+    update: sinon.stub()
+}
+
 const stub = {findAll: sinon.stub().returns(posts)};
 
-let result;
-
-const service = require('../../controller/postService')
 
 describe('Controller', function(){ 
-    
-    it('Check GET Response type', function() {
-        return service.getAllPosts(stub.findAll()).then(function(x) {
-            assert.strictEqual(typeof(x), 'object')
-        })   
+    describe('GET ALL POSTS', function() {
+        it('Check GET Response correct type', function() {
+            return service.getAllPosts(stub.findAll()).then(function(x) {
+                assert.strictEqual(typeof(x), 'object')
+            })   
+        })
+        it('Check GET Response not empty', function() {
+            return service.getAllPosts(stub.findAll()).then(function(x) {
+                x[0].should.not.be.empty;
+            })   
+        }) 
     })
-    it('Check GET Response not empty', function() {
-        return service.getAllPosts(stub.findAll()).then(function(x) {
-            x[0].should.not.be.empty;
-        })   
-    })    
+    describe('UPDATE POST BY ID', function() {
+        request = {params: {post_id: 1}, body: {state: "Revisado"}, stubPost: update_post}
+        response = {json: sinon.stub()}
+        it('Update with a new valid status', function() {
+            controller.statusChange(request, response)
+        })
+        it('Update with a new not valid status (same status it was)', function() {
+            request = {params: {post_id: 1}, body: {state: "Não Revisado"}, stubPost: update_post}
+            response = {status: sinon.stub(), json: sinon.stub()}
+            return controller.statusChange(request, response).catch(error => {
+                if (typeof error === 'object') return true // se existe
+            }).should.eventually.equal(true) 
+        })
+        it('Update with a empty that doesnt exists', function() {
+            request = {params: {post_id: 1}, body: {state: "Revisado"}, stubPost: {}}
+            response = {status: sinon.stub(), json: sinon.stub()}
+            return controller.statusChange(request, response).catch(error => {
+                if (typeof error === 'object') return true // se existe
+            }).should.eventually.equal(true) 
+        })
+    })
 })
