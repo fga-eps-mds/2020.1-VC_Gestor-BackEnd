@@ -2,7 +2,7 @@
   "name": "benefits",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "jshint index.js",
     "start": "npm install && nodemon index.js"
