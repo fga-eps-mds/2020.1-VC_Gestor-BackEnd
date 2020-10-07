@@ -15,11 +15,11 @@ const sequelize = new Sequelize(db);
 
 try{
 	sequelize.authenticate();
-	console.log("Connection has been established successfully.");
+	//console.log("Connection has been established successfully.");
 }catch(error){
-	console.error("Unable to connect to the database:", error);
+	//console.error("Unable to connect to the database:", error);
 }
 
 app.listen(3003, () => {
-	console.log("Servidor rodando na porta 3003");
+	//console.log("Servidor rodando na porta 3003");
 });
