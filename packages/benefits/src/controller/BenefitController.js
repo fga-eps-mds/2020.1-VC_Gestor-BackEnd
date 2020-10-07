@@ -1,4 +1,4 @@
-const Benefit = require('../models/benefit');
+const Benefit = require("../models/benefit");
 // const sequelize = require("sequelize");
 
 module.exports = {
@@ -13,11 +13,11 @@ module.exports = {
     const { title, description, price, redeem_way, quantity } = request.body;
 
     const newBenefit = Benefit.build({
-      title: title,
-      description: description,
-      price: price,
-      redeem_way: redeem_way,
-      quantity: quantity
+      title,
+      description,
+      price,
+      redeem_way,
+      quantity
     });
 
     await newBenefit.save();
@@ -39,7 +39,7 @@ module.exports = {
     
     const benefit = await Benefit.findOne({
       where: {
-        benefit_id : benefit_id
+        benefit_id
       }
     });
 
@@ -51,15 +51,15 @@ module.exports = {
     const { title, description, price, redeem_way, quantity } = request.body;
 
     const benefit = await Benefit.update({
-      benefit_id: benefit_id,
-      title: title,
-      description: description,
-      price: price,
-      redeem_way: redeem_way,
-      quantity: quantity
+      benefit_id,
+      title,
+      description,
+      price,
+      redeem_way,
+      quantity
     }, {
       where: {
-        benefit_id: benefit_id
+        benefit_id
       }
     });
 
@@ -71,7 +71,7 @@ module.exports = {
 
     const benefit = await Benefit.update(request.body, {
       where: {
-        benefit_id: benefit_id
+        benefit_id
       }
     });
 
@@ -85,7 +85,7 @@ module.exports = {
 
     await Benefit.destroy({
       where: {
-        benefit_id: benefit_id
+        benefit_id
       }
     });
 
