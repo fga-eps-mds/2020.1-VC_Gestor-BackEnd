@@ -5,7 +5,8 @@ const sequelize = new Sequelize(db);
 
 const findAndCountAll = (limit, page) => {
 
-    const offsetPerPage = limit * page;
+    const limitpages = limit;
+    const offsetPerPage = limitpages * page;
     var post;
     post = model(sequelize, DataTypes);
     return post.findAndCountAll({
@@ -22,7 +23,7 @@ const findAndCountAll = (limit, page) => {
         ]
         },
         include: [ "user", "category", "place" ],
-        limit: limit,
+        limit: limitpages,
         offset: offsetPerPage,
         logging: false
         });
