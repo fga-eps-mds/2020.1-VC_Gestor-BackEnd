@@ -50,18 +50,18 @@ const updatePost = {
     update: sinon.stub()
 };
 
-const stub = {findAll: sinon.stub().returns(posts)};
+const stub = {findAndCountAll: sinon.stub().returns(posts)};
 
 
 describe("Controller", function(){ 
     describe("GET ALL POSTS", function() {
         it("Check GET Response correct type", function() {
-            return service.getAllPosts(stub.findAll()).then(function(x) {
+            return service.getAllPosts(stub.findAndCountAll()).then(function(x) {
                 assert.strictEqual(typeof(x), "object");
             });
         })
         it("Check GET Response not empty", function() {
-            return service.getAllPosts(stub.findAll()).then(function(x) {
+            return service.getAllPosts(stub.findAndCountAll()).then(function(x) {
                 x[0].should.not.be.empty;
             }); 
         }) 
