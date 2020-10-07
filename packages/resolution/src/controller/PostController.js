@@ -7,7 +7,8 @@ module.exports = {
 
   // Listar todos os posts
   index(request, response) {
-    postService.getAllPosts(postService.findAll()).then(function(posts) {
+    const { limit, page } = request.query;
+    postService.getAllPosts(postService.findAndCountAll(limit, page)).then(function(posts) {
       return response.json(posts);
     });
   },

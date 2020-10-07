@@ -3,10 +3,13 @@ const db = require("../config/database");
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(db);
 
-const findAll = () => {
+const findAndCountAll = (limit, page) => {
+
+    const limitpages = limit;
+    const offsetPerPage = limitpages * page;
     var post;
     post = model(sequelize, DataTypes);
-    return post.findAll({
+    return post.findAndCountAll({
         attributes: {
         include: [
             [
@@ -20,13 +23,15 @@ const findAll = () => {
         ]
         },
         include: [ "user", "category", "place" ],
+        limit: limitpages,
+        offset: offsetPerPage,
         logging: false
         });
 };
 
-const getAllPosts = function(findAll) {
+const getAllPosts = function(findAndCountAll) {
     return new Promise(function(resolve) {
-        resolve(findAll);
+        resolve(findAndCountAll);
         });
 };
 
@@ -37,5 +42,5 @@ const findByPk = async function(postId) {
 };
 
 module.exports.getAllPosts = getAllPosts;
-module.exports.findAll = findAll;
+module.exports.findAndCountAll = findAndCountAll;
 module.exports.findByPk = findByPk;
