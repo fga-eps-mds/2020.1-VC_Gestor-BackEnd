@@ -32,13 +32,6 @@ module.exports=(sequelize,Datatypes)=>{
 			allowNull:true,
 			len:[8:20]			
 		},
-		email:{
-			type:Datatypes.STRING,
-			required:true,
-			allowNull:true,
-			len:[7:100]
-			isEmail:true
-		},
 		permission_id:{
 			type:Datatypes.INTEGER,
 			required:true,

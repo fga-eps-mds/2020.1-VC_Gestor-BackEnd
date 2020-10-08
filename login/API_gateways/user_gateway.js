@@ -33,18 +33,13 @@ router.POST('/',asyncHandler((req,res)=>{
 			presence: true,
 			length:{minimum:8,maximum:30}
 		},
-		email:{
-			presence:true,
-			email: true
-		}
 	}
 	const first_name 	= req.body.first_name
 	const last_name		= req.body.last_name	
 	const username 		= req.body.username
 	const password		= req.body.password
-	const email			= req.body.email
 
-	const validation 	= validate({first_name,last_name,username,password,email},constraints)
+	const validation 	= validate({first_name,last_name,username,password},constraints)
 
 	if (validation) {
 		return res.status(400).json({error: validation})

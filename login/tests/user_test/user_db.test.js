@@ -25,7 +25,6 @@ describe('user db test suite',()=>{
 			last_name:'test',
 			username:'test_test',
 			password:'test_test',
-			email:'test@test.com',
 			permission_id:1
 		})
 
