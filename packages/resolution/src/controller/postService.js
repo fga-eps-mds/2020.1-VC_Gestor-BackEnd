@@ -37,8 +37,9 @@ const getAllPosts = function(findAndCountAll) {
 
 const findByPk = async function(postId) {
 
-    return model(sequelize, DataTypes).findByPk(postId);
-    
+    return model(sequelize, DataTypes).findByPk(postId, {
+        include: [ "user", "category", "place" ]
+    });    
 };
 
 module.exports.getAllPosts = getAllPosts;

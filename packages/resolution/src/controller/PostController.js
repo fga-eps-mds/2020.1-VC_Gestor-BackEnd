@@ -13,21 +13,29 @@ module.exports = {
     });
   },
 
+  // Mostrar um post por ID
+  async postById(request, response) {
+    const { post_id } = request.params;
+
+    const post = await postService.findByPk(post_id);
+
+    if (!post) {
+      return response.status(400).json({ error: "Post not found"});
+    }
+
+    return response.json(post);
+  },
+
   // Submeter uma mudança de estado
   async statusChange(request, response) {
 
     const { post_id } = request.params;
-    const { state } = request.body;
+    const { status } = request.body;
+    const postStatus = status;
 
-    let post;
-
-    if("stubPost" in request) {
-      post = request.stubPost;
-    } else {
-      post = await postService.findByPk(post_id);
-    }
+    const post = await postService.findByPk(post_id);
     
-    if (!state) {
+    if (!postStatus) {
       return response.status(400).json({ error: "Status not requested"});
     }
     
@@ -35,11 +43,11 @@ module.exports = {
       return response.status(400).json({ error: "Post not found"});
     }
 
-    if ( post.status === state) {
+    if ( post.status === postStatus) {
       return response.status(400).json({ error: "Status is already the same"});
     }
 
-    await post.update({ status: state });
+    await post.update({ status: postStatus });
 
     return response.json(post);
   },
