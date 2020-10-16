@@ -32,6 +32,7 @@ module.exports = {
     const { post_id } = request.params;
     const { status } = request.body;
     const postStatus = status;
+    var post;
 
     if("stubPost" in request) {
       post = request.stubPost;
@@ -39,14 +40,14 @@ module.exports = {
       post = await postService.findByPk(post_id);
     }
     
-    if (!postStatus) {
-      return response.status(400).json({ error: "Status not requested"});
-    }
-    
     if (!post) {
       return response.status(400).json({ error: "Post not found"});
     }
 
+    if (!postStatus) {
+      return response.status(400).json({ error: "Status not requested"});
+    }
+    
     if ( post.status === postStatus) {
       return response.status(400).json({ error: "Status is already the same"});
     }
