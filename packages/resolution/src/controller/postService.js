@@ -38,6 +38,18 @@ const getAllPosts = function(findAndCountAll) {
 const findByPk = async function(postId) {
 
     return model(sequelize, DataTypes).findByPk(postId, {
+        attributes: {
+            include: [
+                [
+                sequelize.literal(`
+                    (SELECT COUNT(*) 
+                    FROM resolution.votes 
+                    WHERE votes.post_id = post.post_id
+                    )
+                `), "likes"
+                ]
+            ]
+            },
         include: [ "user", "category", "place" ]
     });    
 };

@@ -33,7 +33,11 @@ module.exports = {
     const { status } = request.body;
     const postStatus = status;
 
-    const post = await postService.findByPk(post_id);
+    if("stubPost" in request) {
+      post = request.stubPost;
+    } else {
+      post = await postService.findByPk(post_id);
+    }
     
     if (!postStatus) {
       return response.status(400).json({ error: "Status not requested"});
