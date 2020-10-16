@@ -9,6 +9,6 @@ const usersRouter = express.Router();
 
 usersRouter.post("/", UserController.create);
 usersRouter.get("/", UserController.getByUsername);
-//usersRouter.put("/:post_id", UserController.statusChange);
+
 
 module.exports = usersRouter;

@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const { hash } = require("bcryptjs");
 
 module.exports = {
 
@@ -14,11 +15,13 @@ module.exports = {
       return response.status(400).json({ error: "Esse nome de usuário já existe!" });
     }
 
+    const hashedPassword = await hash(password, 8);
+
     const user = await User.build({
       user_id,
       name,
       surname,
-      password,
+      password: hashedPassword,
       username
     });
 
