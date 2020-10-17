@@ -8,7 +8,7 @@ const usersRouter = express.Router();
 //usersRouter.use(ensureAuthenticated)
 
 usersRouter.post("/", UserController.create);
-usersRouter.get("/", UserController.getByUsername);
+usersRouter.post("/id", UserController.getByUsername);
 
 
 module.exports = usersRouter;
