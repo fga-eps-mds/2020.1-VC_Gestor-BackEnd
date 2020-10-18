@@ -32,8 +32,6 @@ module.exports = {
       expiresIn,
     });
 
-    response.set("Access-Control-Allow-Origin","*")
-
     return response.json({user, token});
   },
 

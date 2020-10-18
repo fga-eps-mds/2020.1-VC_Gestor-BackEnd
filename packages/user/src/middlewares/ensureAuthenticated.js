@@ -11,10 +11,10 @@ module.exports = function ensureAuthenticated(
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new Error('JWT token is missing');
+    throw new Error("JWT token is missing");
   }
 
-  const [, token] = authHeader.split(' ');
+  const [, token] = authHeader.split(" ");
 
   try {
     const decoded = verify(token, authConfig.jwt.secret);
@@ -22,6 +22,6 @@ module.exports = function ensureAuthenticated(
     //console.log(decoded);
     return next();
   } catch (err) {
-    throw new Error('Invalid JWT token');
+    throw new Error("Invalid JWT token");
   }
-}
+};
