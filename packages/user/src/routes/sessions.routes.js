@@ -1,6 +1,6 @@
 const { Router } = require("express");
 
-const AuthenticateUserService = require('../controller/AuthenticateUserService');
+const AuthenticateUserService = require("../controller/AuthenticateUserService");
 
 const sessionRouter = Router();
 

@@ -5,7 +5,7 @@ module.exports = {
 
   // Teste para criar um usuario
   async create(request, response) {
-    const { user_id, name, surname, password, username } = request.body;
+    const { userid, name, surname, password, username } = request.body;
 
     const checkUserExists = await User.findOne({
       where: { username },
@@ -18,7 +18,7 @@ module.exports = {
     const hashedPassword = await hash(password, 8);
 
     const user = await User.build({
-      user_id,
+      userid,
       name,
       surname,
       password: hashedPassword,
