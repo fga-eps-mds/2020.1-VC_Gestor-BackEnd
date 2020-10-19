@@ -2,7 +2,7 @@
   "name": "user",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "test": "jshint index.js",
     "start": "npm install && nodemon index.js"
@@ -10,8 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "jshint": "^2.12.0",
+    "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.4",
     "pg": "^8.3.3",
     "pg-hstore": "^2.3.3",
