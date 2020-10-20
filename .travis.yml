@@ -16,5 +16,6 @@ matrix:
         - env: TARGET=packages/resolution
         - env: TARGET=packages/user
         - env: TARGET=packages/benefits
+        - env: TARGET=packages/news
 
 script: cd $TARGET && npm install && npm run test;

@@ -11,6 +11,7 @@ services:
             - ./psql-scripts/init-resolution-schema.sql:/docker-entrypoint-initdb.d/init-resolution-schema.sql
             - ./psql-scripts/init-user-schema.sql:/docker-entrypoint-initdb.d/init-user-schema.sql
             - ./psql-scripts/init-benefits-schema.sql:/docker-entrypoint-initdb.d/init-benefits-schema.sql
+            - ./psql-scripts/init-news-schema.sql:/docker-entrypoint-initdb.d/init-news-schema.sql
         ports:
             - "5432:5432"
         networks: 
@@ -65,6 +66,22 @@ services:
         networks: 
             backend:
                 ipv4_address: 172.25.0.6 
+        restart: 'no'
+    news:
+        build:      
+            context: .
+            dockerfile: packages/news/Dockerfile
+        container_name: news1
+        volumes:
+            - ./packages/news/:/usr/src/app/news
+            - /usr/src/app/news/node_modules
+        ports:
+            - "3004:3004"
+        links: 
+            - postgres
+        networks: 
+            backend:
+                ipv4_address: 172.25.0.7 
         restart: 'no'
 networks:
     backend:
