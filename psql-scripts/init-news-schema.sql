@@ -10,3 +10,11 @@ CREATE TABLE news.news (
 	"image3" varchar(50) NOT NULL,
 	CONSTRAINT "User_pk" PRIMARY KEY ("news_id")
 );
+
+
+INSERT INTO news.news (title,subtitle,text,image1,image2, image3)
+    VALUES ('aosidj','subtitolo','text','alskdm','lzkdjlak','askjdak');
+INSERT INTO news.news (title,subtitle,text,image1,image2, image3)
+    VALUES ('asdasda','subtitolo','text','alskdm','lzkdjlak','askjdak');
+INSERT INTO news.news (title,subtitle,text,image1,image2, image3)
+    VALUES ('aosidssdsdsdsdsdj','subtitolo','text','alskdm','lzkdjlak','askjdak');

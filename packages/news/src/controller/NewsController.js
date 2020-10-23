@@ -27,4 +27,56 @@ module.exports = {
 
     return response.json(news);
   },
+  async getAll(request, response){
+    const allNews = await News.findAll();
+
+    return response.json(allNews);
+  },
+
+  async getNewsById(request, response){
+    const { news_id }= request.params;
+
+    const news = await News.findOne({
+      where: {
+        news_id
+      }
+    });
+
+    return response.json(news);
+  },
+  
+  async putNewsById(request, response) {
+    const { news_id } = request.params;
+    const { title, subtitle, text, image1, image2, image3 } = request.body;
+
+    console.log({ title, subtitle, text, image1, image2, image3 });
+
+    const news = await News.update({
+      news_id,
+      title,
+      subtitle,
+      text, 
+      image1,
+      image2, 
+      image3
+    }, {
+      where: {
+        news_id
+      }
+    });
+
+    return response.json(news);
+  },
+
+  async patchNewsById(request, response) {
+    const { news_id } = request.params;
+
+    const news = await News.update(request.body, {
+      where: {
+        news_id
+      }
+    });
+
+    return response.json(news);
+  }
 };
