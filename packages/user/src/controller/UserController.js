@@ -45,7 +45,7 @@ function splitToken(token){
   return {
     body: JSON.parse((new Buffer(splitedToken[0], "base64")).toString("ascii")),
     valid: (splitedToken[1]===sign(splitedToken[0]))
-  }
+  };
 }
 
 module.exports = {
@@ -111,7 +111,7 @@ module.exports = {
 
     user.update({
       password:newPassword
-    })
+    });
 
     response.status(200).json({ error: "" });
 
