@@ -149,7 +149,7 @@ module.exports = {
 
     const user = await User.findOne({
       where: { email },
-    })
+    });
 
     if (!user) {
       return response.status(400).json({ error: "Esse email não existe!" });
