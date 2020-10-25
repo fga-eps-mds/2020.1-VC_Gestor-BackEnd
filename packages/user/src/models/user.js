@@ -34,8 +34,8 @@ const User = sequelize.define("user",
       allowNull: false
     },
     dateretrive: {
-      type: 'TIMESTAMP',
-      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      type: "TIMESTAMP",
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       allowNull: false
     },
     email: {

@@ -1,18 +1,16 @@
 const User = require("../models/user");
 const sequelize = require("sequelize");
 const { hash } = require("bcryptjs");
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-const fs = require('fs');
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
+const fs = require("fs");
 
-console.log(fs.readdirSync("./", { withFileTypes: true }))
-
-const { key, mainEmail, password } = JSON.parse(fs.readFileSync('./src/controller/private.json'));
+const { key, mainEmail, password } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
 
 function makeCode() {
   const length = 8;
-  var result           = '';
-  const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var result           = "";
+  const characters       = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const charactersLength = characters.length;
   for ( var i = 0; i < length; i++ ) {
      result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -21,31 +19,31 @@ function makeCode() {
 }
 
 function sign(base64){
-  return crypto.createHmac('sha256', key)
+  return crypto.createHmac("sha256", key)
     .update(base64)
-    .digest('hex');
+    .digest("hex");
 }
 
 function signBody(body){
 
-  const base64 = (new Buffer(JSON.stringify(body)).toString('base64'));
+  const base64 = (new Buffer(JSON.stringify(body)).toString("base64"));
 
   const hash = sign(base64);
 
-  return `${base64}.${hash}`
+  return `${base64}.${hash}`;
 }
 
 function splitToken(token){
-  const splitedToken = token.split(".")
+  const splitedToken = token.split(".");
   if(splitedToken.length!==2){
     return {
       body:{},
       valid:false
-    }
+    };
   }
 
   return {
-    body: JSON.parse((new Buffer(splitedToken[0], 'base64')).toString('ascii')),
+    body: JSON.parse((new Buffer(splitedToken[0], "base64")).toString("ascii")),
     valid: (splitedToken[1]===sign(splitedToken[0]))
   }
 }
@@ -97,21 +95,17 @@ module.exports = {
   async changePassword(request, response) {
     const { newPassword, token } = request.body;
 
-    const { body, valid } = splitToken(token)
-
-    if((!valid)&&(body.operation===1)){
-      return response.status(400).json({ error: "Erro inesperado, token de troca de senha inválido! Por favor, tente novamente." });
-    }
-
-    if((((new Date().getTime()) - body.date)/1000)>900){
-      return response.status(400).json({ error: "Troca de senha expirada!" });
-    }
+    const { body, valid } = splitToken(token);
 
     const user = await User.findOne({
       where: { email: body.email }
-    })
+    });
 
-    if(!user) {
+    if((!valid)&&(body.operation===1)){
+      return response.status(400).json({ error: "Erro inesperado, token de troca de senha inválido! Por favor, tente novamente." });
+    } else if((((new Date().getTime()) - body.date)/1000)>900){
+      return response.status(400).json({ error: "Troca de senha expirada!" });
+    } else if(!user) {
       return response.status(400).json({ error: "Este email não existe!" });
     }
 
@@ -132,17 +126,13 @@ module.exports = {
 
     if (!user) {
       return response.status(400).json({ error: "Este email não existe!" });
-    }
-
-    if(code!==user.coderetrieve){
+    } else if(code!==user.coderetrieve){
       return response.status(400).json({ error: "Código incorreto" });
-    }
-
-    if((((new Date().getTime()) - user.dateretrive)/1000)>900){
+    } else if((((new Date().getTime()) - user.dateretrive)/1000)>900){
       return response.status(400).json({ error: "Código expirado" });
     }
 
-    body = {
+    const body = {
       email,
       date: (new Date().getTime()),
       operation: 1
@@ -165,7 +155,7 @@ module.exports = {
       return response.status(400).json({ error: "Esse email não existe!" });
     }
 
-    await user.update({coderetrieve:code, dateretrive: sequelize.fn('NOW')});
+    await user.update({coderetrieve:code, dateretrive: sequelize.fn("NOW")});
 
     var transporter = nodemailer.createTransport({
         service: "gmail",
