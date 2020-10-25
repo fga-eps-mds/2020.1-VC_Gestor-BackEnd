@@ -18,9 +18,7 @@ module.exports = {
       return response.status(400).json({ error: "username/password incorrect!" });
     }
 
-    const passwordMatched = await compare(password, user.password);
-
-    if(!passwordMatched) {
+    if(user.password!==password) {
       return response.status(400).json({ error: "username/password incorrect!" });
     }
 

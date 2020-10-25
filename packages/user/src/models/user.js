@@ -22,10 +22,23 @@ const User = sequelize.define("user",
       allowNull: false
     },
     password: {
-      type: dataTypes.STRING(60),
+      type: dataTypes.STRING(64),
       allowNull: false
     },
     username: {
+      type: dataTypes.STRING(25),
+      allowNull: false
+    },
+    coderetrieve: {
+      type: dataTypes.STRING(10),
+      allowNull: false
+    },
+    dateretrive: {
+      type: 'TIMESTAMP',
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      allowNull: false
+    },
+    email: {
       type: dataTypes.STRING(25),
       allowNull: false
     },
