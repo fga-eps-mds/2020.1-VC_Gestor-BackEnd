@@ -122,7 +122,7 @@ module.exports = {
 
     const user = await User.findOne({
       where: { email },
-    })
+    });
 
     if (!user) {
       return response.status(400).json({ error: "Este email não existe!" });
@@ -136,7 +136,7 @@ module.exports = {
       email,
       date: (new Date().getTime()),
       operation: 1
-    }
+    };
 
     response.status(200).json({ token: signBody(body) });
   },
