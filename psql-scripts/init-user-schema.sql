@@ -5,14 +5,21 @@ CREATE TABLE users.user (
 	"name" varchar(25) NOT NULL,
 	"surname" varchar(25) NOT NULL,
 	"username" varchar(25) NOT NULL,
-	"password" varchar(60) NOT NULL,
+	"password" varchar(64) NOT NULL,
+	"coderetrieve" varchar(10) NOT NULL,
+	"dateretrive" timestamp DEFAULT CURRENT_TIMESTAMP,
+	"email" varchar(100) NOT NULL,
 	CONSTRAINT "User_pk" PRIMARY KEY ("userid")
 );
 
 INSERT INTO users."user"
-(userid, "name", surname, username, "password")
-VALUES(1, 'admin', 'admin', 'admin', '$2a$08$RjS04WuZEmMoP2OzSrz5x.zHVigMMOZR7feKi8jDhxQRfY2oKH4Gu');
+(userid, "name", surname, username, "password", coderetrieve, email)
+VALUES(1, 'admin', 'admin', 'admin', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'aaaaaaaa', 'a@a.a');
 
 INSERT INTO users."user"
-(userid, "name", surname, username, "password")
-VALUES(2, 'admin2', 'admin2', 'admin2', '$2a$08$RjS04WuZEmMoP2OzSrz5x.zHVigMMOZR7feKi8jDhxQRfY2oKH4Gu');
+(userid, "name", surname, username, "password", coderetrieve, email)
+VALUES(2, 'admin2', 'admin2', 'admin2', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'aaaaaaaa', 'a@a.a');
+
+INSERT INTO users."user"
+(userid, "name", surname, username, "password", coderetrieve, email)
+VALUES(3, 'Vitor', 'Sulzbach', 'Sulzbach', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'aaaaaaaa', 'vjsulzbach@gmail.com');
