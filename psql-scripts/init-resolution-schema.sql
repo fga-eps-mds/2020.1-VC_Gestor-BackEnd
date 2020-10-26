@@ -78,15 +78,39 @@ VALUES(1, 'Infraestrutura');
 
 INSERT INTO resolution.category
 (category_id, category_name)
-VALUES(2, 'Lixo');
+VALUES(2, 'Limpeza');
 
 INSERT INTO resolution.category
 (category_id, category_name)
-VALUES(3, 'Abuso');
+VALUES(3, 'Outros');
 
 INSERT INTO resolution.category
 (category_id, category_name)
-VALUES(4, 'Roubo de carro');
+VALUES(4, 'Segurança');
+
+INSERT INTO resolution.category
+(category_id, category_name)
+VALUES(5, 'Transportes');
+
+INSERT INTO resolution.category
+(category_id, category_name)
+VALUES(6, 'Meio Ambiente');
+
+INSERT INTO resolution.category
+(category_id, category_name)
+VALUES(7, 'Jardinagem');
+
+INSERT INTO resolution.category
+(category_id, category_name)
+VALUES(8, 'Alimentação nos Campi');
+
+INSERT INTO resolution.category
+(category_id, category_name)
+VALUES(9, 'Saúde e Seguridade');
+
+INSERT INTO resolution.category
+(category_id, category_name)
+VALUES(10, 'Serviços Tercerizados');
 
 INSERT INTO resolution.place
 (place_name)
@@ -152,63 +176,63 @@ VALUES(9, 'Hércules', 'Ismael', 'hercules', '123123', 'hercules@gmail.com');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Ataque na rua', 'Dois caras tão se atacando aqui e tão inuriados no chão', 'imagem', 2, 3, 1, 'Não revisado', '2020-02-08');
+VALUES('Ataque na rua', 'Dois caras tão se atacando aqui e tão injuriados no chão', 'imagem', 2, 3, 1, 'Aguardando', '2020-02-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Teto quebrado', 'O teto ta quebradão conserta isso ai parça', 'imagem', 1, 1, 1, 'Não revisado', '2020-10-08');
+VALUES('Teto quebrado', 'O teto ta quebradão', 'imagem', 1, 1, 1, 'Aguardando', '2020-10-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Janela Quebrada', 'A janela ta quebradona conserta isso ai parça', 'imagem', 4, 1, 1, 'Não revisado', '2020-02-08');
+VALUES('Janela Quebrada', 'A janela esta quebradona', 'imagem', 4, 1, 1, 'Resolvido', '2020-02-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Lixo no chão', 'Tem lixo no chão desse local ai', 'imagem', 6, 2, 3, 'Não revisado', '2020-04-08');
+VALUES('Lixo no chão', 'Tem lixo no chão desse local ai', 'imagem', 6, 2, 3, 'Resolvido', '2020-04-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Roubaram um carro', 'Roubaram um carro na minha frente, preciso de ajuda', 'imagem', 6, 4, 3, 'Não revisado', '2020-09-08');
+VALUES('Roubaram um carro', 'Roubaram um carro na minha frente, preciso de ajuda', 'imagem', 6, 4, 3, 'Aguardando', '2020-09-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Um problema ai', 'Teve um problema ai, help', 'imagem', 3, 4, 2, 'Não revisado', '2020-03-08');
+VALUES('Um problema ai', 'Teve um problema ai, help', 'imagem', 3, 4, 2, 'Resolvido', '2020-03-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Um problema novamente', 'Teve um problema ai novamente, help', 'imagem', 3, 2, 2, 'Não revisado', '2020-01-08');
+VALUES('Um problema novamente', 'Teve um problema ai novamente', 'imagem', 3, 8, 2, 'Aguardando', '2020-01-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Um problema novamente denovo', 'Teve um problema ai novamente denovo, help', 'imagem', 1, 2, 2, 'Não revisado', '2020-08-08');
+VALUES('Um problema novamente denovo', 'Teve um problema ai novamente denovo, help', 'imagem', 1, 9, 2, 'Aguardando', '2020-08-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Problema', 'Problema', 'imagem', 2, 4, 2, 'Revisado', '2020-08-08');
+VALUES('Problema', 'Problema', 'imagem', 2, 4, 2, 'Em andamento', '2020-08-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Chão quebrado', 'Chão ta rachado demais', 'imagem', 9, 1, 5, 'Revisado', '2020-08-08');
+VALUES('Chão quebrado', 'Chão ta rachado demais', 'imagem', 9, 1, 5, 'Em andamento', '2020-08-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Van roubada', 'Roubaram minha van, segue as imagens', 'imagem', 8, 4, 6, 'Revisado', '2020-08-08');
+VALUES('Van roubada', 'Roubaram minha van, segue as imagens', 'imagem', 8, 10, 6, 'Em andamento', '2020-08-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Porta quebrada', 'A porta desse departamento está quebrada', 'imagem', 5, 1, 4, 'Revisado', '2020-08-08');
+VALUES('Porta quebrada', 'A porta desse departamento está quebrada', 'imagem', 5, 1, 4, 'Em andamento', '2020-08-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Vidro no chão', 'Tem cacos de vidro no chão', 'imagem', 4, 2, 2, 'Não revisado', '2020-08-08');
+VALUES('Vidro no chão', 'Tem cacos de vidro no chão', 'imagem', 4, 6, 2, 'Aguardando', '2020-08-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Briga na rua', 'Ta zuado aqui', 'imagem', 1, 3, 3, 'Revisado', '2020-08-08');
+VALUES('Briga na rua', 'Ta zuado aqui', 'imagem', 1, 5, 3, 'Em andamento', '2020-08-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Racha de carro', 'Tão batendo um racha na frente do instituto', 'imagem', 7, 4, 1, 'Revisado', '2020-08-08');
+VALUES('Racha de carro', 'Tão batendo um racha na frente do instituto', 'imagem', 7, 7, 1, 'Em andamento', '2020-08-08');
 
 INSERT INTO resolution.votes (post_id,user_id,is_like)
 	VALUES (1,3,true);
