@@ -10,6 +10,7 @@ branches:
         - master
         - development
         - unit_tests
+        - Issue_128-ResetSenha
 
 matrix:
     include:
