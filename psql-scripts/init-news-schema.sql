@@ -8,13 +8,16 @@ CREATE TABLE news.news (
 	"image1" varchar(50) NOT NULL,
 	"image2" varchar(50) NOT NULL,
 	"image3" varchar(50) NOT NULL,
-	CONSTRAINT "User_pk" PRIMARY KEY ("news_id")
+	"post_id" INT,
+
+	CONSTRAINT "User_pk" PRIMARY KEY ("news_id"),
+	FOREIGN KEY ("post_id") REFERENCES "resolution"."post"("post_id")
 );
 
 
-INSERT INTO news.news (title,subtitle,text,image1,image2, image3)
-    VALUES ('aosidj','subtitolo','text','alskdm','lzkdjlak','askjdak');
-INSERT INTO news.news (title,subtitle,text,image1,image2, image3)
-    VALUES ('asdasda','subtitolo','text','alskdm','lzkdjlak','askjdak');
-INSERT INTO news.news (title,subtitle,text,image1,image2, image3)
-    VALUES ('aosidssdsdsdsdsdj','subtitolo','text','alskdm','lzkdjlak','askjdak');
+INSERT INTO news.news (title,subtitle,text,image1,image2, image3,post_id)
+    VALUES ('aosidj','subtitolo','text','alskdm','lzkdjlak','askjdak',1);
+INSERT INTO news.news (title,subtitle,text,image1,image2, image3,post_id)
+    VALUES ('asdasda','subtitolo','text','alskdm','lzkdjlak','askjdak',2);
+INSERT INTO news.news (title,subtitle,text,image1,image2, image3,post_id)
+    VALUES ('aosidssdsdsdsdsdj','subtitolo','text','alskdm','lzkdjlak','askjdak',3);
