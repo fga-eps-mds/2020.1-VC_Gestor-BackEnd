@@ -8,10 +8,10 @@ services:
             POSTGRES_DB: "dev_database"
         container_name: database
         volumes:
-            - ./psql-scripts/init-resolution-schema.sql:/docker-entrypoint-initdb.d/init-resolution-schema.sql
-            - ./psql-scripts/init-user-schema.sql:/docker-entrypoint-initdb.d/init-user-schema.sql
-            - ./psql-scripts/init-benefits-schema.sql:/docker-entrypoint-initdb.d/init-benefits-schema.sql
-            - ./psql-scripts/init-news-schema.sql:/docker-entrypoint-initdb.d/init-news-schema.sql
+            - ./psql-scripts/init-resolution-schema.sql:/docker-entrypoint-initdb.d/init-1-resolution-schema.sql
+            - ./psql-scripts/init-user-schema.sql:/docker-entrypoint-initdb.d/init-2-user-schema.sql
+            - ./psql-scripts/init-benefits-schema.sql:/docker-entrypoint-initdb.d/init-3-benefits-schema.sql
+            - ./psql-scripts/init-news-schema.sql:/docker-entrypoint-initdb.d/init-4-news-schema.sql
         ports:
             - "5432:5432"
         networks: 

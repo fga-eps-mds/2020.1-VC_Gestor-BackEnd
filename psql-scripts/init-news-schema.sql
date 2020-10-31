@@ -16,8 +16,8 @@ CREATE TABLE news.news (
 
 
 INSERT INTO news.news (title,subtitle,text,image1,image2, image3,post_id)
-    VALUES ('aosidj','subtitolo','text','alskdm','lzkdjlak','askjdak',1);
+    VALUES ('aosidj','subtitolo','text','120529.jpg','','',1);
 INSERT INTO news.news (title,subtitle,text,image1,image2, image3,post_id)
-    VALUES ('asdasda','subtitolo','text','alskdm','lzkdjlak','askjdak',2);
+    VALUES ('asdasda','subtitolo','text','120529.jpg','k','',2);
 INSERT INTO news.news (title,subtitle,text,image1,image2, image3,post_id)
-    VALUES ('aosidssdsdsdsdsdj','subtitolo','text','alskdm','lzkdjlak','askjdak',3);
+    VALUES ('aosidssdsdsdsdsdj','subtitolo','text','120529.jpg','','',3);

@@ -37,6 +37,11 @@ const News = sequelize.define("new",
       type: dataTypes.STRING(50),
       allowNull: false
     },
+    post_id: {
+      foreignKey: true,
+      type: dataTypes.INTEGER,
+      allowNull: true,
+    },
   }, {
     sequelize,
     schema: "news"
