@@ -44,4 +44,6 @@ try {
 //     res.send("ok");
 // });
 
-app.listen(3004, () => {console.log("servidor rodando na porta 3004")});
+app.listen(3004, () => {
+  //console.log("servidor rodando na porta 3004")
+});
