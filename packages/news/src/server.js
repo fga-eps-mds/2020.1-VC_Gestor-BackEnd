@@ -20,4 +20,6 @@ try {
     //console.error("Unable to connect to the database:", error);
 }
 
-app.listen(3004, () => {console.log("servidor rodando na porta 3004")});
+app.listen(3004, () => {
+  //console.log("servidor rodando na porta 3004")
+});
