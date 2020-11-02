@@ -4,7 +4,7 @@ module.exports = {
 
   // Teste para criar um usuario
   async create(request, response) {
-    const { title, subtitle, text, image1, image2, image3 } = request.body;
+    const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
 
     const checkNewsExists = await News.findOne({
       where: { title },
@@ -20,7 +20,8 @@ module.exports = {
       text, 
       image1, 
       image2,
-      image3
+      image3,
+      post_id
     });
 
     await news.save();

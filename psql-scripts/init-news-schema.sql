@@ -8,5 +8,6 @@ CREATE TABLE news.news (
 	"image1" varchar(50) NOT NULL,
 	"image2" varchar(50) NOT NULL,
 	"image3" varchar(50) NOT NULL,
+	"post_id" integer,
 	CONSTRAINT "User_pk" PRIMARY KEY ("news_id")
 );
