@@ -49,8 +49,6 @@ module.exports = {
     const { news_id } = request.params;
     const { title, subtitle, text, image1, image2, image3 } = request.body;
 
-    console.log({ title, subtitle, text, image1, image2, image3 });
-
     const news = await News.update({
       news_id,
       title,
