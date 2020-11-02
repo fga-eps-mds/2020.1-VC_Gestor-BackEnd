@@ -76,5 +76,17 @@ module.exports = {
     });
 
     return response.json(news);
+  },
+
+  async deleteNewsById(request, response) {
+    const { news_id } = request.params;
+
+    const news = await News.destroy({
+      where: {
+        news_id
+      }
+    });
+
+    return response.json(news);
   }
 };
