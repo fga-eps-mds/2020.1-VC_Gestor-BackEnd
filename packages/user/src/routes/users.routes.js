@@ -12,6 +12,8 @@ usersRouter.post("/id", UserController.getByUsername);
 usersRouter.post("/user/", UserController.sendEmail);
 usersRouter.post("/user/code/", UserController.checkCode);
 usersRouter.post("/user/password/", UserController.changePassword);
+usersRouter.post("/user/getUser/", UserController.getByToken);
+usersRouter.post("/user/edit/", UserController.editUser);
 
 
 module.exports = usersRouter;

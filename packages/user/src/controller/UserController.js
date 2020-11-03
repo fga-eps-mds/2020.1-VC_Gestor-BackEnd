@@ -4,6 +4,7 @@ const { hash } = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const fs = require("fs");
+const jwt = require('jsonwebtoken');
 
 const { key, mainEmail, password } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
 
@@ -75,6 +76,75 @@ module.exports = {
     await user.save();
 
     return response.json(user);
+  },
+
+  // Adquirir um usuário por username
+  async getByToken(request, response) {
+    const { token } = request.body;
+
+    let user
+
+    let a = jwt.verify(token, key, function(err, decoded) {
+      if (err){
+        return response.status(400).json({ "auth": false, "message": "Token Inválido, por favor faça login novamente." });
+      }
+      user = decoded
+    });
+
+    const userDB = await User.findOne({
+      where: { username : user.username },
+    });
+
+    if (!userDB) {
+      return response.status(400).json({ error: "Token Inválido, por favor faça login novamente." });
+    }
+
+    return response.status(200).json({
+      username: user.username,
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+    });
+  },
+
+  // Adquirir um usuário por username
+  async editUser(request, response) {
+    const { token, username, surname, name, email } = request.body;
+
+    let user
+
+    let a = jwt.verify(token, key, function(err, decoded) {
+      if (err){
+        return response.status(400).json({ "auth": false, "message": "Token Inválido, por favor faça login novamente." });
+      }
+      user = decoded
+    });
+
+    if((username===undefined)||(surname===undefined)||(name===undefined)||(email===undefined)){
+      return response.status(400).json({ error: "Token Inválido, por favor faça login novamente." });
+    }
+    const userDB = await User.findOne({
+      where: { username : user.username },
+    });
+    if (!userDB) {
+      return response.status(400).json({ error: "Token Inválido, por favor faça login novamente." });
+    }
+
+    await userDB.update({
+      username:username,
+      surname:surname,
+      name:name,
+      email:email,
+    });
+
+    const newToken = jwt.sign({
+      username: userDB.username,
+      name: userDB.name,
+      surname: userDB.surname,
+      email: userDB.email,
+    }, key);
+
+    response.status(200).json({ error: "", newToken });
   },
 
   // Adquirir um usuário por username

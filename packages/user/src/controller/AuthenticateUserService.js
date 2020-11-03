@@ -1,8 +1,9 @@
 const User = require("../models/user");
-const authConfig = require("../config/auth");
-
 const { compare } = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
+const fs = require("fs");
+
+const { key } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
 
 module.exports = {
 
@@ -21,12 +22,13 @@ module.exports = {
     }
 
     // Usuário autenticado
-    
-    const { secret, expiresIn } = authConfig.jwt;
 
-    const token = sign({user}, secret, {
-      expiresIn,
-    });
+    const token = sign({
+      username: user.username,
+      name: user.name,
+      surname: user.surname,
+      email: user.email,
+    }, key);
 
     return response.json({user, token});
   },
