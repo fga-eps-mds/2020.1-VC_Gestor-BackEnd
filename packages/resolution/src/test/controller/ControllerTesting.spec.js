@@ -69,13 +69,13 @@ describe("Controller", function(){
     describe("UPDATE POST BY ID", function() {
         var request;
         var response;
-        request = {params: {post_id: 1}, body: {state: "Revisado"}, stubPost: updatePost};
+        request = {params: {post_id: 1}, body: {status: "Revisado"}, stubPost: updatePost};
         response = {json: sinon.stub()};
         it("Update with a new valid status", function() {
-            controller.statusChange(request, response);
+            controller.statusChange(request, response)
         })
         it("Update with a new not valid status (same status it was)", function() {
-            request = {params: {post_id: 1}, body: {state: "Não Revisado"}, stubPost: updatePost};
+            request = {params: {post_id: 1}, body: {status: "Não Revisado"}, stubPost: updatePost};
             response = {status: sinon.stub(), json: sinon.stub()};
             return controller.statusChange(request, response).catch((error) => {
                 if (typeof error === "object") {
@@ -84,7 +84,7 @@ describe("Controller", function(){
             }).should.eventually.equal(true);
         })
         it("Update with a empty that doesnt exists", function() {
-            request = {params: {post_id: 1}, body: {state: "Revisado"}, stubPost: {}};
+            request = {params: {post_id: 1}, body: {status: "Revisado"}, stubPost: {}};
             response = {status: sinon.stub(), json: sinon.stub()};
             return controller.statusChange(request, response).catch((error) => {
                 if (typeof error === "object") {

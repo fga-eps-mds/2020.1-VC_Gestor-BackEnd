@@ -38,7 +38,6 @@ const News = sequelize.define("new",
       allowNull: false
     },
     post_id: {
-      foreignKey: true,
       type: dataTypes.INTEGER,
       allowNull: true,
     },
