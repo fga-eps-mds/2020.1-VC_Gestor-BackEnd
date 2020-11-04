@@ -4,7 +4,7 @@ const { hash } = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 const fs = require("fs");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const { key, mainEmail, password } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
 
@@ -82,13 +82,13 @@ module.exports = {
   async getByToken(request, response) {
     const { token } = request.body;
 
-    let user
+    let user;
 
     let a = jwt.verify(token, key, function(err, decoded) {
       if (err){
         return response.status(400).json({ "auth": false, "message": "Token Inválido, por favor faça login novamente." });
       }
-      user = decoded
+      user = decoded;
     });
 
     const userDB = await User.findOne({
@@ -131,10 +131,10 @@ module.exports = {
     }
 
     await userDB.update({
-      username:username,
-      surname:surname,
-      name:name,
-      email:email,
+      username,
+      surname,
+      name,
+      email,
     });
 
     const newToken = jwt.sign({
