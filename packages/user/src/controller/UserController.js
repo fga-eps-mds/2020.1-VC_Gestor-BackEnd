@@ -111,13 +111,13 @@ module.exports = {
   async editUser(request, response) {
     const { token, username, surname, name, email } = request.body;
 
-    let user
+    let user;
 
     let a = jwt.verify(token, key, function(err, decoded) {
       if (err){
         return response.status(400).json({ "auth": false, "message": "Token Inválido, por favor faça login novamente." });
       }
-      user = decoded
+      user = decoded;
     });
 
     if((username===undefined)||(surname===undefined)||(name===undefined)||(email===undefined)){
