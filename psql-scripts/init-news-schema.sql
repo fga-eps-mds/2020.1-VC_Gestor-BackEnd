@@ -8,10 +8,8 @@ CREATE TABLE news.news (
 	"image1" varchar(50) NOT NULL,
 	"image2" varchar(50) NOT NULL,
 	"image3" varchar(50) NOT NULL,
-	"post_id" INT,
-
-	CONSTRAINT "User_pk" PRIMARY KEY ("news_id"),
-	FOREIGN KEY ("post_id") REFERENCES "resolution"."post"("post_id")
+	"post_id" integer,
+	CONSTRAINT "User_pk" PRIMARY KEY ("news_id")
 );
 
 
