@@ -10,11 +10,13 @@ branches:
         - master
         - development
         - unit_tests
+        - Issue_128-ResetSenha
 
 matrix:
     include:
         - env: TARGET=packages/resolution
         - env: TARGET=packages/user
         - env: TARGET=packages/benefits
+        - env: TARGET=packages/news
 
 script: cd $TARGET && npm install && npm run test;

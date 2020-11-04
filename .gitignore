@@ -1,2 +1,3 @@
 node_modules/
 .vscode
+packages/user/src/controller/private.json
