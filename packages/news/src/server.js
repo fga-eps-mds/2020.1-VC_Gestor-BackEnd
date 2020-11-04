@@ -24,6 +24,26 @@ try {
     //console.error("Unable to connect to the database:", error);
 }
 
+// app.get("/fileupload", function(req,res){
+//     res.writeHead(200, {"Content-Type": "text/html"});
+//     res.write("<form action="fileupload" method="post" enctype="multipart/form-data">");
+//     res.write("<input type="file" name="filetoupload"><br>");
+//     res.write("<input type="submit">");
+//     res.write("</form>");
+//     res.end();
+// });
+// app.post("/fileupload", function(req,res){
+//     var form = new formidable.IncomingForm({uploadDir: "./img"});
+//     form.parse(req, function (err, fields, files) {
+//       var oldpath = files.filetoupload.path;
+//       var newpath = "./img/" + files.filetoupload.name;
+//       fs.rename(oldpath, newpath, function (err) {
+//         if (err) throw err;
+//       });
+//     });
+//     res.send("ok");
+// });
+
 app.listen(3004, () => {
   //console.log("servidor rodando na porta 3004")
 });
