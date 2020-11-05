@@ -8,6 +8,7 @@ CREATE TABLE resolution.user (
 	"username" varchar(20) NOT NULL,
 	"password" varchar(20) NOT NULL,
 	"email" varchar(25) NOT NULL,
+	"dtRegister" TIMESTAMP NOT NULL,
 	CONSTRAINT "User_pk" PRIMARY KEY ("user_id")
 ) WITH (
   OIDS=FALSE
@@ -37,6 +38,7 @@ CREATE TABLE resolution.votes (
 	"post_id" serial NOT NULL,
 	"user_id" serial NOT NULL,
 	"is_like" BOOLEAN NOT NULL,
+	"dtVote" TIMESTAMP NOT NULL,
 	CONSTRAINT "Votes_pk" PRIMARY KEY ("like_id")
 ) WITH (
   OIDS=FALSE
@@ -139,40 +141,40 @@ VALUES('Instituo de Biologia');
 
 
 INSERT INTO resolution."user"
-(user_id, "name", surname, username, "password", email)
-VALUES(1, 'Bruno', 'Nunes', 'brunocmo', '123123', 'brunocmo@gmail.com');
+(user_id, "name", surname, username, "password", email, "dtRegister")
+VALUES(1, 'Bruno', 'Nunes', 'brunocmo', '123123', 'brunocmo@gmail.com', '2020-10-08');
 
 INSERT INTO resolution."user"
-(user_id, "name", surname, username, "password", email)
-VALUES(2, 'Tomas', 'Veloso', 'tomas', '123123', 'tomas@gmail.com');
+(user_id, "name", surname, username, "password", email, "dtRegister")
+VALUES(2, 'Tomas', 'Veloso', 'tomas', '123123', 'tomas@gmail.com', '2020-09-08');
 
 INSERT INTO resolution."user"
-(user_id, "name", surname, username, "password", email)
-VALUES(3, 'Vitor', 'Sulzbach', 'vitor', '123123', 'vitor@gmail.com');
+(user_id, "name", surname, username, "password", email, "dtRegister")
+VALUES(3, 'Vitor', 'Sulzbach', 'vitor', '123123', 'vitor@gmail.com', '2020-08-08');
 
 INSERT INTO resolution."user"
-(user_id, "name", surname, username, "password", email)
-VALUES(4, 'Guilherme', 'Aguiar', 'guilherme', '123123', 'gui@gmail.com');
+(user_id, "name", surname, username, "password", email, "dtRegister")
+VALUES(4, 'Guilherme', 'Aguiar', 'guilherme', '123123', 'gui@gmail.com', '2020-07-08');
 
 INSERT INTO resolution."user"
-(user_id, "name", surname, username, "password", email)
-VALUES(5, 'Mateus', 'Souza', 'mateus', '123123', 'mateus@gmail.com');
+(user_id, "name", surname, username, "password", email, "dtRegister")
+VALUES(5, 'Mateus', 'Souza', 'mateus', '123123', 'mateus@gmail.com', '2020-06-08');
 
 INSERT INTO resolution."user"
-(user_id, "name", surname, username, "password", email)
-VALUES(6, 'Juliana', 'Valle', 'juliana', '123123', 'juh@gmail.com');
+(user_id, "name", surname, username, "password", email, "dtRegister")
+VALUES(6, 'Juliana', 'Valle', 'juliana', '123123', 'juh@gmail.com', '2020-05-08');
 
 INSERT INTO resolution."user"
-(user_id, "name", surname, username, "password", email)
-VALUES(7, 'Ariel', 'Vieira', 'sixwings', '123123', 'adriel@gmail.com');
+(user_id, "name", surname, username, "password", email, "dtRegister")
+VALUES(7, 'Ariel', 'Vieira', 'sixwings', '123123', 'adriel@gmail.com', '2020-10-08');
 
 INSERT INTO resolution."user"
-(user_id, "name", surname, username, "password", email)
-VALUES(8, 'Gabriel', 'Filipe', 'gabriel', '123123', 'gabriel@gmail.com');
+(user_id, "name", surname, username, "password", email, "dtRegister")
+VALUES(8, 'Gabriel', 'Filipe', 'gabriel', '123123', 'gabriel@gmail.com', '2020-10-08');
 
 INSERT INTO resolution."user"
-(user_id, "name", surname, username, "password", email)
-VALUES(9, 'Hércules', 'Ismael', 'hercules', '123123', 'hercules@gmail.com');
+(user_id, "name", surname, username, "password", email, "dtRegister")
+VALUES(9, 'Hércules', 'Ismael', 'hercules', '123123', 'hercules@gmail.com', '2020-10-08');
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
@@ -234,77 +236,77 @@ INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
 VALUES('Racha de carro', 'Tão batendo um racha na frente do instituto', 'imagem', 7, 7, 1, 'Em andamento', '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (1,3,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (1,3,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (1,2,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (1,2,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (1,5,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (1,5,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (2,3,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (2,3,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (2,6,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (2,6,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (3,1,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (3,1,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (4,4,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (4,4,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (4,5,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (4,5,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (4,6,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (4,6,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (4,7,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (4,7,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (7,1,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (7,1,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (7,2,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (7,2,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (7,3,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (7,3,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (9,4,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (9,4,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (9,7,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (9,7,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (9,8,true);	
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (9,8,true, '2020-08-08');	
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (11,3,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (11,3,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (11,6,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (11,6,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (11,7,true);	
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (11,7,true, '2020-08-08');	
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (12,1,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (12,1,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (12,2,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (12,2,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (12,3,true);	
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (12,3,true, '2020-08-08');	
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (12,4,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (12,4,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (12,5,true);
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (12,5,true, '2020-08-08');
 
-INSERT INTO resolution.votes (post_id,user_id,is_like)
-	VALUES (12,6,true);	
+INSERT INTO resolution.votes (post_id,user_id,is_like, "dtVote")
+	VALUES (12,6,true, '2020-08-08');	
