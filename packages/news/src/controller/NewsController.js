@@ -1,68 +1,76 @@
 const model = require("../models/news");
+const newsService = require("../controller/newsService");
 
 module.exports = {
 
-  // Teste para criar um usuario
   async create(request, response) {
     const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
 
-    const checkNewsExists = await model.findOne({
-      where: { title },
-    });
-
+    const checkNewsExists = await newsService.findOneWithTitle(title);
     if (checkNewsExists) {
       return response.status(400).json({ error: "Essa notícia já existe!" });
     }
 
-    const news = await model.build({
-      title, 
-      subtitle, 
-      text, 
-      image1, 
-      image2,
-      image3,
-      post_id
-    });
+    const news = await newsService.createNews(title, subtitle, text, image1, image2, image3, post_id);
 
     await news.save();
 
     return response.json(news);
   },
-  async getAll(request, response){
-    const allNews = await model.findAll();
 
-    return response.json(allNews);
+  async getAll(request, response){
+    newsService.getAllNews(newsService.findAll()).then(function(news) {
+      return response.json(news);
+    });
   },
 
   async getNewsById(request, response){
     const { news_id }= request.params;
+    var news;
 
-    const news = await model.findOne({
-      where: {
-        news_id
-      }
-    });
+    if("stubPost" in request) {
+      news = await request.stubPost;
+    } else {
+      news = await newsService.findOneWithNewsId(news_id);
+    }
+    
+    if (!news) {
+      return response.status(400).json({error: "News not found"});
+    }
 
     return response.json(news);
   },
   
   async putNewsById(request, response) {
     const { news_id } = request.params;
-    const { title, subtitle, text, image1, image2, image3 } = request.body;
+    const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
+    var news;
+    var updatedNews;
+    if("stubPost" in request) {
+      news = request.stubPost;
+    } else {
+      news = await newsService.findOneWithNewsId(news_id);
+    }
+    
+    if (!news) {
+      return response.status(400).json({error: "News not found"});
+    }
 
-    const news = await model.update({
-      news_id,
-      title,
-      subtitle,
-      text, 
-      image1,
-      image2, 
-      image3
-    }, {
-      where: {
-        news_id
+    await news.update({
+        news_id,
+        title,
+        subtitle,
+        text, 
+        image1,
+        image2, 
+        image3,
+        post_id
+      }, {
+        where: {
+          news_id
+        }
       }
-    });
+    );
 
     return response.json(news);
   },
@@ -81,13 +89,21 @@ module.exports = {
 
   async deleteNewsById(request, response) {
     const { news_id } = request.params;
+    var news;
+    if("stubPost" in request) {
+      news = request.stubPost;
+    } else {
+      news = await newsService.findOneWithNewsId(news_id);
+    }
+    
+    if (!news) {
+      return response.status(400).json({error: "News not found"});
+    }
 
-    const news = await model.destroy({
-      where: {
-        news_id
-      }
-    });
+    await news.destroy({
+      where: { news_id },
+    });;
 
-    return response.json(news);
+    return response.json({message: "News deleted"});
   }
 };
