@@ -1,4 +1,4 @@
-const News = require("../models/news");
+const model = require("../models/news");
 
 module.exports = {
 
@@ -6,7 +6,7 @@ module.exports = {
   async create(request, response) {
     const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
 
-    const checkNewsExists = await News.findOne({
+    const checkNewsExists = await model.findOne({
       where: { title },
     });
 
@@ -14,7 +14,7 @@ module.exports = {
       return response.status(400).json({ error: "Essa notícia já existe!" });
     }
 
-    const news = await News.build({
+    const news = await model.build({
       title, 
       subtitle, 
       text, 
@@ -29,7 +29,7 @@ module.exports = {
     return response.json(news);
   },
   async getAll(request, response){
-    const allNews = await News.findAll();
+    const allNews = await model.findAll();
 
     return response.json(allNews);
   },
@@ -37,7 +37,7 @@ module.exports = {
   async getNewsById(request, response){
     const { news_id }= request.params;
 
-    const news = await News.findOne({
+    const news = await model.findOne({
       where: {
         news_id
       }
@@ -50,7 +50,7 @@ module.exports = {
     const { news_id } = request.params;
     const { title, subtitle, text, image1, image2, image3 } = request.body;
 
-    const news = await News.update({
+    const news = await model.update({
       news_id,
       title,
       subtitle,
@@ -70,7 +70,7 @@ module.exports = {
   async patchNewsById(request, response) {
     const { news_id } = request.params;
 
-    const news = await News.update(request.body, {
+    const news = await model.update(request.body, {
       where: {
         news_id
       }
@@ -82,7 +82,7 @@ module.exports = {
   async deleteNewsById(request, response) {
     const { news_id } = request.params;
 
-    const news = await News.destroy({
+    const news = await model.destroy({
       where: {
         news_id
       }
