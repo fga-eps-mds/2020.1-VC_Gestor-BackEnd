@@ -45,9 +45,16 @@ const getAllNews = function(findAll) {
   });
 };
 
+const getNewsByTitle = function(findOneWithTitle) {
+  return new Promise(function(resolve) {
+    resolve(findOneWithTitle);
+  });
+};
+
 module.exports.findOneWithTitle = findOneWithTitle;
 module.exports.findOneWithNewsId = findOneWithNewsId;
 module.exports.findAll = findAll;
 module.exports.createNews = createNews;
 module.exports.getAllNews = getAllNews;
+module.exports.getNewsByTitle = getNewsByTitle;
 

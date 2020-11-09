@@ -29,7 +29,8 @@ module.exports = {
     var news;
 
     if("stubPost" in request) {
-      news = await request.stubPost;
+      if(request.stubPost.news_id === news_id) news = request.stubPost;
+      else news = false;
     } else {
       news = await newsService.findOneWithNewsId(news_id);
     }
@@ -47,7 +48,8 @@ module.exports = {
     var news;
     var updatedNews;
     if("stubPost" in request) {
-      news = request.stubPost;
+      if(request.stubPost.news_id === news_id) news = request.stubPost;
+      else news = false;
     } else {
       news = await newsService.findOneWithNewsId(news_id);
     }
@@ -91,7 +93,8 @@ module.exports = {
     const { news_id } = request.params;
     var news;
     if("stubPost" in request) {
-      news = request.stubPost;
+      if(request.stubPost.news_id === news_id) news = request.stubPost;
+      else news = false;
     } else {
       news = await newsService.findOneWithNewsId(news_id);
     }
