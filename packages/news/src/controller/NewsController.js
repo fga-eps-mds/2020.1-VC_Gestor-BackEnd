@@ -5,8 +5,15 @@ module.exports = {
 
   async create(request, response) {
     const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
+    var checkNewsExists;
 
-    const checkNewsExists = await newsService.findOneWithTitle(title);
+    if("stubPost" in request) {
+      if(request.stubPost.title === title) checkNewsExists = true;
+      else checkNewsExists = false;
+    } else {
+      checkNewsExists = await newsService.findOneWithTitle(title);
+    }
+    
     if (checkNewsExists) {
       return response.status(400).json({ error: "Essa notícia já existe!" });
     }

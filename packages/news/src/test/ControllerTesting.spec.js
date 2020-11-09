@@ -92,7 +92,7 @@ describe("Controller", function(){
                 response = {json: sinon.stub()};
                 const news = await controller.getNewsById(request, response);
             });
-            it("Should delete news by an id", () => {
+            it("Should delete news by an id", async () => {
                 sinon.assert.fail("Tem que fazer");
             });
             it("Should update news by an id", () => {
@@ -111,7 +111,23 @@ describe("Controller", function(){
                 sinon.assert.fail("Tem que fazer");
             })
             it("Should not create a news with the same title", function() {
-                sinon.assert.fail("Tem que fazer");
+                var request;
+                var response;
+                request = {body: { 
+                    title: "Racha de carro",
+                    subtitle: "Subtitulo teste",
+                    text: "imagem",
+                    image1: "testeImagem1",
+                    image2: "testeImagem1",
+                    image3: "testeImagem1",
+                    post_id: 4,
+                }, stubPost: oneNews};
+                response = {json: sinon.stub()};
+                return controller.create(request, response).catch((error) => {
+                    if (typeof error === "object") {
+                        return true; // se existe
+                    } 
+                }).should.eventually.equal(true);
             })
         });
         describe("CRUD errors", function() {
