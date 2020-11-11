@@ -9,7 +9,7 @@ newsRouter.post("/", NewsController.create);
 
 newsRouter.get("/:news_id", NewsController.getNewsById);
 newsRouter.put("/:news_id", NewsController.putNewsById);
-newsRouter.patch("/:news_id", NewsController.patchNewsById);
+//newsRouter.patch("/:news_id", NewsController.patchNewsById);
 
 newsRouter.delete("/:news_id", NewsController.deleteNewsById);
 

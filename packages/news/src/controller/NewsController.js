@@ -25,16 +25,16 @@ module.exports = {
       });
 
       createdNews.save()
-      .then( newNews => {
+      .then( (newNews) => {
         return response.send(newNews);
       })
-      .catch(err => {
+      .catch((err) => {
         response.status(500).send({
           message: err.message || "Error at creation of news."
-        })
+        });
       });
     })
-    .catch(err => {
+    .catch((err) => {
       if(err.kind === "ObjectId") {
         return response.status(404).send({
           message: "Title not found"
@@ -47,14 +47,14 @@ module.exports = {
   },
   // Busca todas as notícias
   getAllNews(req, res){
-    News.findAll().then(news => {
+    News.findAll().then((news) => {
       if(!news) {
         return res.status(404).send({
           message: "No news found"
         });
       }
       res.send(news);
-    }).catch(err => {
+    }).catch((err) => {
       if(err.kind === "ObjectId") {
         return res.status(404).send({
           message: "No news found"
@@ -66,24 +66,24 @@ module.exports = {
     })
   },
   // Busca uma notícia pelo Id dela
-  getNewsById(req, res){
-    noticia = req.params.news_id;
-    News.findOne({ where: { news_id: noticia }})
-    .then(news => {
+  getNewsById(request, response){
+    const { news_id } = request.params;
+    News.findOne({ where: { news_id }})
+    .then((news) => {
         if(!news) {
-            return res.status(404).send({
-                message: "Note not found with id " + req.params.news_id
+            return response.status(404).send({
+                message: "Note not found with id " + request.params.news_id
             });            
         }
-        res.send(news);
-    }).catch(err => {
-        if(err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "Note not found with id " + req.params.news_id
+        response.send(news);
+    }).catch((err) => {
+        if(err.kind === "ObjectId") {
+            return response.status(404).send({
+                message: "Note not found with id " + request.params.news_id
             });                
         }
-        return res.status(500).send({
-            message: "Error retrieving note with id " + req.params.news_id
+        return response.status(500).send({
+            message: "Error retrieving note with id " + request.params.news_id
         });
     });
   },
@@ -93,7 +93,7 @@ module.exports = {
     const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
 
     News.findOne({ where: { news_id }})
-    .then(news => {
+    .then((news) => {
       if(!news) {
         return response.status(404).send({
           message: "News not found"
@@ -116,8 +116,8 @@ module.exports = {
       });
       response.send(news);
     })
-    .catch(err => {
-      if(err.kind === 'ObjectId') {
+    .catch((err) => {
+      if(err.kind === "ObjectId") {
           return res.status(404).send({
             message: "News not found"
           });                
@@ -128,23 +128,24 @@ module.exports = {
     });
   },
 
-  async patchNewsById(request, response) {
-    const { news_id } = request.params;
+  // async patchNewsById(request, response) {
+  //   const { news_id } = request.params;
 
-    const news = await News.update(request.body, {
-      where: {
-        news_id
-      }
-    });
+  //   const news = await News.update(request.body, {
+  //     where: {
+  //       news_id
+  //     }
+  //   });
 
-    return response.json(news);
-  },
+  //   return response.json(news);
+  // },
+
   // Deleta as notícias
   deleteNewsById(request, response) {
     const { news_id } = request.params;
 
     News.findOne({ where: {news_id} })
-    .then( news => {
+    .then( (news) => {
       if(!news) {
         response.status(404).send({
           message: "News not found"
@@ -154,8 +155,8 @@ module.exports = {
       news.destroy({ where: {news_id} });
       return response.json({message: "News deleted"});
     })
-    .catch(err => {
-      if(err.kind === 'ObjectId') {
+    .catch((err) => {
+      if(err.kind === "ObjectId") {
           return response.status(404).send({
             message: "News not found"
           });                
