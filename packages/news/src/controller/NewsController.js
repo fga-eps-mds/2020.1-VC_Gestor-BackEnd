@@ -7,7 +7,7 @@ module.exports = {
     var createdNews;
 
     News.findOne({ where: { title }})
-    .then( news => {
+    .then( (news) => {
       if(news) {
         return response.status(404).send({
           message: "News already with this title"
@@ -38,7 +38,7 @@ module.exports = {
       if(err.kind === "ObjectId") {
         return response.status(404).send({
           message: "Title not found"
-        })
+        });
       }
       return response.status(500).send({
         message: "Error retrieving news title"
@@ -118,11 +118,11 @@ module.exports = {
     })
     .catch((err) => {
       if(err.kind === "ObjectId") {
-          return res.status(404).send({
+          return response.status(404).send({
             message: "News not found"
           });                
       }
-      return res.status(500).send({
+      return response.status(500).send({
         message: "News not found"
       });
     });

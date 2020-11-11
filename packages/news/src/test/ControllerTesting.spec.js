@@ -40,7 +40,7 @@ const oneNews = {
         image2: "testeImagem1",
         image3: "testeImagem1",
         post_id: 2
-    }
+    };
 
 const updateNews = {
     "news_id": 1,
@@ -175,7 +175,7 @@ const stub = {
 //     })
 // })
 
-describe('get single note', function() {
+describe("get single note", function() {
     it("get single note from database", function(done) {
       var note = {};
       // before each is set up function for tests, it sets the initial data
