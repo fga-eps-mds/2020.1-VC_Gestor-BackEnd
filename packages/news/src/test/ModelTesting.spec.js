@@ -11,8 +11,6 @@ chai.use(chaiAsPromised);
 chai.should();
 
 const {
-    sequelize,
-    dataTypes,
     checkPropertyExists,
   } = require("sequelize-test-helpers");
 
@@ -20,8 +18,7 @@ const NewsModel = require("../models/news");
 
 describe("Model", function() {
     describe("News Instance Testing", function() {
-        const Model = NewsModel(sequelize, dataTypes);
-        const instance = new Model();
+        const instance = new NewsModel;
 
         context("Post Properties", () => {
             ["news_id", "title", "subtitle", "text", 

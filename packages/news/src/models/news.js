@@ -5,7 +5,6 @@ const sequelize = new Sequelize(db);
 
 const dataTypes = DataTypes;
 
-const model = (sequelize, DataTypes) => {
   const News = sequelize.define("new", 
     {
       news_id: {
@@ -46,7 +45,6 @@ const model = (sequelize, DataTypes) => {
       sequelize,
       schema: "news"
   });
-  return News;
-};
 
-module.exports = model;
+
+module.exports = News;

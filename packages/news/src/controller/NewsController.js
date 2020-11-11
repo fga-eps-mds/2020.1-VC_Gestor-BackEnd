@@ -1,71 +1,106 @@
-const model = require("../models/news");
-const newsService = require("../controller/newsService");
+const News = require("../models/news");
 
 module.exports = {
-
-  async create(request, response) {
+  // Criação de uma notícia
+  create(request, response) {
     const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
-    var checkNewsExists;
+    var createdNews;
 
-    if("stubPost" in request) {
-      if(request.stubPost.title === title) checkNewsExists = true;
-      else checkNewsExists = false;
-    } else {
-      checkNewsExists = await newsService.findOneWithTitle(title);
-    }
-    
-    if (checkNewsExists) {
-      return response.status(400).json({ error: "Essa notícia já existe!" });
-    }
+    News.findOne({ where: { title }})
+    .then( news => {
+      if(news) {
+        return response.status(404).send({
+          message: "News already with this title"
+        });
+      }
 
-    const news = await newsService.createNews(title, subtitle, text, image1, image2, image3, post_id);
+      createdNews = News.build({
+        title,
+        subtitle,
+        text,
+        image1,
+        image2,
+        image3,
+        post_id
+      });
 
-    await news.save();
-
-    return response.json(news);
-  },
-
-  async getAll(request, response){
-    newsService.getAllNews(newsService.findAll()).then(function(news) {
-      return response.json(news);
+      createdNews.save()
+      .then( newNews => {
+        return response.send(newNews);
+      })
+      .catch(err => {
+        response.status(500).send({
+          message: err.message || "Error at creation of news."
+        })
+      });
+    })
+    .catch(err => {
+      if(err.kind === "ObjectId") {
+        return response.status(404).send({
+          message: "Title not found"
+        })
+      }
+      return response.status(500).send({
+        message: "Error retrieving news title"
+      });
     });
   },
-
-  async getNewsById(request, response){
-    const { news_id }= request.params;
-    var news;
-
-    if("stubPost" in request) {
-      if(request.stubPost.news_id === news_id) news = request.stubPost;
-      else news = false;
-    } else {
-      news = await newsService.findOneWithNewsId(news_id);
-    }
-    
-    if (!news) {
-      return response.status(400).json({error: "News not found"});
-    }
-
-    return response.json(news);
+  // Busca todas as notícias
+  getAllNews(req, res){
+    News.findAll().then(news => {
+      if(!news) {
+        return res.status(404).send({
+          message: "No news found"
+        });
+      }
+      res.send(news);
+    }).catch(err => {
+      if(err.kind === "ObjectId") {
+        return res.status(404).send({
+          message: "No news found"
+        })
+      }
+      return res.status(500).send({
+        message: "Error retrieving news"
+      });
+    })
   },
-  
-  async putNewsById(request, response) {
+  // Busca uma notícia pelo Id dela
+  getNewsById(req, res){
+    noticia = req.params.news_id;
+    News.findOne({ where: { news_id: noticia }})
+    .then(news => {
+        if(!news) {
+            return res.status(404).send({
+                message: "Note not found with id " + req.params.news_id
+            });            
+        }
+        res.send(news);
+    }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Note not found with id " + req.params.news_id
+            });                
+        }
+        return res.status(500).send({
+            message: "Error retrieving note with id " + req.params.news_id
+        });
+    });
+  },
+  // Atualiza as notícias pelo Id de notícias
+  putNewsById(request, response) {
     const { news_id } = request.params;
     const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
-    var news;
-    var updatedNews;
-    if("stubPost" in request) {
-      if(request.stubPost.news_id === news_id) news = request.stubPost;
-      else news = false;
-    } else {
-      news = await newsService.findOneWithNewsId(news_id);
-    }
-    
-    if (!news) {
-      return response.status(400).json({error: "News not found"});
-    }
 
-    await news.update({
+    News.findOne({ where: { news_id }})
+    .then(news => {
+      if(!news) {
+        return response.status(404).send({
+          message: "News not found"
+        });
+      }
+
+      news.update({
         news_id,
         title,
         subtitle,
@@ -78,16 +113,25 @@ module.exports = {
         where: {
           news_id
         }
+      });
+      response.send(news);
+    })
+    .catch(err => {
+      if(err.kind === 'ObjectId') {
+          return res.status(404).send({
+            message: "News not found"
+          });                
       }
-    );
-
-    return response.json(news);
+      return res.status(500).send({
+        message: "News not found"
+      });
+    });
   },
 
   async patchNewsById(request, response) {
     const { news_id } = request.params;
 
-    const news = await model.update(request.body, {
+    const news = await News.update(request.body, {
       where: {
         news_id
       }
@@ -95,25 +139,30 @@ module.exports = {
 
     return response.json(news);
   },
-
-  async deleteNewsById(request, response) {
+  // Deleta as notícias
+  deleteNewsById(request, response) {
     const { news_id } = request.params;
-    var news;
-    if("stubPost" in request) {
-      if(request.stubPost.news_id === news_id) news = request.stubPost;
-      else news = false;
-    } else {
-      news = await newsService.findOneWithNewsId(news_id);
-    }
-    
-    if (!news) {
-      return response.status(400).json({error: "News not found"});
-    }
 
-    await news.destroy({
-      where: { news_id },
-    });;
+    News.findOne({ where: {news_id} })
+    .then( news => {
+      if(!news) {
+        response.status(404).send({
+          message: "News not found"
+        });
+      }
 
-    return response.json({message: "News deleted"});
+      news.destroy({ where: {news_id} });
+      return response.json({message: "News deleted"});
+    })
+    .catch(err => {
+      if(err.kind === 'ObjectId') {
+          return response.status(404).send({
+            message: "News not found"
+          });                
+      }
+      return response.status(500).send({
+        message: "News not found"
+      });
+    });
   }
 };
