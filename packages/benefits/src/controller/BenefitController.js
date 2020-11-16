@@ -3,26 +3,65 @@ const Benefit = require("../models/benefit");
 
 module.exports = {
 
-  async index(request, response) {
-    const allBenefits = await Benefit.findAll();
-
-    return response.json(allBenefits);
+  index(request, response){
+    Benefit.findAll().then((benefit) => {
+      if(!benefit) {
+        return response.status(404).send({
+          message: "No benefit found"
+        });
+      }
+      response.send(benefit);
+    }).catch((err) => {
+      if(err.kind === "ObjectId") {
+        return response.status(404).send({
+          message: "No benefit found"
+        })
+      }
+      return response.status(500).send({
+        message: "Error retrieving benefit"
+      });
+    })
   },
   
-  async createBenefit(request, response) {
+  createBenefit(request, response) {
     const { title, description, price, redeem_way, quantity } = request.body;
+    var newBenefit;
 
-    const newBenefit = Benefit.build({
-      title,
-      description,
-      price,
-      redeem_way,
-      quantity
+    Benefit.findOne({ where: { title }})
+    .then( (benefit) => {
+      if(benefit) {
+        return response.stats(404).send({
+          message: "Benefit already with this title"
+        });
+      }
+
+      newBenefit = Benefit.build({
+        title,
+        description,
+        price,
+        redeem_way,
+        quantity
+      });
+      newBenefit.save()
+      .then( (createdBenefit) => {
+        return response.send(createdBenefit);
+      })
+      .catch((err) => {
+        response.status(500).send({
+          message: err.message || "Error at creation of benefit."
+        });
+      });
+    })
+    .catch((err) => {
+      if(err.kind === "ObjectId") {
+        return response.status(404).send({
+          message: "Title not found"
+        });
+      }
+      return response.status(500).send({
+        message: "Error retrieving benefit title"
+      });
     });
-
-    await newBenefit.save();
-
-    return response.json(newBenefit);
   },
 
   async deleteAllBenefits(request, response) {
@@ -33,37 +72,27 @@ module.exports = {
 
     return response.json("Todos os benefícios foram deletados!");
   },
-  
-  async getBenefitById(request, response) {
+
+  getBenefitById(request, response){
     const { benefit_id } = request.params;
-    
-    const benefit = await Benefit.findOne({
-      where: {
-        benefit_id
-      }
+    Benefit.findOne({ where: { benefit_id }})
+    .then((benefit) => {
+        if(!benefit) {
+            return response.status(404).send({
+                message: "Benefit not found with id "
+            });            
+        }
+        response.send(benefit);
+    }).catch((err) => {
+        if(err.kind === "ObjectId") {
+            return response.status(404).send({
+                message: "Benefit not found with id "
+            });                
+        }
+        return response.status(500).send({
+            message: "Error benefit not found with id "
+        });
     });
-
-    return response.json(benefit);
-  },
-  
-  async putBenefitById(request, response) {
-    const { benefit_id } = request.params;
-    const { title, description, price, redeem_way, quantity } = request.body;
-
-    const benefit = await Benefit.update({
-      benefit_id,
-      title,
-      description,
-      price,
-      redeem_way,
-      quantity
-    }, {
-      where: {
-        benefit_id
-      }
-    });
-
-    return response.json(benefit);
   },
 
   async patchBenefitById(request, response) {
@@ -78,17 +107,68 @@ module.exports = {
     return response.json(benefit);
   },
 
+  putBenefitById(request, response) {
+    const { benefit_id } = request.params;
+    const { title, description, price, redeem_way, quantity } = request.body;
 
-  
-  async deleteBenefitById(request, response) {
+    Benefit.findOne({ where: { benefit_id }})
+    .then((benefit) => {
+      if(!benefit) {
+        return response.status(404).send({
+          message: "Benefit not found"
+        });
+      }
+
+      benefit.update({
+        benefit_id,
+        title,
+        description,
+        price,
+        redeem_way,
+        quantity
+      }, {
+        where: {
+          benefit_id
+        }
+      });
+
+      response.send(benefit);
+    })
+    .catch((err) => {
+      if(err.kind === "ObjectId") {
+          return response.status(404).send({
+            message: "Benefit not found"
+          });                
+      }
+      return response.status(500).send({
+        message: "Benefit not found"
+      });
+    });
+  },
+
+  deleteBenefitById(request, response) {
     const { benefit_id } = request.params;
 
-    await Benefit.destroy({
-      where: {
-        benefit_id
+    Benefit.findOne({ where: {benefit_id} })
+    .then( (benefit) => {
+      if(!benefit) {
+        response.status(404).send({
+          message: "Benefit not found"
+        });
       }
-    });
 
-    return response.json("Os benefício foi deletado!");
-  },
+      benefit.destroy({ where: {benefit_id} });
+      return response.json({message: "Benefit deleted"});
+    })
+    .catch((err) => {
+      if(err.kind === "ObjectId") {
+          return response.status(404).send({
+            message: "Benefit not found"
+          });                
+      }
+      return response.status(500).send({
+        message: "Benefit not found at database"
+      });
+    });
+  }
 };
