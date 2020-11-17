@@ -37,7 +37,7 @@ module.exports = {
         return response.status(404).send({message: "No post found"});
       }
       return response.status(500).send({message: "Error retrieving post"});
-    })
+    });
   },
   
   // Mostrar um post por ID

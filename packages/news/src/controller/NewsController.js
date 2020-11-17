@@ -48,7 +48,7 @@ module.exports = {
       return res.status(500).send({
         message: "Error retrieving news"
       });
-    })
+    });
   },
   // Busca uma notícia pelo Id dela
   getNewsById(request, response){

@@ -20,7 +20,7 @@ module.exports = {
       return response.status(500).send({
         message: "Error retrieving benefit"
       });
-    })
+    });
   },
   
   createBenefit(request, response) {

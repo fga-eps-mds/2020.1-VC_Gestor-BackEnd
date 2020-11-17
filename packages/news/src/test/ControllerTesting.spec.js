@@ -67,14 +67,14 @@ describe("Controllers", function() {
 
       newsMock.expects("save").yields(null, news);
 
-      News.create({ request: request, response: response}, function(err, result){
+      News.create({ request, response}, function(err, result){
         newsMock.verify();
         newsMock.restore();
         expect(result).to.be.equal(news);
       });
 
       done();
-    })
+    });
     it("Should update news", function(done) {
             
       var newsMock = sinon.mock(new News({
