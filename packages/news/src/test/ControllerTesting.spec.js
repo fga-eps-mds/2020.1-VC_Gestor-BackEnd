@@ -95,8 +95,8 @@ describe("Controllers", function() {
         newsMock.verify();
         newsMock.restore();
         done();
-      })  
-    })
+      });
+    });
     it("Should delete news", function(done) {
       var newsMock = sinon.mock(new News({
         title: "Teste de criação",
@@ -117,7 +117,7 @@ describe("Controllers", function() {
         newsMock.restore();
         done();
       });
-    })
+    });
   });
 
 });
