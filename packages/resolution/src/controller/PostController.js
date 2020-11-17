@@ -1,8 +1,17 @@
-const model = require("../models/post");
-const postService = require("../controller/postService");
+const Post = require("../models/post");
+
 const db = require("../config/database");
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(db);
+
+const SequelizeSelect = {
+  attributes: { include: [[
+    sequelize.literal(`
+    (SELECT COUNT(*) FROM resolution.votes WHERE votes.post_id = post.post_id)
+    `), "likes"
+  ]]},
+  include: [ "user", "category", "place" ]
+};
 
 module.exports = {
   
@@ -11,7 +20,7 @@ module.exports = {
     const { limit, page } = request.query;
     var limitpages = limit;
     var offsetPerPage = page*limit;
-    model.findAndCountAll(
+    Post.findAndCountAll(
       {
         attributes: { include: [[
           sequelize.literal(`
@@ -34,14 +43,7 @@ module.exports = {
   // Mostrar um post por ID
   postById(request, response){
     const { post_id } = request.params;
-    model.findByPk(post_id, {
-      attributes: { include: [[
-        sequelize.literal(`
-        (SELECT COUNT(*) FROM resolution.votes WHERE votes.post_id = post.post_id)
-        `), "likes"
-      ]]},
-      include: [ "user", "category", "place" ]
-    })
+    Post.findByPk(post_id, SequelizeSelect)
     .then((post) => { if(!post) {
       return response.status(404).send({message: "Post not found with id "});            
     }
@@ -60,13 +62,7 @@ statusChange(request, response) {
   const { status } = request.body;
   const postStatus = status;
   
-  model.findByPk(post_id, {
-    attributes: { include: [[
-      sequelize.literal(`
-      (SELECT COUNT(*) FROM resolution.votes WHERE votes.post_id = post.post_id)
-      `), "likes"
-    ]]}, include: [ "user", "category", "place" ]
-  })
+  Post.findByPk(post_id, SequelizeSelect)
   .then((post) => { if(!post) {
     return response.status(404).send({message: "Post not found with id "});            
   }

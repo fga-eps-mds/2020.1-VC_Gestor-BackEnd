@@ -112,9 +112,8 @@ module.exports = {
 
   // Deleta as notícias
   deleteNewsById(request, response) {
-    const { news_id } = request.params;
 
-    News.findOne({ where: {news_id} })
+    News.findOne({ where: {news_id: request.params.news_id } })
     .then( (news) => {
       if(!news) {
         response.status(404).send({
@@ -122,8 +121,10 @@ module.exports = {
         });
       }
 
-      news.destroy({ where: {news_id} });
-      return response.json({message: "News deleted"});
+      news.destroy({ where: {news_id: request.params.news_id} }).then( (DeletedNews) => {
+        return response.json(DeletedNews);
+      });
+
     })
     .catch((err) => {
       if(err.kind === "ObjectId") {
