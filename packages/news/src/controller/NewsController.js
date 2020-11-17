@@ -3,46 +3,31 @@ const News = require("../models/news");
 module.exports = {
   // Criação de uma notícia
   create(request, response) {
-    const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
-    var createdNews;
 
-    News.findOne({ where: { title }})
-    .then( (news) => {
-      if(news) {
-        return response.status(404).send({
-          message: "News already with this title"
-        });
+    News.findOne({ where: { title: request.body.title }}).then( (news) => {
+      if(news) { return response.status(404).send( {
+        message: "News already with this title" });
       }
 
-      createdNews = News.build({
-        title,
-        subtitle,
-        text,
-        image1,
-        image2,
-        image3,
-        post_id
+      const createdNews = News.build({
+        title: request.body.title,
+        subtitle: request.body.subtitle,
+        text: request.body.text,
+        image1: request.body.image1,
+        image2: request.body.image2,
+        image3: request.body.image3,
+        post_id: request.body.post_id
       });
 
-      createdNews.save()
-      .then( (newNews) => {
-        return response.send(newNews);
-      })
-      .catch((err) => {
+      createdNews.save().then( (newNews) => { return response.send(newNews); }
+      ).catch((err) => {
         response.status(500).send({
-          message: err.message || "Error at creation of news."
-        });
+          message: err.message || "Error at creation of news." });
       });
-    })
-    .catch((err) => {
-      if(err.kind === "ObjectId") {
-        return response.status(404).send({
-          message: "Title not found"
-        });
+    }).catch((err) => { if(err.kind === "ObjectId") {
+        return response.status(404).send({ message: "Title not found" });
       }
-      return response.status(500).send({
-        message: "Error retrieving news title"
-      });
+      return response.status(500).send({message: "Error retrieving news title"});
     });
   },
   // Busca todas as notícias
@@ -58,7 +43,7 @@ module.exports = {
       if(err.kind === "ObjectId") {
         return res.status(404).send({
           message: "No news found"
-        })
+        });
       }
       return res.status(500).send({
         message: "Error retrieving news"
@@ -89,42 +74,27 @@ module.exports = {
   },
   // Atualiza as notícias pelo Id de notícias
   putNewsById(request, response) {
-    const { news_id } = request.params;
-    const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
 
-    News.findOne({ where: { news_id }})
+    News.findOne({ where: { news_id: request.params.news_id }})
     .then((news) => {
-      if(!news) {
-        return response.status(404).send({
-          message: "News not found"
-        });
-      }
+      if(!news) { return response.status(404).send({message: "News not found"});}
 
       news.update({
-        news_id,
-        title,
-        subtitle,
-        text, 
-        image1,
-        image2, 
-        image3,
-        post_id
-      }, {
-        where: {
-          news_id
-        }
-      });
+        news_id: request.params.news_id,
+        title: request.body.title,
+        subtitle: request.body.subtitle,
+        text: request.body.text,
+        image1: request.body.image1,
+        image2: request.body.image2,
+        image3: request.body.image3,
+        post_id: request.body.post_id
+      }, { where: { news_id: request.params.news_id } });
       response.send(news);
     })
-    .catch((err) => {
-      if(err.kind === "ObjectId") {
-          return response.status(404).send({
-            message: "News not found"
-          });                
+    .catch((err) => {if(err.kind === "ObjectId") {
+          return response.status(404).send({message: "News not found"});                
       }
-      return response.status(500).send({
-        message: "News not found"
-      });
+      return response.status(500).send({message: "News not found"});
     });
   },
 

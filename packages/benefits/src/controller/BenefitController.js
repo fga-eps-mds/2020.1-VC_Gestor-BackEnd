@@ -15,7 +15,7 @@ module.exports = {
       if(err.kind === "ObjectId") {
         return response.status(404).send({
           message: "No benefit found"
-        })
+        });
       }
       return response.status(500).send({
         message: "Error retrieving benefit"
@@ -74,8 +74,7 @@ module.exports = {
   },
 
   getBenefitById(request, response){
-    const { benefit_id } = request.params;
-    Benefit.findOne({ where: { benefit_id }})
+    Benefit.findOne({ where: request.params.benefit_id })
     .then((benefit) => {
         if(!benefit) {
             return response.status(404).send({

@@ -60,18 +60,18 @@ describe("Controllers", function() {
         } 
       };
 
-      var response = {}
+      var response = {};
       
       var newsMock = sinon.mock(news);
-      var news = newsMock.object;
+      news = newsMock.object;
 
-      newsMock.expects('save').yields(null, news);
+      newsMock.expects("save").yields(null, news);
 
       News.create({ request: request, response: response}, function(err, result){
         newsMock.verify();
         newsMock.restore();
         expect(result).to.be.equal(news);
-      })
+      });
 
       done();
     })
@@ -89,7 +89,7 @@ describe("Controllers", function() {
 
       var news = newsMock.object;
 
-      newsMock.expects('save').withArgs({news_id: 1}).yields(null, 'news');
+      newsMock.expects("save").withArgs({news_id: 1}).yields(null, "news");
 
       news.save({news_id: 1}, function(err, result){
         newsMock.verify();
@@ -110,7 +110,7 @@ describe("Controllers", function() {
       
       var note = newsMock.object;
 
-      newsMock.expects('destroy').withArgs({news_id: 1}).yields(null, 'Delete');
+      newsMock.expects("destroy").withArgs({news_id: 1}).yields(null, "Delete");
 
       note.destroy({news_id: 1}, function(err, result){
         newsMock.verify();
