@@ -19,6 +19,7 @@ services:
                 ipv4_address: 172.25.0.2
 
     user:
+        image: guilhermeaguiar/user
         build: 
             context: .
             dockerfile: packages/user/Dockerfile
@@ -36,6 +37,7 @@ services:
           
         restart: 'no'
     resolution:
+        image: guilhermeaguiar/resolution
         build:      
             context: .
             dockerfile: packages/resolution/Dockerfile
@@ -52,6 +54,7 @@ services:
                 ipv4_address: 172.25.0.4 
         restart: 'no'
     benefits:
+        image: guilhermeaguiar/benefits
         build:      
             context: .
             dockerfile: packages/benefits/Dockerfile
@@ -68,10 +71,7 @@ services:
                 ipv4_address: 172.25.0.6 
         restart: 'no'
     news:
-        build:      
-            context: .
-            dockerfile: packages/news/Dockerfile
-        container_name: news1
+        image: guilhermeaguiar/news
         volumes:
             - ./packages/news/:/usr/src/app/news
             - /usr/src/app/news/node_modules

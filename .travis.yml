@@ -2,15 +2,16 @@ language: node_js
 node_js:
     - "node"
 
+services:
+    - docker
+
 notifications:
     email: false
 
 branches:
     only:
         - master
-        - development
-        - unit_tests
-        - Issue_145-NewsTest
+        - development    
 
 matrix:
     include:
@@ -20,3 +21,10 @@ matrix:
         - env: TARGET=packages/news
 
 script: cd $TARGET && npm install && npm run test;
+
+deploy:
+    # Build Docker container and push to Docker Hub
+    provider: script
+    script: bash deploy.sh
+    on:
+      branch: development
