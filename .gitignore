@@ -1,3 +1,8 @@
 node_modules/
 .vscode
 packages/user/src/controller/private.json
+.scannerwork/
+packages/news/.nyc_output/
+packages/resolution/.nyc_output/
+sonar-project.properties
+

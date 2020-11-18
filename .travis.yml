@@ -10,7 +10,7 @@ branches:
         - master
         - development
         - unit_tests
-        - Issue_128-ResetSenha
+        - Issue_145-NewsTest
 
 matrix:
     include:
