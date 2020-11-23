@@ -9,7 +9,7 @@ module.exports = {
       throw { message: "News already with this title" };
     }
 
-    news = await News.build({
+    news = await News.create({
       title: request.body.title,
       subtitle: request.body.subtitle,
       text: request.body.text,
@@ -18,8 +18,6 @@ module.exports = {
       image3: request.body.image3,
       post_id: request.body.post_id
     });
-
-    await news.save();
 
     return news;
   }

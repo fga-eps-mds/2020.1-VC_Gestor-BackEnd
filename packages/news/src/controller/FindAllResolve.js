@@ -5,10 +5,6 @@ module.exports = {
 
     const news = await News.findAll();
 
-    if(!news) {
-      throw { message: "No news found" };
-    }
-
     return news;
   }
 };

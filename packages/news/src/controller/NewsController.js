@@ -21,15 +21,12 @@ module.exports = {
 
   // Busca todas as notícias
   async getAllNews(request, response){
-    try {
-      const news = await FindAllResolve();
 
-      response.send(news);
-    } catch (err) {
-      return response.status(404).json(err);
-    }
+    const news = await FindAllResolve();
 
+    response.send(news);
   },
+  
   // Busca uma notícia pelo Id dela
   async getNewsById(request, response){
     try {
