@@ -2,6 +2,10 @@ language: node_js
 node_js:
 - node
 
+addons:
+  ssh_known_hosts:
+    - ec2-3-138-105-146.us-east-2.compute.amazonaws.com
+
 services:
 - docker
 
@@ -23,6 +27,9 @@ matrix:
 
 script: 
   - cd $TARGET && npm install && npm run test && chmod 400 deploy_rsa;
+
+before_script:
+  -
 
 deploy:
   provider: script
