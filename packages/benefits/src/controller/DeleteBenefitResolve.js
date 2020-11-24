@@ -13,4 +13,4 @@ module.exports = {
 
     return "O benefício foi deletado!";
   }
-}
+};

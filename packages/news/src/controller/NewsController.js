@@ -10,11 +10,11 @@ module.exports = {
   async create(request, response) {
 
     try {
-      const news = await CreateResolve(request);
+      const createdNews = await CreateResolve(request);
 
-      return response.json(news);
-    } catch(err) {
-      return response.status(404).json(err);
+      return response.json(createdNews);
+    } catch(errCreate) {
+      return response.status(404).json(errCreate);
     }
   
   },
@@ -22,20 +22,20 @@ module.exports = {
   // Busca todas as notícias
   async getAllNews(request, response){
 
-    const news = await FindAllResolve();
+    const allNews = await FindAllResolve();
 
-    response.send(news);
+    response.send(allNews);
   },
   
   // Busca uma notícia pelo Id dela
   async getNewsById(request, response){
     try {
-      const news = await FindByIdResolve(request);
+      const getOneNews = await FindByIdResolve(request);
 
-      return response.json(news);
+      return response.json(getOneNews);
   
-    } catch(err) {
-      return response.status(404).json(err);
+    } catch(errOne) {
+      return response.status(404).json(errOne);
     }
 
   },
@@ -44,11 +44,11 @@ module.exports = {
   async putNewsById(request, response) {
 
     try {
-      const news = await UpdateNewsResolve(request);
+      const updateNews = await UpdateNewsResolve(request);
 
-      return response.json(news);
-    } catch (err) {
-      return response.status(404).json(err);
+      return response.json(updateNews);
+    } catch (errUpdate) {
+      return response.status(404).json(errUpdate);
     }
 
   },
@@ -69,11 +69,11 @@ module.exports = {
   async deleteNewsById(request, response) {
 
     try {
-      const news = await DeleteNewsResolve(request);
+      const deletedNews = await DeleteNewsResolve(request);
     
-      return response.json(news);
-    } catch(err) {
-      return response.status(404).json(err);
+      return response.json(deletedNews);
+    } catch(errDelete) {
+      return response.status(404).json(errDelete);
     }
   }
 };

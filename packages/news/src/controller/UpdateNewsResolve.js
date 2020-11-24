@@ -3,6 +3,8 @@ const News = require("../models/news");
 module.exports = {
   async UpdateNewsResolve(request) {
 
+    const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
+
     var news = await News.findOne({ where: { news_id: request.params.news_id }});
 
     if(!news) { 
@@ -11,13 +13,13 @@ module.exports = {
 
     await News.update(
       {
-        title: request.body.title,
-        subtitle: request.body.subtitle,
-        text: request.body.text,
-        image1: request.body.image1,
-        image2: request.body.image2,
-        image3: request.body.image3,
-        post_id: request.body.post_id
+        title,
+        subtitle,
+        text,
+        image1,
+        image2,
+        image3,
+        post_id
       },
       {
         where: {
