@@ -12,6 +12,7 @@ notifications:
   only:
   - master
   - development
+  - Issue_156-ContinuousDelivery
 
 matrix:
   include:
