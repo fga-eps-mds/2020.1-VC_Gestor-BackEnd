@@ -8,21 +8,21 @@ const sequelize = new Sequelize(db);
 function generateGraphs(dataset) {
   let today = new Date().getTime();
   let dayAgo = new Date((new Date().getTime()) - 24 * 60 * 60 * 1000);
-  let countYear = [...Array(366).keys()].map((i) => { return [today-1000*60*60*24*Math.abs(i-365), 0] });
-  let countMonth = [...Array(31).keys()].map((i) => { return [today-1000*60*60*24*Math.abs(i-30), 0] });
-  let countWeek = [...Array(7).keys()].map((i) => { return [today-1000*60*60*24*Math.abs(i-6), 0] });
-  let countDay = [...Array(24).keys()].map((i) => { return [today-1000*60*60*Math.abs(i-23), 0] });
+  let countYear = [...Array(366).keys()].map((i) => { return [today-1000*60*60*24*Math.abs(i-365), 0]; });
+  let countMonth = [...Array(31).keys()].map((i) => { return [today-1000*60*60*24*Math.abs(i-30), 0]; });
+  let countWeek = [...Array(7).keys()].map((i) => { return [today-1000*60*60*24*Math.abs(i-6), 0]; });
+  let countDay = [...Array(24).keys()].map((i) => { return [today-1000*60*60*Math.abs(i-23), 0]; });
 
-  dataset.forEach((data) => { countYear[Math.abs(data.day - 365)][1]++});
+  dataset.forEach((data) => { countYear[Math.abs(data.day - 365)][1]++;});
 
-  dataset.filter(data => { return data.day < 31 })
-    .forEach((data) => { countMonth[Math.abs(data.day - 30)][1]++});
+  dataset.filter((data) => { return data.day < 31; })
+    .forEach((data) => { countMonth[Math.abs(data.day - 30)][1]++;});
 
-  dataset.filter(data => { return data.day < 7 })
-    .forEach((data) => { countWeek[Math.abs(data.day - 6)][1]++ });
+  dataset.filter((data) => { return data.day < 7; })
+    .forEach((data) => { countWeek[Math.abs(data.day - 6)][1]++; });
 
-  dataset.filter(data => { return data.date > dayAgo })
-    .forEach((data) => { countDay[data.date.getHours()][1]++ });
+  dataset.filter((data) => { return data.date > dayAgo })
+    .forEach((data) => { countDay[data.date.getHours()][1]++; });
 
   return { anual: countYear, mensal: countMonth, semanal: countWeek, diario: countDay };
 }
@@ -114,8 +114,7 @@ module.exports = {
 
   graphPosts(request, response) {
     let today = new Date();
-    let yearAgo = new Date(today.setFullYear(today.getFullYear() - 1))
-    let countYear;
+    let yearAgo = new Date(today.setFullYear(today.getFullYear() - 1));
     Post.findAll({
       where: {
         "dt_creation": {
@@ -129,9 +128,9 @@ module.exports = {
           date: post.dt_creation,
           day: ~~((Math.abs(post.dt_creation.getTime() - (new Date().getTime()))) / (1000 * 60 * 60 * 24)),
           status: post.status
-        }
-      })
-      
+        };
+      });
+
       return response.status(200).send({ message: "", data: generateGraphs(treatedDays) });
     }).catch((error) => {
       return response.status(500).send({ message: error });
@@ -157,10 +156,10 @@ module.exports = {
         }
       })
 
-      let andamento = treatedDays.filter(post => { return post.status === 'Em andamento' })
-      let aguardando = treatedDays.filter(post => { return post.status === 'Aguardando' })
-      let arquivados = treatedDays.filter(post => { return post.status === 'Arquivados' })
-      let resolvido = treatedDays.filter(post => { return post.status === 'Resolvido' })
+      let andamento = treatedDays.filter((post) => { return post.status === "Em andamento"; })
+      let aguardando = treatedDays.filter((post) => { return post.status === "Aguardando"; })
+      let arquivados = treatedDays.filter((post) => { return post.status === "Arquivados"; })
+      let resolvido = treatedDays.filter((post) => { return post.status === "Resolvido"; })
 
       return response.status(200).send({
         message: "",
