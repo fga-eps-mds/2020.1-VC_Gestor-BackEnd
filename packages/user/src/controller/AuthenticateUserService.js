@@ -1,5 +1,4 @@
 const User = require("../models/user");
-const { compare } = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
 const fs = require("fs");
 

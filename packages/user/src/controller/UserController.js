@@ -1,253 +1,61 @@
-const User = require("../models/user");
-const sequelize = require("sequelize");
-const { hash } = require("bcryptjs");
-const nodemailer = require("nodemailer");
-const crypto = require("crypto");
-const fs = require("fs");
-const jwt = require("jsonwebtoken");
-
-const { key, mainEmail, password } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
-
-function makeCode() {
-  const length = 8;
-  var result           = "";
-  const characters       = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  const charactersLength = characters.length;
-  for ( var i = 0; i < length; i++ ) {
-     result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-}
-
-function sign(base64){
-  return crypto.createHmac("sha256", key)
-    .update(base64)
-    .digest("hex");
-}
-
-function signBody(body){
-
-  const base64 = (new Buffer(JSON.stringify(body)).toString("base64"));
-
-  const hash = sign(base64);
-
-  return `${base64}.${hash}`;
-}
-
-function splitToken(token){
-  const splitedToken = token.split(".");
-  if(splitedToken.length!==2){
-    return {
-      body:{},
-      valid:false
-    };
-  }
-
-  return {
-    body: JSON.parse((new Buffer(splitedToken[0], "base64")).toString("ascii")),
-    valid: (splitedToken[1]===sign(splitedToken[0]))
-  };
-}
+const { GetUserByTokenResolve } = require("./GetUserByTokenResolve");
+const { EditUserResolve } = require("./EditUserResolve");
+const { ChangePasswordResolve } = require("./ChangePasswordResolve");
+const { CheckCodeResolve } = require("./CheckCodeResolve");
+const { SendEmailResolve } = require("./SendEmailResolve");
 
 module.exports = {
 
-  // Teste para criar um usuario
-  async create(request, response) {
-    const { userid, name, surname, password, username } = request.body;
-
-    const checkUserExists = await User.findOne({
-      where: { username },
-    });
-
-    if (checkUserExists) {
-      return response.status(400).json({ error: "Esse nome de usuário já existe!" });
-    }
-
-    const hashedPassword = await hash(password, 8);
-
-    const user = await User.build({
-      userid,
-      name,
-      surname,
-      password: hashedPassword,
-      username
-    });
-
-    await user.save();
-
-    return response.json(user);
-  },
-
-  // Adquirir um usuário por username
+  // Adquirir um usuário por token
   async getByToken(request, response) {
-    const { token } = request.body;
 
-    let user;
-
-    let a = jwt.verify(token, key, function(err, decoded) {
-      if (err){
-        return response.status(400).json({ "auth": false, "message": "Token Inválido, por favor faça login novamente." });
-      }
-      user = decoded;
-    });
-
-    const userDB = await User.findOne({
-      where: { username : user.username },
-    });
-
-    if (!userDB) {
-      return response.status(400).json({ error: "Token Inválido, por favor faça login novamente." });
+    try {
+      const user = await GetUserByTokenResolve(request);
+      return response.json(user);
+    } catch (erro) {
+      return response.status(404).json(erro);
     }
-
-    return response.status(200).json({
-      username: user.username,
-      name: user.name,
-      surname: user.surname,
-      email: user.email,
-    });
   },
 
-  // Adquirir um usuário por username
+  // Editar usúario
   async editUser(request, response) {
-    const { token, username, surname, name, email } = request.body;
-
-    let user;
-
-    let a = jwt.verify(token, key, function(err, decoded) {
-      if (err){
-        return response.status(400).json({ "auth": false, "message": "Token Inválido, por favor faça login novamente." });
-      }
-      user = decoded;
-    });
-
-    if((username===undefined)||(surname===undefined)||(name===undefined)||(email===undefined)){
-      return response.status(400).json({ error: "Token Inválido, por favor faça login novamente." });
+    
+    try {
+      const newToken = await EditUserResolve(request);
+      return response.status(200).json({ error: "", newToken });
+    } catch(err) {
+      return response.status(404).json(err);
     }
-    const userDB = await User.findOne({
-      where: { username : user.username },
-    });
-    if (!userDB) {
-      return response.status(400).json({ error: "Token Inválido, por favor faça login novamente." });
-    }
-
-    await userDB.update({
-      username,
-      surname,
-      name,
-      email,
-    });
-
-    const newToken = jwt.sign({
-      username: userDB.username,
-      name: userDB.name,
-      surname: userDB.surname,
-      email: userDB.email,
-    }, key);
-
-    response.status(200).json({ error: "", newToken });
-  },
-
-  // Adquirir um usuário por username
-  async getByUsername(request, response) {
-    const { username } = request.body;
-
-    const checkUserExists = await User.findOne({
-      where: { username },
-    });
-
-    if (!checkUserExists) {
-      return response.status(400).json({ error: "Esse nome de usuário não existe!" });
-    }
-
-    return response.json(checkUserExists);
   },
 
   async changePassword(request, response) {
-    const { newPassword, token } = request.body;
-
-    const { body, valid } = splitToken(token);
-
-    const user = await User.findOne({
-      where: { email: body.email }
-    });
-
-    if((!valid)&&(body.operation===1)){
-      return response.status(400).json({ error: "Erro inesperado, token de troca de senha inválido! Por favor, tente novamente." });
-    } else if((((new Date().getTime()) - body.date)/1000)>900){
-      return response.status(400).json({ error: "Troca de senha expirada!" });
-    } else if(!user) {
-      return response.status(400).json({ error: "Este email não existe!" });
+    try {
+      
+      const user = await ChangePasswordResolve(request);
+      response.json({ error: "" });
+      // response.status(200).json({ error: "" });
+    } catch (err) {
+      return response.status(404).json(err);
     }
-
-    user.update({
-      password:newPassword
-    });
-
-    response.status(200).json({ error: "" });
 
   },
 
   async checkCode(request, response) {
-    const { code, email } = request.body;
-
-    const user = await User.findOne({
-      where: { email },
-    });
-
-    if (!user) {
-      return response.status(400).json({ error: "Este email não existe!" });
-    } else if(code!==user.coderetrieve){
-      return response.status(400).json({ error: "Código incorreto" });
-    } else if((((new Date().getTime()) - user.dateretrive)/1000)>900){
-      return response.status(400).json({ error: "Código expirado" });
+    try {
+      const token = await CheckCodeResolve(request);
+      response.status(200).json(token);
+    } catch (err) {
+      return response.status(404).json(err);
     }
-
-    const body = {
-      email,
-      date: (new Date().getTime()),
-      operation: 1
-    };
-
-    response.status(200).json({ token: signBody(body) });
   },
 
   //Mandar código via email
   async sendEmail(request, response) {
-    const { email } = request.body;
-
-    const code = makeCode();
-
-    const user = await User.findOne({
-      where: { email },
-    });
-
-    if (!user) {
-      return response.status(400).json({ error: "Esse email não existe!" });
+    try {
+      const info = await SendEmailResolve(request);
+      return response.json(info);
+    } catch (err) {
+      return response.status(404).json(err);
     }
-
-    await user.update({coderetrieve:code, dateretrive: sequelize.fn("NOW")});
-
-    var transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: mainEmail,
-          pass: password
-        }
-      });
-
-      var mailOptions = {
-        from: mainEmail,
-        to: email,
-        subject: "Codigo de Recuperação de Senha Vamos Cuidar",
-        text: "Seu código de recuperação para o sistema vamos cuidar é: " + code.toString()
-      };
-
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          response.status(400).json({ error});
-        } else {
-          response.status(200).json({ error: "", info: info.response});
-        }
-      });
   },
 };
