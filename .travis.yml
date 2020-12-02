@@ -1,22 +1,35 @@
 language: node_js
 node_js:
-    - "node"
+- node
+
+addons:
+  ssh_known_hosts:
+    - ec2-3-138-105-146.us-east-2.compute.amazonaws.com
+
+services:
+- docker
 
 notifications:
-    email: false
+  email: false
 
-branches:
-    only:
-        - master
-        - development
-        - unit_tests
-        - Issue_145-NewsTest
+  branches:
+  only:
+  - master
+  - development
 
 matrix:
-    include:
-        - env: TARGET=packages/resolution
-        - env: TARGET=packages/user
-        - env: TARGET=packages/benefits
-        - env: TARGET=packages/news
+  include:
+  - env: TARGET=packages/resolution
+  - env: TARGET=packages/user
+  - env: TARGET=packages/benefits
+  - env: TARGET=packages/news
 
-script: cd $TARGET && npm install && npm run test;
+script: 
+  - cd $TARGET && npm install && npm run test && chmod 400 deploy_rsa;
+
+deploy:
+  provider: script
+  script: 
+    - bash deploy.sh
+  on:
+    branch: master
