@@ -13,24 +13,15 @@ module.exports = {
 
     const code = CryptoResolve.makeCode();
 
-    const user = await User.findOne({
-      where: { email },
-    });
+    const user = await User.findOne({where: { email },});
 
-    if (!user) {
-      throw { error: "Esse email não existe!" };
-    }
+    if (!user) {throw { error: "Esse email não existe!" };}
 
-    await User.update({
-        coderetrieve:code, dateretrive: sequelize.fn("NOW")
-      }, { where: { email } });
+    await User.update({coderetrieve:code, dateretrive: sequelize.fn("NOW")},{ where:{email}});
 
     var transporter = nodemailer.createTransport({
         service: "gmail",
-        auth: {
-          user: mainEmail,
-          pass: password
-        }
+        auth: { user: mainEmail, pass: password }
       });
 
       var mailOptions = {
@@ -41,12 +32,10 @@ module.exports = {
       };
 
       transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          throw ({ error });
-        } else {
+        if (error) { throw ({ error });} else {
           return ({ error: "", info: info.response});
         }
       });
 
   }
-}
+};

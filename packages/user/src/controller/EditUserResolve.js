@@ -18,27 +18,16 @@ module.exports = {
     // }
     // -------------------------------------------------------------------------
 
-    var userDB = await User.findOne({
-      where: { username : user.username },
-    });
+    var userDB = await User.findOne({where: { username : user.username },});
 
     if (user.username !== username) {
 
-      const checkSameUsername = await User.findOne({
-        where: { username : username },
-      });
+      const checkSameUsername = await User.findOne({ where: { username },});
 
-      if (checkSameUsername) {
-        throw { error: "Nome de usuário inválido!" };
-      }
+      if (checkSameUsername) { throw { error: "Nome de usuário inválido!" };}
     }
 
-    await User.update({
-      username,
-      surname,
-      name,
-      email,
-    }, { 
+    await User.update({ username, surname, name, email,}, { 
       where: { username : user.username }
     });
 
@@ -56,4 +45,4 @@ module.exports = {
     return newToken;
     
   }
-}
+};

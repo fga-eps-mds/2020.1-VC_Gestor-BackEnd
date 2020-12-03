@@ -24,7 +24,7 @@ module.exports = {
       name: user.name,
       surname: user.surname,
       email: user.email,
-    }
+    };
 
     return userResponse;
     

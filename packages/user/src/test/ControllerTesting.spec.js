@@ -37,16 +37,16 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         iat: 1606760780
-      }
+      };
 
       const userDB = {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
         email: "test@test.com"
-      }
+      };
 
       const stubPrivate = sinon.stub(fs, "readFileSync");
       stubPrivate.withArgs("./src/controller/private.json").returns(privateFake);
@@ -78,9 +78,9 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         iat: 1606760780
-      }
+      };
 
       const userDB = null;
 
@@ -120,7 +120,7 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         password: "123456",
       };
 
@@ -179,7 +179,7 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         password: "654321",
       };
 
@@ -211,7 +211,7 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         password: "123456",
       };
 
@@ -219,14 +219,14 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
       };
 
       const userUpdated = {
         username: "UsernameTest",
         name: "TestName2",
         surname: "TestSurname2",
-        email: 'test2@test.com',
+        email: "test2@test.com",
       };
 
       const token = "umToken";
@@ -271,7 +271,7 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         password: "123456",
       };
 
@@ -279,14 +279,14 @@ describe("Controllers",function() {
         username: "UsernameTest2",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
       };
 
       const userUpdated = {
         username: "UsernameTest2",
         name: "TestName2",
         surname: "TestSurname2",
-        email: 'test2@test.com',
+        email: "test2@test.com",
       };
 
       const token = "umToken";
@@ -333,7 +333,7 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         password: "123456",
       };
 
@@ -341,14 +341,14 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
       };
 
       const userSameDB = {
         username: "UsernameTest2",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
       };
 
       var stubVerify = sinon.stub(jwt, "verify");
@@ -380,7 +380,7 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         coderetrieve: "aaaaaa",
         dateretrive: sequelize.fn("NOW")
       };
@@ -425,7 +425,7 @@ describe("Controllers",function() {
       stubFindOne.restore();
      });
 
-     it("Should not check email and code if coderetrieve doesn't match", async function() {
+     it("Should not check email and code if coderetrieve doesnt match", async function() {
       const request = {
         body: {
           code: "aaaaaa",
@@ -437,7 +437,7 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         coderetrieve: "bbbbbb",
         dateretrive: sequelize.fn("NOW")
       };
@@ -468,7 +468,7 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         coderetrieve: "aaaaaa",
         dateretrive: 2
       };
@@ -499,7 +499,7 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         password: "123456"
       };
 
@@ -507,18 +507,18 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         password: "654321"
       };
 
       const splittedToken = {
         body: {
-          email: 'teste@teste.com',
+          email: "teste@teste.com",
           date: sequelize.fn("NOW"),
           operation: 1
         },
         valid: true
-      }
+      };
 
       var stubFindOne = sinon.stub(User, "findOne");
       stubFindOne.onFirstCall().returns(userDB)
@@ -553,18 +553,18 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         password: "123456"
       };
 
       const splittedToken = {
         body: {
-          email: 'teste@teste.com',
+          email: "teste@teste.com",
           date: sequelize.fn("NOW"),
           operation: 1
         },
         valid: false
-      }
+      };
 
       const errorValid = { 
         error: "Erro inesperado, token de troca de senha inválido! Por favor, tente novamente." 
@@ -598,18 +598,18 @@ describe("Controllers",function() {
         username: "UsernameTest",
         name: "TestName",
         surname: "TestSurname",
-        email: 'test@test.com',
+        email: "test@test.com",
         password: "123456"
       };
 
       const splittedToken = {
         body: {
-          email: 'teste@teste.com',
+          email: "teste@teste.com",
           date: 1,
           operation: 1
         },
         valid: true
-      }
+      };
 
       const errorTime = { error: "Troca de senha expirada!" };
 
@@ -642,12 +642,12 @@ describe("Controllers",function() {
 
       const splittedToken = {
         body: {
-          email: 'teste@teste.com',
+          email: "teste@teste.com",
           date: sequelize.fn("NOW"),
           operation: 1
         },
         valid: true
-      }
+      };
 
       const errorTime = { error: "Este email não existe!" };
 

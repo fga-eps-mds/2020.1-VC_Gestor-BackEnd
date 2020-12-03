@@ -1,4 +1,4 @@
-const { AuthResolve } = require('./AuthResolve');
+const { AuthResolve } = require("./AuthResolve");
 
 module.exports = {
 
