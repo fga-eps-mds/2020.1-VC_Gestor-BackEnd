@@ -6,7 +6,7 @@ WORKDIR /usr/src/app/news
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
-COPY packages/news/package*.json ./
+COPY ./package*.json ./
 
 RUN npm install
 
