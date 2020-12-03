@@ -28,7 +28,7 @@ matrix:
   - env: TARGET=packages/benefits
   - env: TARGET=packages/news
     before_script: 
-      - sonar-scanner -Dsonar.projectKey=Guilherme-Aguiar_2020.1-VC_Gestor-BackEnd
+      - sonar-scanner -Dsonar.projectKey=fga-eps-mds_2020.1-VC_Gestor-BackEnd
 
 script: 
   - cd $TARGET && npm install && npm run test && chmod 400 deploy_rsa;
