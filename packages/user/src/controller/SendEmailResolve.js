@@ -2,11 +2,12 @@ const User = require("../models/user");
 const nodemailer = require("nodemailer");
 const CryptoResolve = require("../middlewares/CryptoResolve");
 const sequelize = require("sequelize");
-const fs = require("fs");
-const { mainEmail, password } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
+
 
 module.exports = {
   async SendEmailResolve(request) {
+    const fs = require("fs");
+    const { mainEmail, password } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
 
     const { email } = request.body;
 

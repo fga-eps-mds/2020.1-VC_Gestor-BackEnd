@@ -1,8 +1,10 @@
 const crypto = require("crypto");
-const fs = require("fs");
-const { key } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
+
 
 function sign(base64){
+  const fs = require("fs");
+  const { key } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
+
   return crypto.createHmac("sha256", key)
     .update(base64)
     .digest("hex");

@@ -1,10 +1,11 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const fs = require("fs");
-const { key } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
+
 
 module.exports = {
   async EditUserResolve(request) {
+    const fs = require("fs");
+    const { key } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
     const { token, username, surname, name, email } = request.body;
 
     const user = jwt.verify(token, key);

@@ -1,11 +1,14 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const fs = require("fs");
 
-const { key } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
 
 module.exports = {
   async AuthResolve(request) {
+
+    const fs = require("fs");
+
+    const { key } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
+    
     const { username, password } = request.body;
 
     const user = await User.findOne({

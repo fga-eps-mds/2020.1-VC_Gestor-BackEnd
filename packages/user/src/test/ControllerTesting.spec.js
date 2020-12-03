@@ -14,10 +14,15 @@ const sequelize = require("sequelize");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const CryptoResolve  = require("../middlewares/CryptoResolve");
+const fs = require("fs");
+const privateFake = fs.readFileSync("./src/test/fakeprivate.json");
+
 
 chai.use(chaiaspromise);
 
+
 describe("Controllers",function() {
+
 
   describe("User", function() {
     it("Should get an user by token", async function() {
@@ -43,6 +48,9 @@ describe("Controllers",function() {
         email: "test@test.com"
       }
 
+      const stubPrivate = sinon.stub(fs, "readFileSync");
+      stubPrivate.withArgs("./src/controller/private.json").returns(privateFake);
+    
       var stubVerify = sinon.stub(jwt, "verify");
       stubVerify.returns(user);
 
@@ -707,7 +715,7 @@ describe("Middlewares", function() {
           date: 1606965950418,
           operation: 1
         },
-        valid: true
+        valid: false
       };
 
       const splitTest = CryptoResolve.splitToken(token);
