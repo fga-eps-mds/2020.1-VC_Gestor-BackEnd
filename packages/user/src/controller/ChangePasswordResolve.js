@@ -1,38 +1,14 @@
 const User = require("../models/user");
-const crypto = require("crypto");
-const fs = require("fs");
-const { key } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
-
-function sign(base64){
-  
-  return crypto.createHmac("sha256", key)
-    .update(base64)
-    .digest("hex");
-}
-
-function splitToken(token){
-  const splitedToken = token.split(".");
-  if(splitedToken.length!==2){
-    return {
-      body:{},
-      valid:false
-    };
-  }
-
-  return {
-    body: JSON.parse((new Buffer(splitedToken[0], "base64")).toString("ascii")),
-    valid: (splitedToken[1]===sign(splitedToken[0]))
-  };
-}
+const CryptoResolve = require("../middlewares/CryptoResolve");
 
 module.exports = {
   async ChangePasswordResolve(request) {
 
     const { newPassword, token } = request.body;
 
-    const { body, valid } = splitToken(token);
+    const { body, valid } = CryptoResolve.splitToken(token);
 
-    const user = await User.findOne({
+    var user = await User.findOne({
       where: { email: body.email }
     });
 
@@ -44,8 +20,16 @@ module.exports = {
       throw { error: "Este email não existe!" };
     }
 
-    user.update({
-      password:newPassword
+    User.update({
+      password: newPassword
+    }, { 
+      where: { 
+        email: body.email 
+      }
+    });
+
+    user = await User.findOne({
+      where: { email: body.email }
     });
 
     return user;

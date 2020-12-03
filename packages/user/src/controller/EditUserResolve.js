@@ -7,20 +7,17 @@ module.exports = {
   async EditUserResolve(request) {
     const { token, username, surname, name, email } = request.body;
 
-    let user;
+    const user = jwt.verify(token, key);
 
-    let a = jwt.verify(token, key, function(err, decoded) {
-      if (err){
-        throw ({ "auth": false, "message": "Token Inválido, por favor faça login novamente." });
-      }
-      user = decoded;
-    });
+    // TODO: O problema passa se colocar uma string vazia
+    // sendo assim, a validação está incompleta. 
+    // -------------------------------------------------------------------------
+    // if((username===undefined)||(surname===undefined)||(name===undefined)||(email===undefined)){
+    //   throw { error: "Preencha os espaços corretamente!" };
+    // }
+    // -------------------------------------------------------------------------
 
-    if((username===undefined)||(surname===undefined)||(name===undefined)||(email===undefined)){
-      throw { error: "Preencha os espaços corretamente!" };
-    }
-    
-    const userDB = await User.findOne({
+    var userDB = await User.findOne({
       where: { username : user.username },
     });
 
@@ -33,14 +30,19 @@ module.exports = {
       if (checkSameUsername) {
         throw { error: "Nome de usuário inválido!" };
       }
-
     }
 
-    await userDB.update({
+    await User.update({
       username,
       surname,
       name,
       email,
+    }, { 
+      where: { username : user.username }
+    });
+
+    userDB = await User.findOne({
+      where: { username : user.username },
     });
 
     const newToken = jwt.sign({

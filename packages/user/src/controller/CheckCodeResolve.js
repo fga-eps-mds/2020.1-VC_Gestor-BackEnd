@@ -1,22 +1,5 @@
 const User = require("../models/user");
-const crypto = require("crypto");
-const fs = require("fs");
-const { key } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
-
-function sign(base64){
-  return crypto.createHmac("sha256", key)
-    .update(base64)
-    .digest("hex");
-}
-
-function signBody(body){
-
-  const base64 = (new Buffer(JSON.stringify(body)).toString("base64"));
-
-  const hash = sign(base64);
-
-  return `${base64}.${hash}`;
-}
+const { signBody } = require("../middlewares/CryptoResolve");
 
 module.exports = {
   async CheckCodeResolve(request) {
