@@ -38,4 +38,4 @@ deploy:
   script: 
     - bash deploy.sh ${TRAVIS_BRANCH}
   on:
-    branch: Issue_156-ContinuousDelivery
+    branch: master
