@@ -4,19 +4,28 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "test": "jshint index.js",
+    "test": "nyc mocha 'src/test/*.spec.js'",
     "start": "npm install && nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jshint": "^2.12.0",
+    "mocha": "^8.2.1",
     "nodemon": "^2.0.4",
+    "nyc": "^15.1.0",
     "pg": "^8.3.3",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.3.5"
+    "proxyquire": "^2.1.3",
+    "sequelize": "^6.3.5",
+    "sequelize-auto": "^0.7.2",
+    "sequelize-test-helpers": "^1.3.2",
+    "sinon": "^9.2.1",
+    "sinon-chai": "^3.5.0"
   }
 }

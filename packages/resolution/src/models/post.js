@@ -4,12 +4,10 @@ const User = require("../models/user");
 
 const db = require("../config/database");
 
-// const { Sequelize, DataTypes } = require("sequelize");
-// const sequelize = new Sequelize(db);
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = new Sequelize(db);
 
-
-const model = (sequelize, DataTypes) => {
-  const Post = sequelize.define("post", 
+const Post = sequelize.define("post", 
   {
     post_id: {
       autoIncrement: true,
@@ -74,7 +72,8 @@ const model = (sequelize, DataTypes) => {
     sequelize,
     tableName: "post",
     schema: "resolution"
-});
+  }
+);
 
 Post.belongsTo(Place, {
   foreignKey: "place_id"
@@ -96,8 +95,5 @@ Post.belongsTo(User, {
 // User.hasOne(Post, { 
 //   foreignKey: "user_id"
 // });
-  return Post;
-};
 
-
-module.exports = model;
+module.exports = Post;

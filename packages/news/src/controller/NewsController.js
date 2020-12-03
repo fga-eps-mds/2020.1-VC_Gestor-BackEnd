@@ -1,93 +1,79 @@
 const News = require("../models/news");
+const { CreateResolve } = require("./CreateResolve");
+const { FindAllResolve } = require("./FindAllResolve");
+const { FindByIdResolve } = require("./FindByIdResolve");
+const { UpdateNewsResolve } = require("./UpdateNewsResolve");
+const { DeleteNewsResolve } = require("./DeleteNewsResolve");
 
 module.exports = {
-
-  // Teste para criar um usuario
+  // Criação de uma notícia
   async create(request, response) {
-    const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
 
-    const checkNewsExists = await News.findOne({
-      where: { title },
-    });
+    try {
+      const createdNews = await CreateResolve(request);
 
-    if (checkNewsExists) {
-      return response.status(400).json({ error: "Essa notícia já existe!" });
+      return response.json(createdNews);
+    } catch(errCreate) {
+      return response.status(404).json(errCreate);
     }
-
-    const news = await News.build({
-      title, 
-      subtitle, 
-      text, 
-      image1, 
-      image2,
-      image3,
-      post_id
-    });
-
-    await news.save();
-
-    return response.json(news);
-  },
-  async getAll(request, response){
-    const allNews = await News.findAll();
-
-    return response.json(allNews);
+  
   },
 
-  async getNewsById(request, response){
-    const { news_id }= request.params;
+  // Busca todas as notícias
+  async getAllNews(request, response){
 
-    const news = await News.findOne({
-      where: {
-        news_id
-      }
-    });
+    const allNews = await FindAllResolve();
 
-    return response.json(news);
+    response.send(allNews);
   },
   
+  // Busca uma notícia pelo Id dela
+  async getNewsById(request, response){
+    try {
+      const getOneNews = await FindByIdResolve(request);
+
+      return response.json(getOneNews);
+  
+    } catch(errOne) {
+      return response.status(404).json(errOne);
+    }
+
+  },
+
+  // Atualiza as notícias pelo Id de notícias
   async putNewsById(request, response) {
-    const { news_id } = request.params;
-    const { title, subtitle, text, image1, image2, image3 } = request.body;
 
-    const news = await News.update({
-      news_id,
-      title,
-      subtitle,
-      text, 
-      image1,
-      image2, 
-      image3
-    }, {
-      where: {
-        news_id
-      }
-    });
+    try {
+      const updateNews = await UpdateNewsResolve(request);
 
-    return response.json(news);
+      return response.json(updateNews);
+    } catch (errUpdate) {
+      return response.status(404).json(errUpdate);
+    }
+
   },
 
-  async patchNewsById(request, response) {
-    const { news_id } = request.params;
+  // async patchNewsById(request, response) {
+  //   const { news_id } = request.params;
 
-    const news = await News.update(request.body, {
-      where: {
-        news_id
-      }
-    });
+  //   const news = await News.update(request.body, {
+  //     where: {
+  //       news_id
+  //     }
+  //   });
 
-    return response.json(news);
-  },
+  //   return response.json(news);
+  // },
 
+  // Deleta as notícias
   async deleteNewsById(request, response) {
-    const { news_id } = request.params;
 
-    const news = await News.destroy({
-      where: {
-        news_id
-      }
-    });
-
-    return response.json(news);
+    try {
+      const deletedNews = await DeleteNewsResolve(request);
+    
+      return response.json(deletedNews);
+    } catch(errDelete) {
+      return response.status(404).json(errDelete);
+    }
   }
 };

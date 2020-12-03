@@ -1,22 +1,41 @@
 language: node_js
 node_js:
-    - "node"
+- node
+
+addons:
+  ssh_known_hosts:
+    - ec2-3-138-105-146.us-east-2.compute.amazonaws.com
+  sonarcloud:
+      organization: "fga-eps-mds-1"
+      token: ${SONAR_TOKEN} 
+
+services:
+- docker
 
 notifications:
-    email: false
+  email: false
 
-branches:
-    only:
-        - master
-        - development
-        - unit_tests
-        - Issue_128-ResetSenha
+  branches:
+  only:
+  - master
+  - development
+  - Issue_156-ContinuousDelivery
 
 matrix:
-    include:
-        - env: TARGET=packages/resolution
-        - env: TARGET=packages/user
-        - env: TARGET=packages/benefits
-        - env: TARGET=packages/news
+  include:
+  - env: TARGET=packages/resolution
+  - env: TARGET=packages/user
+  - env: TARGET=packages/benefits
+  - env: TARGET=packages/news
+    before_script: 
+      - sonar-scanner -Dsonar.projectKey=fga-eps-mds_2020.1-VC_Gestor-BackEnd
 
-script: cd $TARGET && npm install && npm run test;
+script: 
+  - cd $TARGET && npm install && npm run test && chmod 400 deploy_rsa;
+
+deploy:
+  provider: script
+  script: 
+    - bash deploy.sh ${TRAVIS_BRANCH}
+  on:
+    branch: master

@@ -1,94 +1,64 @@
 const Benefit = require("../models/benefit");
-// const sequelize = require("sequelize");
+const { CreateBenefitResolve } = require("./CreateBenefitResolve");
+const { FindAllBenefitsResolve } = require("./FindAllBenefitsResolve");
+const { FindByIdBenefitResolve } = require("./FindByIdBenefitResolve");
+const { UpdateBenefitResolve } = require("./UpdateBenefitResolve");
+const { DeleteBenefitResolve } = require("./DeleteBenefitResolve");
 
 module.exports = {
 
   async index(request, response) {
-    const allBenefits = await Benefit.findAll();
+    const benefit = await FindAllBenefitsResolve();
 
-    return response.json(allBenefits);
+    return response.json(benefit);
   },
   
+  // Criação de benefício
   async createBenefit(request, response) {
-    const { title, description, price, redeem_way, quantity } = request.body;
 
-    const newBenefit = Benefit.build({
-      title,
-      description,
-      price,
-      redeem_way,
-      quantity
-    });
+    const benefit = await CreateBenefitResolve(request);
 
-    await newBenefit.save();
-
-    return response.json(newBenefit);
+    return response.json(benefit);
   },
 
-  async deleteAllBenefits(request, response) {
+  // !!! Não sendo usado !!! 
+  // async deleteAllBenefits(request, response) {
 
-    await Benefit.destroy({
-      where: {}
-    });
+  //   await Benefit.destroy({
+  //     where: {}
+  //   });
 
-    return response.json("Todos os benefícios foram deletados!");
-  },
+  //   return response.json("Todos os benefícios foram deletados!");
+  // },
   
   async getBenefitById(request, response) {
-    const { benefit_id } = request.params;
-    
-    const benefit = await Benefit.findOne({
-      where: {
-        benefit_id
-      }
-    });
+    const benefit = await FindByIdBenefitResolve(request);
 
     return response.json(benefit);
   },
   
   async putBenefitById(request, response) {
-    const { benefit_id } = request.params;
-    const { title, description, price, redeem_way, quantity } = request.body;
-
-    const benefit = await Benefit.update({
-      benefit_id,
-      title,
-      description,
-      price,
-      redeem_way,
-      quantity
-    }, {
-      where: {
-        benefit_id
-      }
-    });
+    const benefit = await UpdateBenefitResolve(request);
 
     return response.json(benefit);
   },
 
-  async patchBenefitById(request, response) {
-    const { benefit_id } = request.params;
+  // !!! Não sendo usado !!!
+  // async patchBenefitById(request, response) {
+  //   const { benefit_id } = request.params;
 
-    const benefit = await Benefit.update(request.body, {
-      where: {
-        benefit_id
-      }
-    });
+  //   const benefit = await Benefit.update(request.body, {
+  //     where: {
+  //       benefit_id
+  //     }
+  //   });
 
-    return response.json(benefit);
-  },
+  //   return response.json(benefit);
+  // },
 
-
-  
   async deleteBenefitById(request, response) {
-    const { benefit_id } = request.params;
+    const benefit = await DeleteBenefitResolve(request);
 
-    await Benefit.destroy({
-      where: {
-        benefit_id
-      }
-    });
-
-    return response.json("Os benefício foi deletado!");
+    return response.json(benefit);
   },
 };

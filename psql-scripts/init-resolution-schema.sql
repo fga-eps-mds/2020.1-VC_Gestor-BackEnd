@@ -232,7 +232,15 @@ VALUES('Briga na rua', 'Ta zuado aqui', 'imagem', 1, 5, 3, 'Em andamento', '2020
 
 INSERT INTO resolution.post
 (title, description, image, user_id, category_id, place_id, status, dt_creation)
-VALUES('Racha de carro', 'Tão batendo um racha na frente do instituto', 'imagem', 7, 7, 1, 'Em andamento', '2020-08-08');
+VALUES('Racha de carro', 'Tão batendo um racha na frente do instituto', 'imagem', 7, 7, 1, 'Em andamento', '2020-11-21');
+
+INSERT INTO resolution.post
+(title, description, image, user_id, category_id, place_id, status, dt_creation)
+VALUES('Racha de carro', 'Tão batendo um racha na frente do instituto', 'imagem', 7, 7, 1, 'Em andamento', '2020-11-23');
+
+INSERT INTO resolution.post
+(title, description, image, user_id, category_id, place_id, status, dt_creation)
+VALUES('Racha de carro', 'Tão batendo um racha na frente do instituto', 'imagem', 7, 7, 1, 'Em andamento', '2020-11-22');
 
 INSERT INTO resolution.votes (post_id,user_id,is_like)
 	VALUES (1,3,true);
