@@ -38,7 +38,7 @@ const dataTypes = DataTypes;
         allowNull: false
       },
       post_id: {
-        type: dataTypes.INTEGER,
+        type: dataTypes.STRING(25),
         allowNull: true,
       },
     }, {
