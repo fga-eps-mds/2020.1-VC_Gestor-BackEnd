@@ -2,10 +2,10 @@ const express = require("express");
 const routes = require("./routes");
 const db = require("./config/database");
 const cors = require("cors");
+const https = require('https');
+const fs = require('fs');
 
 const formidable = require("formidable");
-var fs = require("fs");
-
 const app = express();
 
 const { Sequelize } = require("sequelize");
@@ -44,7 +44,17 @@ try {
 //     res.send("ok");
 // });
 
-app.listen(3004, () => {
-  //console.log("servidor rodando na porta 3004")
+const options = {
+  key: fs.readFileSync('/usr/src/app/news/src/key.pem'),
+  cert: fs.readFileSync('/usr/src/app/news/src/cert.pem')
+};
+
+var server = https.createServer(options, app).listen(3004, function(){
+  console.log("Express server listening on port " + 3004);
 });
+
+
+// app.listen(3004, () => {
+//   //console.log("servidor rodando na porta 3004")
+// });
 
