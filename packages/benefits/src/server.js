@@ -2,7 +2,8 @@ const express = require("express");
 const routes = require("./routes");
 const db = require("./config/database");
 const cors = require("cors");
-
+const https = require('https');
+const fs = require('fs');
 const app = express();
 
 const { Sequelize } = require("sequelize");
@@ -13,13 +14,15 @@ app.use(routes);
 
 const sequelize = new Sequelize(db);
 
-try{
-	sequelize.authenticate();
-	//console.log("Connection has been established successfully.");
-}catch(error){
-	//console.error("Unable to connect to the database:", error);
-}
+const options = {
+  key: fs.readFileSync('/usr/src/app/benefits/src/key.pem'),
+  cert: fs.readFileSync('/usr/src/app/benefits/src/cert.pem')
+};
 
-app.listen(3003, () => {
-	//console.log("Servidor rodando na porta 3003");
+// app.listen(3003, () => {
+// 	//console.log("Servidor rodando na porta 3003");
+// });
+
+var server = https.createServer(options, app).listen(3003, function(){
+  console.log("Express server listening on port " + 3003);
 });
