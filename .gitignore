@@ -6,3 +6,6 @@ packages/news/.nyc_output/
 packages/resolution/.nyc_output/
 packages/news/.nyc_output/
 packages/benefits/.nyc_output/
+packages/user/.nyc_output/
+sonar-project.properties
+
