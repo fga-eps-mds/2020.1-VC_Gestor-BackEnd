@@ -16,9 +16,14 @@ module.exports = {
   // Criação de benefício
   async createBenefit(request, response) {
 
-    const benefit = await CreateBenefitResolve(request);
+    try {
+      const benefit = await CreateBenefitResolve(request);
 
-    return response.json(benefit);
+      return response.json(benefit);
+    } catch (err) {
+      return response.status(404).json(err);
+    }
+
   },
 
   // !!! Não sendo usado !!! 
@@ -32,15 +37,26 @@ module.exports = {
   // },
   
   async getBenefitById(request, response) {
-    const benefit = await FindByIdBenefitResolve(request);
 
-    return response.json(benefit);
+    
+    try {
+      const benefit = await FindByIdBenefitResolve(request);
+
+      return response.json(benefit);
+    } catch (err) {
+      return response.status(404).json(err);
+    }
+
   },
   
   async putBenefitById(request, response) {
-    const benefit = await UpdateBenefitResolve(request);
+    try {
+      const benefit = await UpdateBenefitResolve(request);
 
-    return response.json(benefit);
+      return response.json(benefit);
+    } catch (err) {
+      return response.status(404).json(err);
+    }
   },
 
   // !!! Não sendo usado !!!
@@ -57,8 +73,13 @@ module.exports = {
   // },
 
   async deleteBenefitById(request, response) {
-    const benefit = await DeleteBenefitResolve(request);
+    try {
+      const benefit = await DeleteBenefitResolve(request);
 
-    return response.json(benefit);
+      return response.json(benefit);
+    } catch (err) {
+      return response.status(404).json(err);
+    } 
+
   },
 };

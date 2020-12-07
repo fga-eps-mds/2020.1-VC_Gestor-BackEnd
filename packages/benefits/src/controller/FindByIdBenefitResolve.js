@@ -11,6 +11,10 @@ module.exports = {
       }
     });
     
+    if (!benefit){
+      throw { error: "Benefit not found!" };
+    }
+
     return benefit;
   }
 };
