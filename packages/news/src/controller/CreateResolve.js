@@ -3,20 +3,29 @@ const News = require("../models/news");
 module.exports = {
   async CreateResolve(request) {
 
-    var news = await News.findOne({ where: { title: request.body.title }});
+    const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
+
+    if ( title === "" || subtitle === "" || text === "" || post_id === "" ||
+         title === null || subtitle === null || text === null ||
+        image1 === null || image2 === null || image3 === null || post_id === null
+      ) {
+        throw { error: "Fill request.body correctly, cannot be an empty string or null value "}
+    }
+
+    var news = await News.findOne({ where: {title} });
 
     if(news) { 
-      throw { message: "News already with this title" };
+      throw { error: "News already with this title" };
     }
 
     news = await News.create({
-      title: request.body.title,
-      subtitle: request.body.subtitle,
-      text: request.body.text,
-      image1: request.body.image1,
-      image2: request.body.image2,
-      image3: request.body.image3,
-      post_id: request.body.post_id
+      title,
+      subtitle,
+      text,
+      image1,
+      image2,
+      image3,
+      post_id
     });
 
     return news;
