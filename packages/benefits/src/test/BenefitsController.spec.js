@@ -331,8 +331,6 @@ describe("Controllers",function() {
       stubFindOne.withArgs({ where: { benefit_id: request.params.benefit_id }})
       .returns(null);
 
-      const benefit_id = request.params.benefit_id;
-
       const error = { error: "Benefit not found!" };
 
       try {

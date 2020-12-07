@@ -21,13 +21,7 @@ module.exports = {
 
     await News.update(
       {
-        title,
-        subtitle,
-        text,
-        image1,
-        image2,
-        image3,
-        post_id
+        title, subtitle, text, image1, image2, image3, post_id
       },
       {
         where: {
