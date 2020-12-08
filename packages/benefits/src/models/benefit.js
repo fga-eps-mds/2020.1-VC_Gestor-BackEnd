@@ -16,10 +16,6 @@ const Benefit = sequelize.define("benefit", {
   description: {
     type: DataTypes.STRING(20),
     allowNull: false
-  }, 
-  price: {
-    type: DataTypes.FLOAT,
-    allowNull: false
   },
   redeem_way: {
     type: DataTypes.STRING(25),
