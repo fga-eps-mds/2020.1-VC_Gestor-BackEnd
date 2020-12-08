@@ -5,9 +5,7 @@ module.exports = {
   async CreateBenefitResolve(request) {
     const { title, description, price, redeem_way, quantity } = request.body;
 
-    if (title === "" || description === "" || redeem_way === "" || price === "" ||
-        title === null || description === null || redeem_way === null ||
-        price === null || quantity === null ) {
+    if (title === "" || description === "" || redeem_way === "" || price === "" ) {
       throw { error: "Fill request.body correctly, cannot be an empty string or null value "};
     }
 
