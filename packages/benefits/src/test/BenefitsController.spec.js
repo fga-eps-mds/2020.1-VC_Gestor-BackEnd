@@ -22,7 +22,6 @@ describe("Controllers",function() {
         body: {
           title: "TesteCreate",
           description: "TesteDescriptionCreate",
-          price: "TestePriceCreate",
           redeem_way: "testeRedeemCreate",
           quantity: "testeQuantityCreate",
         }
@@ -31,7 +30,6 @@ describe("Controllers",function() {
       var benefitCreate = {
         title: "TesteCreate",
         description: "TesteDescriptionCreate",
-        price: "TestePriceCreate",
         redeem_way: "testeRedeemCreate",
         quantity: "testeQuantityCreate",
       };
@@ -40,7 +38,6 @@ describe("Controllers",function() {
       stubCreate.withArgs({
         title: request.body.title,
         description: request.body.description,
-        price: request.body.price,
         redeem_way: request.body.redeem_way,
         quantity: request.body.quantity,
       }).returns(benefitCreate);
@@ -59,7 +56,6 @@ describe("Controllers",function() {
         body: {
           title: "TesteCreate",
           description: "",
-          price: "TestePriceCreate",
           redeem_way: "testeRedeemCreate",
           quantity: "testeQuantityCreate",
         }
@@ -82,7 +78,6 @@ describe("Controllers",function() {
           benefit_id: 2,
           title: "Teste1",
           description: "TesteDescription1",
-          price: "TestePrice1",
           redeem_way: "testeRedeem1",
           quantity: "testeQuantity1",
         },
@@ -90,7 +85,6 @@ describe("Controllers",function() {
           benefit_id: 7,
           title: "Teste2",
           description: "TesteDescription2",
-          price: "TestePrice2",
           redeem_way: "testeRedeem2",
           quantity: "testeQuantity2",
         },
@@ -118,7 +112,6 @@ describe("Controllers",function() {
         benefit_id: 2,
         title: "Teste1",
         description: "TesteDescription1",
-        price: "TestePrice1",
         redeem_way: "testeRedeem1",
         quantity: "testeQuantity1", 
       };
@@ -166,7 +159,6 @@ describe("Controllers",function() {
         body: {
           title: "TesteUpdate",
           description: "TesteDescriptionUpdate",
-          price: "TestePriceUpdate",
           redeem_way: "testeRedeemUpdate",
           quantity: "testeQuantityUpdate", 
         }
@@ -176,7 +168,6 @@ describe("Controllers",function() {
         benefit_id: 7,
         title: "Teste1",
         description: "TesteDescription1",
-        price: "TestePrice1",
         redeem_way: "testeRedeem1",
         quantity: "testeQuantity1", 
       };
@@ -184,7 +175,6 @@ describe("Controllers",function() {
       var benefitUpdate = {     
         title: "TesteUpdate",
         description: "TesteDescriptionUpdate",
-        price: "TestePriceUpdate",
         redeem_way: "testeRedeemUpdate",
         quantity: "testeQuantityUpdate", 
       };
@@ -198,7 +188,6 @@ describe("Controllers",function() {
       stubUpdate.withArgs({
         title: request.body.title,
         description: request.body.description,
-        price: request.body.price,
         redeem_way: request.body.redeem_way,
         quantity: request.body.quantity,
       }).returns(benefitFake);
@@ -220,7 +209,6 @@ describe("Controllers",function() {
         body: {
           title: "TesteUpdate",
           description: "TesteDescriptionUpdate",
-          price: "TestePriceUpdate",
           redeem_way: "",
           quantity: "testeQuantityUpdate", 
         }
@@ -253,7 +241,6 @@ describe("Controllers",function() {
         body: {
           title: "TesteUpdate",
           description: "TesteDescriptionUpdate",
-          price: "TestePriceUpdate",
           redeem_way: "",
           quantity: "testeQuantityUpdate", 
         }
@@ -263,7 +250,6 @@ describe("Controllers",function() {
         benefit_id: 7,
         title: "Teste1",
         description: "TesteDescription1",
-        price: "TestePrice1",
         redeem_way: "testeRedeem1",
         quantity: "testeQuantity1", 
       };
@@ -297,7 +283,6 @@ describe("Controllers",function() {
         benefit_id: 7,
         title: "Teste1",
         description: "TesteDescription1",
-        price: "TestePrice1",
         redeem_way: "testeRedeem1",
         quantity: "testeQuantity1", 
       };

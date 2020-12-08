@@ -4,7 +4,7 @@ module.exports = {
 
   async UpdateBenefitResolve(request) {
     const { benefit_id } = request.params;
-    const { title, description, price, redeem_way, quantity } = request.body;
+    const { title, description, redeem_way, quantity } = request.body;
 
     var benefit = await Benefit.findOne({ where: {benefit_id}});
 
@@ -13,8 +13,7 @@ module.exports = {
     }
 
     if (title === "" || description === "" || redeem_way === "" ||
-        title === null || description === null || redeem_way === null ||
-        price === null || quantity === null ) {
+        title === null || description === null || redeem_way === null || quantity === null ) {
       throw { error: "Fill request.body correctly, cannot be an empty string or null value "};
     }
 
@@ -22,7 +21,6 @@ module.exports = {
       benefit_id,
       title,
       description,
-      price,
       redeem_way,
       quantity
     }, {
