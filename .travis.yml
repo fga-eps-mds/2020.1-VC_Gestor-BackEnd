@@ -1,10 +1,11 @@
 language: node_js
 node_js:
 - node
-
+git:
+  depth: false
 addons:
   ssh_known_hosts:
-    - ec2-3-138-105-146.us-east-2.compute.amazonaws.com
+    - ec2-18-191-150-245.us-east-2.compute.amazonaws.com
   sonarcloud:
       organization: "fga-eps-mds-1"
       token: ${SONAR_TOKEN} 
@@ -19,7 +20,7 @@ notifications:
   only:
   - master
   - development
-  - Issue_156-ContinuousDelivery
+  - Issue_177-SonarMochaIntegration
 
 matrix:
   include:
@@ -28,7 +29,8 @@ matrix:
   - env: TARGET=packages/benefits
   - env: TARGET=packages/news
     before_script: 
-      - sonar-scanner -Dsonar.projectKey=fga-eps-mds_2020.1-VC_Gestor-BackEnd
+      - npm install && npm run report
+      - sonar-scanner -Dsonar.projectKey=fga-eps-mds_2020.1-VC_Gestor-BackEnd -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
 
 script: 
   - cd $TARGET && npm install && npm run test && chmod 400 deploy_rsa;
