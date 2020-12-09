@@ -24,7 +24,6 @@ notifications:
 
 matrix:
   include:
-  - env: TARGET=packages/resolution
   - env: TARGET=packages/user
   - env: TARGET=packages/benefits
   - env: TARGET=packages/news
