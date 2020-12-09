@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha 'packages/benefits/src/test/*.spec.js' 'packages/news/src/test/*.spec.js'",
+    "test": "nyc mocha 'packages/benefits/src/test/*.spec.js' 'packages/news/src/test/*.spec.js' 'packages/user/src/test/*.spec.js'",
     "report": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "start": "npm install && nodemon"
   },
