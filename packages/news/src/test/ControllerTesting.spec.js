@@ -67,6 +67,30 @@ describe("Controllers",function() {
 
     });
 
+    it("Should not create a news with unvalid strings", async function() {
+
+      const request = {
+        body: {
+          title: "",
+          subtitle: "TesteSubCreate",
+          text: "TesteTextCreate",
+          image1: "testeImagem1Create",
+          image2: "testeImagem1Create",
+          image3: "testeImagem1Create",
+          post_id: 7
+        }
+      };
+
+      const error = { error: "Fill request.body correctly, cannot be an empty string or null value "};
+
+      try {
+        await CreateResolve(request);
+      } catch (err) {
+        expect(err).to.be.deep.equal(error);
+      }
+
+    });
+
     it("Should not create a news with same title", async function() {
 
       const request = {
@@ -99,7 +123,7 @@ describe("Controllers",function() {
       try {
         await CreateResolve(request);
       } catch (err) {
-        expect(err).to.be.deep.equal({ message: "News already with this title" });
+        expect(err).to.be.deep.equal({ error: "News already with this title" });
       }
       stubFindOne.restore();
     });
@@ -250,6 +274,32 @@ describe("Controllers",function() {
 
       stubFindOne.restore();
       stubUpdate.restore();
+    });
+
+    it("Should not update news by invalid string", async function() {
+      const request = {
+        params: {
+          news_id: 7
+        },
+        body: {
+          title: "TesteUpdate",
+          subtitle: "",
+          text: "TesteTextUpdate",
+          image1: "testeImagem1Update",
+          image2: "testeImagem1Update",
+          image3: "testeImagem1Update",
+          post_id: 7
+        }
+      };
+
+      const error = { error: "Fill request.body correctly, cannot be an empty string or null value "};
+
+      try {
+        await UpdateNewsResolve(request);
+
+      } catch(err) {
+        expect(err).to.be.deep.equal(error);
+      }
     });
 
     it("Should not update news by non existent id", async function() {
