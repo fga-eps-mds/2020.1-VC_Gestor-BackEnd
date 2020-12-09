@@ -12,4 +12,4 @@ docker tag ${IMAGE}:${GIT_VERSION} ${IMAGE}:latest
 echo "vVbyAABrPv5LLV6" | docker login -u "guilhermeaguiar" --password-stdin
 docker push ${IMAGE}:${GIT_VERSION} 
 
-ssh -i "deploy_rsa" ubuntu@ec2-3-138-105-146.us-east-2.compute.amazonaws.com  'bash -s' < docker_deploy.sh ${IMAGE}:${GIT_VERSION} $1
+ssh -i "deploy_rsa" ubuntu@ec2-18-191-150-245.us-east-2.compute.amazonaws.com  'bash -s' < docker_deploy.sh ${IMAGE}:${GIT_VERSION} $1
