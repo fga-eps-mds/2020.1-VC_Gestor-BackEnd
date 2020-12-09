@@ -8,14 +8,14 @@ CREATE TABLE news.news (
 	"image1" varchar(50) NOT NULL,
 	"image2" varchar(50) NOT NULL,
 	"image3" varchar(50) NOT NULL,
-	"post_id" integer,
+	"post_id" varchar(25),
 	CONSTRAINT "User_pk" PRIMARY KEY ("news_id")
 );
 
 
 INSERT INTO news.news (title,subtitle,text,image1,image2, image3,post_id)
-    VALUES ('aosidj','subtitolo','text','120529.jpg','','',1);
+    VALUES ('aosidj','subtitolo','text','120529.jpg','','','');
 INSERT INTO news.news (title,subtitle,text,image1,image2, image3,post_id)
-    VALUES ('asdasda','subtitolo','text','120529.jpg','k','',2);
+    VALUES ('asdasda','subtitolo','text','120529.jpg','k','','');
 INSERT INTO news.news (title,subtitle,text,image1,image2, image3,post_id)
-    VALUES ('aosidssdsdsdsdsdj','subtitolo','text','120529.jpg','','',3);
+    VALUES ('aosidssdsdsdsdsdj','subtitolo','text','120529.jpg','','','');

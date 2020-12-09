@@ -22,7 +22,6 @@ describe("Controllers",function() {
         body: {
           title: "TesteCreate",
           description: "TesteDescriptionCreate",
-          price: "TestePriceCreate",
           redeem_way: "testeRedeemCreate",
           quantity: "testeQuantityCreate",
         }
@@ -31,7 +30,6 @@ describe("Controllers",function() {
       var benefitCreate = {
         title: "TesteCreate",
         description: "TesteDescriptionCreate",
-        price: "TestePriceCreate",
         redeem_way: "testeRedeemCreate",
         quantity: "testeQuantityCreate",
       };
@@ -40,7 +38,6 @@ describe("Controllers",function() {
       stubCreate.withArgs({
         title: request.body.title,
         description: request.body.description,
-        price: request.body.price,
         redeem_way: request.body.redeem_way,
         quantity: request.body.quantity,
       }).returns(benefitCreate);
@@ -52,6 +49,27 @@ describe("Controllers",function() {
       stubCreate.restore();
       
     });
+
+    it("Should not create a benefit by wrong input string", async function() {
+      
+      const request = {
+        body: {
+          title: "TesteCreate",
+          description: "",
+          redeem_way: "testeRedeemCreate",
+          quantity: "testeQuantityCreate",
+        }
+      };
+      
+      const error = { error: "Fill request.body correctly, cannot be an empty string or null value "};
+
+      try {
+        await CreateBenefitResolve(request);
+
+      } catch (err) {
+        expect(err).to.be.deep.equal(error);
+      }
+    });
     
     it("Should find all benefits", async function() {
       
@@ -60,7 +78,6 @@ describe("Controllers",function() {
           benefit_id: 2,
           title: "Teste1",
           description: "TesteDescription1",
-          price: "TestePrice1",
           redeem_way: "testeRedeem1",
           quantity: "testeQuantity1",
         },
@@ -68,7 +85,6 @@ describe("Controllers",function() {
           benefit_id: 7,
           title: "Teste2",
           description: "TesteDescription2",
-          price: "TestePrice2",
           redeem_way: "testeRedeem2",
           quantity: "testeQuantity2",
         },
@@ -96,7 +112,6 @@ describe("Controllers",function() {
         benefit_id: 2,
         title: "Teste1",
         description: "TesteDescription1",
-        price: "TestePrice1",
         redeem_way: "testeRedeem1",
         quantity: "testeQuantity1", 
       };
@@ -110,6 +125,30 @@ describe("Controllers",function() {
       
       stub.restore();
     });
+
+    it("Should not find benefit if id doesn't exist", async function() {
+      var request = {
+        params: {
+          benefit_id: 7
+        }
+      };
+      
+      var benefitFake = null;
+
+      const error = { error: "Benefit not found!" };
+      
+      var stub = sinon.stub(Benefit, "findOne");
+      stub.withArgs({ where: { benefit_id: request.params.benefit_id }} ).returns(benefitFake);      
+      
+
+      try {
+        await FindByIdBenefitResolve(request) ;
+      } catch (err) {
+        expect(err).to.be.deep.equal(error);
+      }
+      
+      stub.restore();
+    });
     
     it("Should update benefit by id", async function() {
       
@@ -120,7 +159,6 @@ describe("Controllers",function() {
         body: {
           title: "TesteUpdate",
           description: "TesteDescriptionUpdate",
-          price: "TestePriceUpdate",
           redeem_way: "testeRedeemUpdate",
           quantity: "testeQuantityUpdate", 
         }
@@ -130,7 +168,6 @@ describe("Controllers",function() {
         benefit_id: 7,
         title: "Teste1",
         description: "TesteDescription1",
-        price: "TestePrice1",
         redeem_way: "testeRedeem1",
         quantity: "testeQuantity1", 
       };
@@ -138,7 +175,6 @@ describe("Controllers",function() {
       var benefitUpdate = {     
         title: "TesteUpdate",
         description: "TesteDescriptionUpdate",
-        price: "TestePriceUpdate",
         redeem_way: "testeRedeemUpdate",
         quantity: "testeQuantityUpdate", 
       };
@@ -152,7 +188,6 @@ describe("Controllers",function() {
       stubUpdate.withArgs({
         title: request.body.title,
         description: request.body.description,
-        price: request.body.price,
         redeem_way: request.body.redeem_way,
         quantity: request.body.quantity,
       }).returns(benefitFake);
@@ -164,6 +199,78 @@ describe("Controllers",function() {
       stubFindOne.restore();
       stubUpdate.restore();
     });
+
+    it("Should not update benefit if id doesn't exists", async function() {
+      
+      const request = {
+        params: {
+          benefit_id: 7
+        },
+        body: {
+          title: "TesteUpdate",
+          description: "TesteDescriptionUpdate",
+          redeem_way: "",
+          quantity: "testeQuantityUpdate", 
+        }
+      };
+      
+      var benefitFake = null;
+
+      const error = { error: "Benefit not found!" };
+
+      var stubFindOne = sinon.stub(Benefit, "findOne");
+      stubFindOne.withArgs({ where: { benefit_id: request.params.benefit_id }})
+      .returns(benefitFake);
+
+      try {
+        await UpdateBenefitResolve(request);
+      } catch(err) {
+        expect(err).to.be.deep.equal(error);
+      }
+      
+      stubFindOne.restore();
+    });
+
+
+    it("Should not update benefit by wrong input string", async function() {
+      
+      const request = {
+        params: {
+          benefit_id: 7
+        },
+        body: {
+          title: "TesteUpdate",
+          description: "TesteDescriptionUpdate",
+          redeem_way: "",
+          quantity: "testeQuantityUpdate", 
+        }
+      };
+      
+      var benefitFake = {     
+        benefit_id: 7,
+        title: "Teste1",
+        description: "TesteDescription1",
+        redeem_way: "testeRedeem1",
+        quantity: "testeQuantity1", 
+      };
+
+      const error = { error: "Fill request.body correctly, cannot be an empty string or null value "};
+
+      var stubFindOne = sinon.stub(Benefit, "findOne");
+      stubFindOne.withArgs({ where: { benefit_id: request.params.benefit_id }})
+      .returns(benefitFake);
+
+      try {
+        await UpdateBenefitResolve(request);
+      } catch(err) {
+        expect(err).to.be.deep.equal(error);
+      }
+      
+      stubFindOne.restore();
+
+    });
+
+
     
     it("Should delete benefit by id", async function() {
       var request = {
@@ -171,7 +278,19 @@ describe("Controllers",function() {
           benefit_id: 7
         }
       };
+
+      var benefitFake = {     
+        benefit_id: 7,
+        title: "Teste1",
+        description: "TesteDescription1",
+        redeem_way: "testeRedeem1",
+        quantity: "testeQuantity1", 
+      };
       
+      var stubFindOne = sinon.stub(Benefit, "findOne");
+      stubFindOne.withArgs({ where: { benefit_id: request.params.benefit_id }})
+      .returns(benefitFake);
+
       const benefit_id = request.params.benefit_id;
       
       const stubDelete = sinon.stub(Benefit, "destroy");
@@ -181,7 +300,31 @@ describe("Controllers",function() {
       
       expect(deteledNews).to.be.equal("O benefício foi deletado!");
       
+      stubFindOne.restore();
       stubDelete.restore();
+      
+    });
+
+    it("Should not delete benefit if benefit not found", async function() {
+      var request = {
+        params: {
+          benefit_id: 7
+        }
+      };
+
+      var stubFindOne = sinon.stub(Benefit, "findOne");
+      stubFindOne.withArgs({ where: { benefit_id: request.params.benefit_id }})
+      .returns(null);
+
+      const error = { error: "Benefit not found!" };
+
+      try {
+        await DeleteBenefitResolve(request);
+      } catch (err) {
+        expect(err).to.be.deep.equal(error);
+      }
+      
+      stubFindOne.restore();
       
     });
     

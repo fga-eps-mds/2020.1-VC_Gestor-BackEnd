@@ -5,6 +5,10 @@ module.exports = {
 
     const { title, subtitle, text, image1, image2, image3, post_id } = request.body;
 
+    if ( title === "" || subtitle === "" || text === ""  ) {
+        throw { error: "Fill request.body correctly, cannot be an empty string or null value "};
+    }
+
     var news = await News.findOne({ where: { news_id: request.params.news_id }});
 
     if(!news) { 
@@ -13,13 +17,7 @@ module.exports = {
 
     await News.update(
       {
-        title,
-        subtitle,
-        text,
-        image1,
-        image2,
-        image3,
-        post_id
+        title, subtitle, text, image1, image2, image3, post_id
       },
       {
         where: {

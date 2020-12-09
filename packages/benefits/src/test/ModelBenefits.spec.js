@@ -21,7 +21,7 @@ describe("Model", function() {
         const instance = new BenefitsModel;
 
         context("Benefits Properties", () => {
-            ["benefit_id", "title", "description", "price", 
+            ["benefit_id", "title", "description", 
             "redeem_way", "quantity"]
             .forEach(checkPropertyExists(instance));
           }
