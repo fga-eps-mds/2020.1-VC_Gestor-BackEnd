@@ -15,8 +15,9 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const CryptoResolve  = require("../middlewares/CryptoResolve");
 const fs = require("fs");
-const privateFake = fs.readFileSync("./src/test/fakeprivate.json");
 
+currentPath = fs.realpathSync(".");
+const privateFake = fs.readFileSync(currentPath+"/packages/user/src/test/fakeprivate.json");
 
 chai.use(chaiaspromise);
 
