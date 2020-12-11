@@ -44,17 +44,17 @@ try {
 //     res.send("ok");
 // });
 
-const options = {
-  key: fs.readFileSync('/usr/src/app/news/src/key.pem'),
-  cert: fs.readFileSync('/usr/src/app/news/src/cert.pem')
-};
+// const options = {
+//   key: fs.readFileSync('/usr/src/app/news/src/key.pem'),
+//   cert: fs.readFileSync('/usr/src/app/news/src/cert.pem')
+// };
 
-var server = https.createServer(options, app).listen(3004, function(){
-  console.log("Express server listening on port " + 3004);
-});
-
-
-// app.listen(3004, () => {
-//   //console.log("servidor rodando na porta 3004")
+// var server = https.createServer(options, app).listen(3004, function(){
+//   console.log("Express server listening on port " + 3004);
 // });
+
+
+app.listen(3004, () => {
+  //console.log("servidor rodando na porta 3004")
+});
 
