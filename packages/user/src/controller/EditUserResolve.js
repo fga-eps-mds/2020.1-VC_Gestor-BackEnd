@@ -1,11 +1,11 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
+const { key } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
 
 
 module.exports = {
   async EditUserResolve(request) {
-    const fs = require("fs");
-    const { key } = JSON.parse(fs.readFileSync("./src/controller/private.json"));
     const { token, username, surname, name, email } = request.body;
 
     const user = jwt.verify(token, key);
@@ -20,6 +20,8 @@ module.exports = {
 
     var userDB = await User.findOne({where: { username : user.username },});
 
+    console.log("oi1")
+
     if (user.username !== username) {
 
       const checkSameUsername = await User.findOne({ where: { username },});
@@ -27,20 +29,28 @@ module.exports = {
       if (checkSameUsername) { throw { error: "Nome de usuário inválido!" };}
     }
 
+    console.log("oi2")
+
     await User.update({ username, surname, name, email,}, { 
       where: { username : user.username }
     });
+
+    console.log("oi3")
 
     userDB = await User.findOne({
       where: { username : user.username },
     });
 
+    console.log("oi4")
+
     const newToken = jwt.sign({
-      username: userDB.username,
-      name: userDB.name,
-      surname: userDB.surname,
-      email: userDB.email,
+      username,
+      name,
+      surname,
+      email,
     }, key);
+
+    console.log("oi5")
 
     return newToken;
     
