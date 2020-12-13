@@ -20,8 +20,6 @@ module.exports = {
 
     var userDB = await User.findOne({where: { username : user.username },});
 
-    console.log("oi1")
-
     if (user.username !== username) {
 
       const checkSameUsername = await User.findOne({ where: { username },});
@@ -29,19 +27,13 @@ module.exports = {
       if (checkSameUsername) { throw { error: "Nome de usuário inválido!" };}
     }
 
-    console.log("oi2")
-
     await User.update({ username, surname, name, email,}, { 
       where: { username : user.username }
     });
 
-    console.log("oi3")
-
     userDB = await User.findOne({
       where: { username : user.username },
     });
-
-    console.log("oi4")
 
     const newToken = jwt.sign({
       username,
@@ -49,8 +41,6 @@ module.exports = {
       surname,
       email,
     }, key);
-
-    console.log("oi5")
 
     return newToken;
     
