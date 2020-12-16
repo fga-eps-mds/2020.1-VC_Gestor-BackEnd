@@ -1,20 +1,32 @@
 language: node_js
 node_js:
-    - "node"
+- node
+git:
+  depth: false
+addons:
+  ssh_known_hosts:
+    - ec2-18-191-150-245.us-east-2.compute.amazonaws.com
+  sonarcloud:
+      organization: "fga-eps-mds-1"
+      token: ${SONAR_TOKEN} 
+
+services:
+- docker
 
 notifications:
-    email: false
+  email: false
 
-branches:
-    only:
-        - master
-        - development
-        - unit_tests
+  branches:
+  only:
+  - master
+  - development
+  - r1_retro_branch
 
 matrix:
-    include:
-        - env: TARGET=packages/resolution
-        - env: TARGET=packages/user
-        - env: TARGET=packages/benefits
-
-script: cd $TARGET && npm install && npm run test;
+  include:
+  - env: TARGET=packages/user
+  - env: TARGET=packages/benefits
+  - env: TARGET=packages/news
+    before_script: 
+      - npm install && npm run report
+      - sonar-scanner -Dsonar.projectKey=fga-eps-mds_2020.1-VC_Gestor-BackEnd -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
